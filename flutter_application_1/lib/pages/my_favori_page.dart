@@ -46,8 +46,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favoriler'),
+        title: Text(
+          'Favoriler',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
       drawer: MyDrawer(),
@@ -76,7 +80,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               DocumentSnapshot complaintDoc = snapshot.data!.docs[index];
-              Map<String, dynamic> complaintData = complaintDoc.data() as Map<String, dynamic>;
+              Map<String, dynamic> complaintData =
+                  complaintDoc.data() as Map<String, dynamic>;
 
               return GestureDetector(
                 onTap: () {
@@ -87,8 +92,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         complaint: ComplaintModel(
                           id: complaintData['id'],
                           userID: complaintData['userId'],
-                          imageURLs: List<String>.from(complaintData['imageURLs']),
-                          videoURLs: List<String>.from(complaintData['videoURLs']),
+                          imageURLs:
+                              List<String>.from(complaintData['imageURLs']),
+                          videoURLs:
+                              List<String>.from(complaintData['videoURLs']),
                           title: complaintData['title'],
                           timestamp: complaintData['timestamp'],
                           description: complaintData['description'],

@@ -12,15 +12,14 @@ class _MyAppBarState extends State<MyAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Your App Title'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () {
-              },
-            ),
-          ],
-        ),
+        title: Text('Your App Title'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {},
+          ),
+        ],
+      ),
     );
   }
 }

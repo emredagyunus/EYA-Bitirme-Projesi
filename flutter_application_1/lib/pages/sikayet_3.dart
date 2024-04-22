@@ -15,17 +15,16 @@ class MyLocationPage extends StatefulWidget {
   final String description;
   final String userID;
   final List<String> imageURLs;
-  final List<String> videoURLs; //
+  final List<String> videoURLs;
 
   MyLocationPage({
     required this.title,
     required this.description,
     required this.userID,
-    required this.imageURLs, 
+    required this.imageURLs,
     required this.videoURLs,
   });
-  
-  
+
   @override
   _MyLocationPageState createState() => _MyLocationPageState();
 }
@@ -50,22 +49,22 @@ class _MyLocationPageState extends State<MyLocationPage> {
         mahalle.isNotEmpty &&
         sokak.isNotEmpty) {
       try {
-        // Firebase Firestore'a şikayeti kaydet
-        var docRef = await FirebaseFirestore.instance.collection('sikayet').add({
-        'title': widget.title,
-        'description': widget.description,
-        'userID': widget.userID,
-        'imageURLs': widget.imageURLs,
-        'videoURLs': widget.videoURLs,
-        'il': il,
-        'ilce': ilce,
-        'mahalle': mahalle,
-        'sokak': sokak,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
+        var docRef =
+            await FirebaseFirestore.instance.collection('sikayet').add({
+          'title': widget.title,
+          'description': widget.description,
+          'userID': widget.userID,
+          'imageURLs': widget.imageURLs,
+          'videoURLs': widget.videoURLs,
+          'il': il,
+          'ilce': ilce,
+          'mahalle': mahalle,
+          'sokak': sokak,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
 
-      // ignore: unused_local_variable
-      String docId = docRef.id;
+        // ignore: unused_local_variable
+        String docId = docRef.id;
 
         Navigator.push(
           context,
@@ -122,8 +121,6 @@ class _MyLocationPageState extends State<MyLocationPage> {
       permission = await Geolocator.requestPermission();
     }
     if (permission == LocationPermission.deniedForever) {
-      // Kullanıcı kalıcı olarak izin vermediği için konum alınamaz.
-      // Bu durumda kullanıcıyı ayarlara yönlendirebiliriz.
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -228,15 +225,13 @@ class _MyLocationPageState extends State<MyLocationPage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(false); // Hayır seçeneği için pop(false)
+                    Navigator.of(context).pop(false);
                   },
                   child: Text('Hayır'),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(true); // Evet seçeneği için pop(true)
+                    Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
                 ),
@@ -247,9 +242,13 @@ class _MyLocationPageState extends State<MyLocationPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Konum'),
-          centerTitle: true,
+          title: Text(
+            'Konum',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Colors.deepPurple,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(0),
@@ -262,8 +261,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               ),
               SizedBox(height: 15),
               Container(
-                width: MediaQuery.of(context).size.width *
-                    0.9, // Ekran genişliğinin %80'i
+                width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.25,
                 child: GoogleMap(
                   initialCameraPosition: _currentPosition != null

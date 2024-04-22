@@ -5,25 +5,29 @@ import 'package:flutter_application_1/pages/root_page.dart';
 
 class ComplaintProcessedPage extends StatelessWidget {
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     /* Timer(Duration(seconds: 10), () {
       Navigator.push(context, MaterialPageRoute(builder:(context) => RootPage(),)); // // Sayfayı kapat
     });*/
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Şikayet İşleme Alındı'),
+        title: Text(
+          'Şikayet İşleme Alındı',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
-        automaticallyImplyLeading: false, // Geri dönme butonunu kaldırır
+        iconTheme: IconThemeData(color: Colors.white),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
-           NumberCircleContainer(
-              backgroundColor4: Colors.deepPurple,
-              lineColor4: Colors.white,
-            ),
-          Image.asset('lib/images/eya/logo.png'), // Logo buraya eklenecek
+          NumberCircleContainer(
+            backgroundColor4: Colors.deepPurple,
+            lineColor4: Colors.white,
+          ),
+          Image.asset('lib/images/eya/logo.png'),
           SizedBox(height: 20),
           Text(
             'Şikayetiniz İşleme Alınmıştır',
@@ -37,9 +41,13 @@ class ComplaintProcessedPage extends StatelessWidget {
           SizedBox(height: 30),
           MyButton(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder:(context) => RootPage(),)); // Anasayfaya git
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RootPage(),
+                  ));
             },
-            text:"Anasayfa", // Buton metni
+            text: "Anasayfa",
           ),
         ],
       ),

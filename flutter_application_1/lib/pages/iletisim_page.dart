@@ -67,29 +67,27 @@ class iletisimPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Expanded(
-  // Google Maps widgeti burada başlıyor
-  child: GoogleMap(
-    initialCameraPosition: CameraPosition(
-      target: LatLng(41.1102, 29.0370), // Ayazağa Mahallesi, Hadım Koruyolu Cd. No:19, Sarıyer / İstanbul koordinatları
-      zoom: 15, // Yakınlaştırma seviyesi
-    ),
-    markers: {
-      Marker(
-        markerId: MarkerId('Konumum'),
-        position: LatLng(41.1102, 29.0370), // Ayazağa Mahallesi, Hadım Koruyolu Cd. No:19, Sarıyer / İstanbul koordinatları
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed), // Kırmızı işaretçi
-        infoWindow: InfoWindow(
-          title: 'Ayazağa, Hadım Koruyolu Cd. No:19, 34398 Sarıyer/İstanbul',
-          snippet: 'İşte burası!',
-        ),
-      ),
-    },
-    onMapCreated: (GoogleMapController controller) {
-      // Harita oluşturulduğunda yapılacak işlemler (opsiyonel)
-    },
-  ),
-),
-
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(41.1102, 29.0370),
+                  zoom: 15,
+                ),
+                markers: {
+                  Marker(
+                    markerId: MarkerId('Konumum'),
+                    position: LatLng(41.1102, 29.0370),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueRed),
+                    infoWindow: InfoWindow(
+                      title:
+                          'Ayazağa, Hadım Koruyolu Cd. No:19, 34398 Sarıyer/İstanbul',
+                      snippet: 'İşte burası!',
+                    ),
+                  ),
+                },
+                onMapCreated: (GoogleMapController controller) {},
+              ),
+            ),
           ],
         ),
       ),

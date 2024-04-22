@@ -34,15 +34,6 @@ class MyDrawer extends StatelessWidget {
             icon: Icons.home,
             onTap: () => Navigator.pop(context),
           ),
-
-          MyDrawerTile(
-              text: "M Y  P R O F I L",
-              icon: Icons.person,
-              onTap: () {
-                logout();
-                Navigator.pop(context);
-              }),
-
           MyDrawerTile(
               text: "H A K K I M I Z D A",
               icon: Icons.person,
@@ -53,20 +44,8 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => AboutUsPage(),
                     ));
               }),
-          MyDrawerTile(
-              text: "B L O G",
-              icon: Icons.person,
-              onTap: () {
-                logout();
-                Navigator.pop(context);
-              }),
-          MyDrawerTile(
-              text: "D U Y U R U",
-              icon: Icons.person,
-              onTap: () {
-                logout();
-                Navigator.pop(context);
-              }),
+          MyDrawerTile(text: "B L O G", icon: Icons.person, onTap: () {}),
+          MyDrawerTile(text: "D U Y U R U", icon: Icons.person, onTap: () {}),
           MyDrawerTile(
               text: "S I K A Y E T L E R I M",
               icon: Icons.person,
@@ -78,12 +57,7 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BAGIS KAMPANYALARI",
-              icon: Icons.person,
-              onTap: () {
-                logout();
-                Navigator.pop(context);
-              }),
+              text: "BAGIS KAMPANYALARI", icon: Icons.person, onTap: () {}),
           MyDrawerTile(
               text: "ILETISIM",
               icon: Icons.person,
@@ -94,13 +68,7 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => iletisimPage(),
                     ));
               }),
-          MyDrawerTile(
-              text: "SSS",
-              icon: Icons.person,
-              onTap: () {
-                logout();
-                Navigator.pop(context);
-              }),
+          MyDrawerTile(text: "SSS", icon: Icons.person, onTap: () {}),
 
           //settings list tile
           MyDrawerTile(
@@ -123,7 +91,11 @@ class MyDrawer extends StatelessWidget {
               icon: Icons.logout,
               onTap: () {
                 logout();
-                Navigator.push(context, MaterialPageRoute(builder:(context) => AuthGate(),));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AuthGate(),
+                    ));
               }),
           const SizedBox(height: 25),
         ],

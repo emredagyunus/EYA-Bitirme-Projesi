@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ComplaintModel {
   final String id;
-  final String userID; // Eklenen alan: Kullanıcı ID'si
+  final String userID;
   final List<String> imageURLs;
-  final List<String> videoURLs; 
+  final List<String> videoURLs;
   final String title;
   final Timestamp timestamp;
   final String description;
@@ -15,7 +15,7 @@ class ComplaintModel {
 
   ComplaintModel({
     required this.id,
-    required this.userID, // Eklenen alan: Kullanıcı ID'si
+    required this.userID,
     required this.imageURLs,
     required this.videoURLs,
     required this.title,
@@ -47,17 +47,16 @@ class ComplaintModel {
 
     return ComplaintModel(
       id: doc.id,
-      userID: data['userID'] ?? '', // Eklenen alan: Kullanıcı ID'si
+      userID: data['userID'] ?? '',
       imageURLs: imageURLs,
       videoURLs: videoURLs,
-      title: data['title'] ?? '', // Varsayılan olarak boş string
+      title: data['title'] ?? '',
       timestamp: timestamp,
-      description: data['description'] ?? '', // Varsayılan olarak boş string
-      il: data['il'] ?? '', // Varsayılan olarak boş string
-      ilce: data['ilce'] ?? '', // Varsayılan olarak boş string
-      mahalle: data['mahalle'] ?? '', // Varsayılan olarak boş string
-      sokak: data['sokak'] ?? '', // Varsayılan olarak boş string
+      description: data['description'] ?? '',
+      il: data['il'] ?? '',
+      ilce: data['ilce'] ?? '',
+      mahalle: data['mahalle'] ?? '',
+      sokak: data['sokak'] ?? '',
     );
   }
 }
-

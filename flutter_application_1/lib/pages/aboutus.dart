@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double logoSize = MediaQuery.of(context).size.width * 0.6; // Logo boyutunu cihaz genişliğinin %60'ı olarak ayarla
+    double logoSize = MediaQuery.of(context).size.width * 0.6;
 
     return Scaffold(
       appBar: AppBar(
@@ -21,10 +21,10 @@ class AboutUsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 50), // Üst kısıma 50 birimlik boşluk eklendi
+                padding: EdgeInsets.only(top: 50),
                 width: logoSize,
                 height: logoSize,
-                child: Container( // Logo üzerindeki Container
+                child: Container(
                   width: logoSize * 0.8,
                   height: logoSize * 0.8,
                   decoration: BoxDecoration(

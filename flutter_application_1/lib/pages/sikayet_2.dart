@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/number_circle_widget.dart';
+import 'package:video_player/video_player.dart';
 
 class ImageAdd extends StatefulWidget {
   final void Function()? onTap;
@@ -30,6 +31,19 @@ class _ImageAddState extends State<ImageAdd> {
   List<File?> images = [];
   List<File?> videos = [];
   final picker = ImagePicker();
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.file(File(''));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await picker.pickImage(source: source);
@@ -53,7 +67,6 @@ class _ImageAddState extends State<ImageAdd> {
     List<String> imageURLs = [];
     List<String> videoURLs = [];
 
-    // Resimleri yükle
     for (int i = 0; i < images.length; i++) {
       final File? file = images[i];
       final String fileName =
@@ -69,7 +82,6 @@ class _ImageAddState extends State<ImageAdd> {
       imageURLs.add(downloadURL);
     }
 
-    // Videoları yükle
     for (int i = 0; i < videos.length; i++) {
       final File? file = videos[i];
       final String fileName =
@@ -85,7 +97,10 @@ class _ImageAddState extends State<ImageAdd> {
       videoURLs.add(downloadURL);
     }
 
-    // Firebase'e yüklenen resim ve video URL'lerini MyLocationPage'e aktar
+    _controller = VideoPlayerController.file(videos[0]!);
+    await _controller.initialize();
+    setState(() {});
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -114,15 +129,13 @@ class _ImageAddState extends State<ImageAdd> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(false); // Hayır seçeneği için pop(false)
+                    Navigator.of(context).pop(false);
                   },
                   child: Text('Hayır'),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(true); // Evet seçeneği için pop(true)
+                    Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
                 ),
@@ -133,9 +146,13 @@ class _ImageAddState extends State<ImageAdd> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Engelsiz Yaşam'),
+          title: Text(
+            'Engelsiz Yaşam',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Colors.deepPurple,
           centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Column(
           children: [
@@ -149,26 +166,110 @@ class _ImageAddState extends State<ImageAdd> {
               child: Text(
                 'Resim veya Video Ekle',
                 style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.deepPurple,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Expanded(
               child: Center(
                 child: GridView.builder(
                   shrinkWrap: true,
-                  itemCount: images.length,
+                  itemCount: images.length + videos.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
+                    childAspectRatio: 1.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return Image.file(
-                      images[index]!,
-                      fit: BoxFit.cover,
-                    );
+                    if (index < images.length) {
+                      return Stack(
+                        children: [
+                          Image.file(
+                            images[index]!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  images.removeAt(index);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: EdgeInsets.all(6),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      final videoIndex = index - images.length;
+                      final videoFile = videos[videoIndex]!;
+                      final videoController =
+                          VideoPlayerController.file(videoFile);
+                      return Stack(
+                        children: [
+                          FutureBuilder(
+                            future: videoController.initialize(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      videoController.play();
+                                    });
+                                  },
+                                  child: AspectRatio(
+                                    aspectRatio: 1.0,
+                                    child: VideoPlayer(videoController),
+                                  ),
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  videos.removeAt(videoIndex);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: EdgeInsets.all(6),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
                   },
                 ),
               ),

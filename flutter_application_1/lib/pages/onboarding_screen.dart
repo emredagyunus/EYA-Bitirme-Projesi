@@ -1,10 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/constants.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
-
-
-
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -29,9 +25,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.only(right: 20, top: 20),
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => const AuthGate()));
-              }, //to login screen. We will update later
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const AuthGate()));
+              },
               child: const Text(
                 'Atla',
                 style: TextStyle(
@@ -99,8 +95,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               curve: Curves.easeIn);
                         }
                       } else {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => const AuthGate()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const AuthGate()));
                       }
                     });
                   },
@@ -116,9 +114,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  //Extra Widgets
-
-  //Create the indicator decorations widget
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -132,7 +127,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-//Create the indicator list
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
 

@@ -23,7 +23,6 @@ class MyDrawerTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.inversePrimary,
         ),
         onTap: onTap,
-        
       ),
     );
   }

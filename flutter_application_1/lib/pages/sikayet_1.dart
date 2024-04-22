@@ -23,7 +23,7 @@ class SikayetIlkPage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Uyarıyı kapat
+                  Navigator.of(context).pop();
                 },
                 child: Text('Tamam'),
               ),
@@ -32,7 +32,6 @@ class SikayetIlkPage extends StatelessWidget {
         },
       );
     } else {
-      // ImageAdd sayfasına verileri göndermeden geçiş yapın
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -45,7 +44,6 @@ class SikayetIlkPage extends StatelessWidget {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +60,13 @@ class SikayetIlkPage extends StatelessWidget {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(false); // Hayır seçeneği için pop(false)
+                    Navigator.of(context).pop(false);
                   },
                   child: Text('Hayır'),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(true); // Evet seçeneği için pop(true)
+                    Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
                 ),
@@ -81,9 +77,13 @@ class SikayetIlkPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Şikayet Oluşturma Sayfası'),
+          title: Text(
+            'Şikayet Oluşturma Sayfası',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Colors.deepPurple,
           centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: SingleChildScrollView(
           child: Column(

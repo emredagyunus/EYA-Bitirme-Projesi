@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
     required this.obscureText,
     required this.icon,
     this.inputType,
-    this.maxLines, 
+    this.maxLines,
     this.textAlign,
   }) : super(key: key);
 
@@ -35,21 +35,21 @@ class MyTextField extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Theme.of(context).colorScheme.secondary,
-          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.tertiary),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
         textAlign: textAlign ?? TextAlign.start,
       ),
-      
     );
   }
 }
-
-

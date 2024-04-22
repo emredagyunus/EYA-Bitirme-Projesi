@@ -11,5 +11,6 @@ class Constants {
   static var titleTwo = "Sessiz Kalmayın";
   static var descriptionTwo = "Yapılan haksızlıklara sessiz kalmayın";
   static var titleThree = "EYA Platformu";
-  static var descriptionThree = "EYA platformu engellı vatandaşlarımızın sesi olmak için burda";
+  static var descriptionThree =
+      "EYA platformu engellı vatandaşlarımızın sesi olmak için burda";
 }

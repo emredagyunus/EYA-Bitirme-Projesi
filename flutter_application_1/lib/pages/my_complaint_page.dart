@@ -67,8 +67,7 @@ class MyComplaint extends StatelessWidget {
                       child: complaint.imageURLs.isNotEmpty
                           ? Image.network(
                               complaint.imageURLs[0],
-                              width: MediaQuery.of(context).size.width *
-                                  0.25, // Ekran genişliğinin %80'i
+                              width: MediaQuery.of(context).size.width * 0.25,
                               height: MediaQuery.of(context).size.height * 0.4,
                               fit: BoxFit.cover,
                             )

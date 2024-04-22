@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
@@ -7,22 +6,23 @@ import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/services/auth/login_or_register.dart';
 import 'package:page_transition/page_transition.dart';
 
-
 class ForgotPassword extends StatefulWidget {
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-   final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   Future<void> passwordReset() async {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
-          Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return LoginPage(onTap: null);
-                          },));
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return LoginPage(onTap: null);
+        },
+      ));
     } on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
@@ -38,8 +38,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -83,7 +81,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       PageTransition(
                           child: const LoginOrRegister(),
                           type: PageTransitionType.bottomToTop));
-                },               
+                },
                 child: Center(
                   child: Text.rich(
                     TextSpan(children: [

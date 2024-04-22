@@ -6,7 +6,7 @@ class MyFormField extends StatelessWidget {
   final bool obscureText;
   final Icon icon;
   final TextInputType? inputType;
-  final int? maxLines; // Eklenen özellik
+  final int? maxLines;
 
   const MyFormField({
     Key? key,
@@ -15,7 +15,7 @@ class MyFormField extends StatelessWidget {
     required this.obscureText,
     required this.icon,
     this.inputType,
-    this.maxLines, // Eklenen özellik
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class MyFormField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         keyboardType: inputType,
-        maxLines: maxLines, // Eklenen özellik
+        maxLines: maxLines,
         decoration: InputDecoration(
           prefixIcon: icon,
           enabledBorder: OutlineInputBorder(

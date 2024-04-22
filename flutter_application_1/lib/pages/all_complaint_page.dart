@@ -9,8 +9,12 @@ class AllComplaint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Şikayetler'),
+        title: Text(
+          'Şikayetler',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
       drawer: MyDrawer(),

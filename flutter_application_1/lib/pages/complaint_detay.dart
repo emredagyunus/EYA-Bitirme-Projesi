@@ -33,7 +33,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         if (mounted) {
           setState(() {
             _videoControllers.add(controller);
-            // Otomatik oynatma işlemi
             controller.play();
           });
         }
@@ -44,14 +43,14 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   Future<void> checkIfFavorite() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
-      String userId = user!.uid; 
+      String userId = user!.uid;
       DocumentSnapshot favoriteDoc = await FirebaseFirestore.instance
           .collection('favorites')
           .doc(userId)
           .collection('complaints')
           .doc(widget.complaint.id)
           .get();
-      
+
       if (favoriteDoc.exists) {
         setState(() {
           isFavorite = true;
@@ -65,21 +64,19 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   Future<void> addToFavorites() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
-      String userId = user!.uid; 
+      String userId = user!.uid;
       DocumentReference favoriteRef = FirebaseFirestore.instance
           .collection('favorites')
           .doc(userId)
           .collection('complaints')
           .doc(widget.complaint.id);
-      
+
       if (isFavorite) {
-        // Favorilerde zaten varsa kaldır
         await favoriteRef.delete();
         setState(() {
           isFavorite = false;
         });
       } else {
-        // Favorilerde yoksa ekle
         await favoriteRef.set({
           'id': widget.complaint.id,
           'userId': widget.complaint.userID,
@@ -106,9 +103,13 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Şikayet Detayı'),
+        title: Text(
+          'Şikayet Detayı',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -134,18 +135,16 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               items: _buildCarouselItems(),
             ),
             SizedBox(height: 16),
-            // Başlık ve Tarih
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Başlık
                 Expanded(
                   child: Text(
                     widget.complaint.title,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-                // Tarih
                 Text(
                   'Tarih: ${widget.complaint.timestamp.toDate().day}/${widget.complaint.timestamp.toDate().month}/${widget.complaint.timestamp.toDate().year}',
                   style: TextStyle(
@@ -157,7 +156,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               ],
             ),
             SizedBox(height: 8),
-            // Açıklama
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -173,7 +172,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               ],
             ),
             SizedBox(height: 16),
-            // Konum Bilgileri
+
             Text(
               'Konum Bilgileri:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -249,7 +248,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         },
         child: Icon(
           isFavorite ? Icons.favorite : Icons.favorite_border,
-          color: isFavorite ? Colors.red : Colors.white,
+          color: isFavorite ? Colors.black : Colors.white,
         ),
         backgroundColor: Colors.deepPurple,
       ),
@@ -259,7 +258,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   List<Widget> _buildCarouselItems() {
     List<Widget> items = [];
 
-    // Şikayetin resim URL'leri listesi boş değilse ve en az bir resim varsa
     if (widget.complaint.imageURLs.isNotEmpty) {
       items.addAll(widget.complaint.imageURLs.map((imageUrl) {
         return ClipRRect(
@@ -274,7 +272,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
       }));
     }
 
-    // Şikayetin video URL'leri listesi boş değilse ve en az bir video varsa
     if (_videoControllers.isNotEmpty) {
       items.addAll(_videoControllers.map((controller) {
         if (controller!.value.isInitialized) {
@@ -292,7 +289,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
             ),
           );
         } else {
-          // Video yüklenmediyse bir boş Container ekleyebiliriz
           return Container();
         }
       }));
