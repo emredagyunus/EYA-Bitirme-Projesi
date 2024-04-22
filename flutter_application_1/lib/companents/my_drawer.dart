@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/companents/my_drawer_tile.dart';
+import 'package:flutter_application_1/pages/aboutus.dart';
+import 'package:flutter_application_1/pages/iletisim_page.dart';
+import 'package:flutter_application_1/pages/my_complaint_page.dart';
+import 'package:flutter_application_1/pages/settings_page.dart';
+import 'package:flutter_application_1/services/auth/auth_gate.dart';
+import 'package:flutter_application_1/services/auth/auth_services.dart';
+
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
+
+  void logout() {
+    final authService = AuthService();
+    authService.signOut();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Divider(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+
+          //home list tile
+          MyDrawerTile(
+            text: "H O M E",
+            icon: Icons.home,
+            onTap: () => Navigator.pop(context),
+          ),
+
+          MyDrawerTile(
+              text: "M Y  P R O F I L",
+              icon: Icons.person,
+              onTap: () {
+                logout();
+                Navigator.pop(context);
+              }),
+
+          MyDrawerTile(
+              text: "H A K K I M I Z D A",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AboutUsPage(),
+                    ));
+              }),
+          MyDrawerTile(
+              text: "B L O G",
+              icon: Icons.person,
+              onTap: () {
+                logout();
+                Navigator.pop(context);
+              }),
+          MyDrawerTile(
+              text: "D U Y U R U",
+              icon: Icons.person,
+              onTap: () {
+                logout();
+                Navigator.pop(context);
+              }),
+          MyDrawerTile(
+              text: "S I K A Y E T L E R I M",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyComplaint(),
+                    ));
+              }),
+          MyDrawerTile(
+              text: "BAGIS KAMPANYALARI",
+              icon: Icons.person,
+              onTap: () {
+                logout();
+                Navigator.pop(context);
+              }),
+          MyDrawerTile(
+              text: "ILETISIM",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => iletisimPage(),
+                    ));
+              }),
+          MyDrawerTile(
+              text: "SSS",
+              icon: Icons.person,
+              onTap: () {
+                logout();
+                Navigator.pop(context);
+              }),
+
+          //settings list tile
+          MyDrawerTile(
+              text: "S E T T I N G S",
+              icon: Icons.settings,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+              }),
+
+          const Spacer(),
+          //logout list tile
+          MyDrawerTile(
+              text: "L O G O U T",
+              icon: Icons.logout,
+              onTap: () {
+                logout();
+                Navigator.push(context, MaterialPageRoute(builder:(context) => AuthGate(),));
+              }),
+          const SizedBox(height: 25),
+        ],
+      ),
+    );
+  }
+}
