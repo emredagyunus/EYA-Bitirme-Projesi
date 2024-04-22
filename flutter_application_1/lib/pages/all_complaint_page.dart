@@ -60,27 +60,21 @@ class AllComplaint extends StatelessWidget {
                   child: ListTile(
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child: complaint.imageURL.isNotEmpty
+                      child: complaint.imageURLs.isNotEmpty
                           ? Image.network(
-                              complaint.imageURL[0],
+                              complaint.imageURLs[0],
                               width: 80,
                               height: 80,
                               fit: BoxFit.cover,
                             )
-                          : Container(
-                              width: 80,
-                              height: 80,
-                              color: Colors.grey, // Varsayılan gri renk
-                              child: Center(
-                                child: Text(
-                                  'Resim Yok',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
+                          : Image.asset("lib/images/eya/logo.png"),
                     ),
                     title: Text(complaint.title),
-                    subtitle: Text(complaint.description),
+                    subtitle: Text(
+                      complaint.description.length > 50
+                          ? '${complaint.description.substring(0, 62)}...'
+                          : complaint.description,
+                    ),
                   ),
                 ),
               );

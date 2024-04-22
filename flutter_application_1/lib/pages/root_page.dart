@@ -2,8 +2,8 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/constants.dart';
 import 'package:flutter_application_1/pages/all_complaint_page.dart';
-import 'package:flutter_application_1/pages/favorite_page.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:flutter_application_1/pages/my_favori_page.dart';
 import 'package:flutter_application_1/pages/myprof%C4%B1le.dart';
 import 'package:flutter_application_1/pages/sikayet_1.dart';
 import 'package:page_transition/page_transition.dart';
@@ -22,7 +22,7 @@ class _RootPageState extends State<RootPage> {
   List<Widget> _widgetOptions() {
     return [
       const HomePage(),
-      FavoritePage(favoritedPlants: []),
+      FavoritesPage(),
       AllComplaint(),
       MyProfilePage(),
     ];

@@ -28,10 +28,10 @@ class ImageAdd extends StatefulWidget {
 
 class _ImageAddState extends State<ImageAdd> {
   List<File?> images = [];
+  List<File?> videos = [];
   final picker = ImagePicker();
 
   Future<void> _pickImage(ImageSource source) async {
-    final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: source);
     setState(() {
       if (pickedImage != null) {
@@ -41,68 +41,63 @@ class _ImageAddState extends State<ImageAdd> {
   }
 
   Future<void> _pickVideo(ImageSource source) async {
-    final picker = ImagePicker();
     final pickedVideo = await picker.pickVideo(source: source);
     setState(() {
       if (pickedVideo != null) {
-        images.add(File(pickedVideo.path));
+        videos.add(File(pickedVideo.path));
       }
     });
   }
 
   Future<void> _uploadFiles() async {
-    if (images.isEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyLocationPage(
-            title: widget.title,
-            description: widget.description,
-            userID: widget.userID,
-            imageURLs: [], // Boş bir resim URL'si listesi gönderiyoruz
-          ),
-        ),
-      );
-      return;
+    List<String> imageURLs = [];
+    List<String> videoURLs = [];
+
+    // Resimleri yükle
+    for (int i = 0; i < images.length; i++) {
+      final File? file = images[i];
+      final String fileName =
+          DateTime.now().millisecondsSinceEpoch.toString() + i.toString();
+
+      final firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('sikayet/$fileName');
+      await storageRef.putFile(file!);
+
+      final String downloadURL = await storageRef.getDownloadURL();
+      imageURLs.add(downloadURL);
     }
 
-    try {
-      List<String> imageURLs = [];
-      for (int i = 0; i < images.length; i++) {
-        final File? file = images[i];
-        final String fileName =
-            DateTime.now().millisecondsSinceEpoch.toString() + i.toString();
+    // Videoları yükle
+    for (int i = 0; i < videos.length; i++) {
+      final File? file = videos[i];
+      final String fileName =
+          DateTime.now().millisecondsSinceEpoch.toString() + i.toString();
 
-        final firebase_storage.Reference storageRef = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('sikayet/$fileName');
-        await storageRef.putFile(file!);
+      final firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('sikayet/videos/$fileName');
+      await storageRef.putFile(file!);
 
-        final String downloadURL = await storageRef.getDownloadURL();
-        imageURLs.add(downloadURL);
-      }
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyLocationPage(
-            title: widget.title,
-            description: widget.description,
-            userID: widget.userID,
-            imageURLs: imageURLs, // Resim URL'si listesini gönderin
-          ),
-        ),
-      );
-      /*
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Dosyalar başarıyla yüklendi.')),
-      );*/
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Dosya yükleme hatası: $e')),
-      );
+      final String downloadURL = await storageRef.getDownloadURL();
+      videoURLs.add(downloadURL);
     }
+
+    // Firebase'e yüklenen resim ve video URL'lerini MyLocationPage'e aktar
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MyLocationPage(
+          title: widget.title,
+          description: widget.description,
+          userID: widget.userID,
+          imageURLs: imageURLs,
+          videoURLs: videoURLs,
+        ),
+      ),
+    );
   }
 
   @override
