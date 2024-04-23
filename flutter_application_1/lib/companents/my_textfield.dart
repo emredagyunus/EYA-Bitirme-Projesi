@@ -49,6 +49,7 @@ class MyTextField extends StatelessWidget {
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
           labelText: hintText,
 
+          prefixIcon: icon, 
         ),
         textAlign: textAlign ?? TextAlign.start,
       ),
