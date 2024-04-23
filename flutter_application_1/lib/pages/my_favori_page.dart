@@ -103,6 +103,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           ilce: complaintData['ilce'],
                           mahalle: complaintData['mahalle'],
                           sokak: complaintData['sokak'],
+                          favoritesCount:complaintData['favoritesCount'], 
                         ),
                       ),
                     ),

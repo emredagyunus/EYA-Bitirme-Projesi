@@ -12,6 +12,7 @@ class ComplaintModel {
   final String ilce;
   final String mahalle;
   final String sokak;
+  late  int favoritesCount; 
 
   ComplaintModel({
     required this.id,
@@ -25,6 +26,7 @@ class ComplaintModel {
     required this.ilce,
     required this.mahalle,
     required this.sokak,
+    required this.favoritesCount, 
   });
 
   factory ComplaintModel.fromFirestore(DocumentSnapshot doc) {
@@ -57,6 +59,7 @@ class ComplaintModel {
       ilce: data['ilce'] ?? '',
       mahalle: data['mahalle'] ?? '',
       sokak: data['sokak'] ?? '',
+      favoritesCount: data['favoritesCount'] ?? 0, 
     );
   }
 }

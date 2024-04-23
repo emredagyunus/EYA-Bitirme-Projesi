@@ -30,12 +30,12 @@ class MyDrawer extends StatelessWidget {
 
           //home list tile
           MyDrawerTile(
-            text: "H O M E",
+            text: "ANASAYFA",
             icon: Icons.home,
             onTap: () => Navigator.pop(context),
           ),
           MyDrawerTile(
-              text: "H A K K I M I Z D A",
+              text: "HAKKIMIZDA",
               icon: Icons.person,
               onTap: () {
                 Navigator.push(
@@ -44,10 +44,10 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => AboutUsPage(),
                     ));
               }),
-          MyDrawerTile(text: "B L O G", icon: Icons.person, onTap: () {}),
-          MyDrawerTile(text: "D U Y U R U", icon: Icons.person, onTap: () {}),
+          MyDrawerTile(text: "BLOG", icon: Icons.person, onTap: () {}),
+          MyDrawerTile(text: "DUYURU", icon: Icons.person, onTap: () {}),
           MyDrawerTile(
-              text: "S I K A Y E T L E R I M",
+              text: "ŞİKAYETLERİM",
               icon: Icons.person,
               onTap: () {
                 Navigator.push(
@@ -57,9 +57,9 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BAGIS KAMPANYALARI", icon: Icons.person, onTap: () {}),
+              text: "BAĞIŞ KAMPANYALARI", icon: Icons.person, onTap: () {}),
           MyDrawerTile(
-              text: "ILETISIM",
+              text: "İLETİŞİM",
               icon: Icons.person,
               onTap: () {
                 Navigator.push(
@@ -72,7 +72,7 @@ class MyDrawer extends StatelessWidget {
 
           //settings list tile
           MyDrawerTile(
-              text: "S E T T I N G S",
+              text: "AYARLAR",
               icon: Icons.settings,
               onTap: () {
                 Navigator.pop(context);
@@ -87,7 +87,7 @@ class MyDrawer extends StatelessWidget {
           const Spacer(),
           //logout list tile
           MyDrawerTile(
-              text: "L O G O U T",
+              text: "ÇIKIŞ YAP",
               icon: Icons.logout,
               onTap: () {
                 logout();

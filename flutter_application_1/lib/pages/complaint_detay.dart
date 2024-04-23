@@ -62,42 +62,45 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   }
 
   Future<void> addToFavorites() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      String userId = user!.uid;
-      DocumentReference favoriteRef = FirebaseFirestore.instance
-          .collection('favorites')
-          .doc(userId)
-          .collection('complaints')
-          .doc(widget.complaint.id);
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    String userId = user!.uid;
+    DocumentReference favoriteRef = FirebaseFirestore.instance
+        .collection('favorites')
+        .doc(userId)
+        .collection('complaints')
+        .doc(widget.complaint.id);
 
-      if (isFavorite) {
-        await favoriteRef.delete();
-        setState(() {
-          isFavorite = false;
-        });
-      } else {
-        await favoriteRef.set({
-          'id': widget.complaint.id,
-          'userId': widget.complaint.userID,
-          'imageURLs': widget.complaint.imageURLs,
-          'videoURLs': widget.complaint.videoURLs,
-          'title': widget.complaint.title,
-          'timestamp': widget.complaint.timestamp,
-          'description': widget.complaint.description,
-          'il': widget.complaint.il,
-          'ilce': widget.complaint.ilce,
-          'mahalle': widget.complaint.mahalle,
-          'sokak': widget.complaint.sokak,
-        });
-        setState(() {
-          isFavorite = true;
-        });
-      }
-    } catch (e) {
-      print('Favorilere eklerken hata oluştu: $e');
+    if (isFavorite) {
+      await favoriteRef.delete();
+      setState(() {
+        isFavorite = false;
+        widget.complaint.favoritesCount -= 1; // Favorilere eklenme sayısını azalt
+      });
+    } else {
+      await favoriteRef.set({
+        'id': widget.complaint.id,
+        'userId': widget.complaint.userID,
+        'imageURLs': widget.complaint.imageURLs,
+        'videoURLs': widget.complaint.videoURLs,
+        'title': widget.complaint.title,
+        'timestamp': widget.complaint.timestamp,
+        'description': widget.complaint.description,
+        'il': widget.complaint.il,
+        'ilce': widget.complaint.ilce,
+        'mahalle': widget.complaint.mahalle,
+        'sokak': widget.complaint.sokak,
+        'favoritesCount': widget.complaint.favoritesCount + 1, 
+      });
+      setState(() {
+        isFavorite = true;
+        widget.complaint.favoritesCount += 1; 
+      });
     }
+  } catch (e) {
+    print('Favorilere eklerken hata oluştu: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {

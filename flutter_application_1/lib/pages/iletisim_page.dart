@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_image_box.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart'; // Google Maps paketini ekliyoruz
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class iletisimPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Iletisim'),
+        title: Text(
+          'Iletisim',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -19,7 +25,7 @@ class iletisimPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const MyImageox(),
+                const MyImageBox(),
               ],
             ),
             SizedBox(height: 16),
@@ -56,6 +62,22 @@ class iletisimPage extends StatelessWidget {
                     hintText: 'Mail Adresiniz..',
                     icon: Icon(Icons.text_decrease),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: MyTextField(
+                    controller: TextEditingController(),
+                    obscureText: false,
+                    hintText: 'Mesajınız...',
+                    icon: Icon(Icons.text_decrease),
+                    textAlign: TextAlign.center,
+                    maxLines: 5,
                   ),
                 ),
               ],

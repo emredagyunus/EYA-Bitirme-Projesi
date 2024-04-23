@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyImageox extends StatelessWidget {
-  const MyImageox({super.key});
+class MyImageBox extends StatelessWidget {
+  const MyImageBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class MyImageox extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.2,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("lib/images/burgers/logo.png"),
+            image: AssetImage("lib/images/eya/logo.png"),
             fit: BoxFit.cover,
           ),
           border: Border.all(color: Theme.of(context).colorScheme.secondary),

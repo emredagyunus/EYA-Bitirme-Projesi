@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/companents/my_image_box.dart';
 
 class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double logoSize = MediaQuery.of(context).size.width * 0.6;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hakkımızda'),
+        title: Text(
+          'Hakkımızda',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -20,35 +26,7 @@ class AboutUsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 50),
-                width: logoSize,
-                height: logoSize,
-                child: Container(
-                  width: logoSize * 0.8,
-                  height: logoSize * 0.8,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(logoSize * 0.4),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      'lib/images/eya/logo.png',
-                      width: logoSize * 0.6,
-                      height: logoSize * 0.6,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
+              MyImageBox(),
               SizedBox(height: 20),
               Text(
                 'Hakkımızda',

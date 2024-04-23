@@ -97,9 +97,12 @@ class _ImageAddState extends State<ImageAdd> {
       videoURLs.add(downloadURL);
     }
 
-    _controller = VideoPlayerController.file(videos[0]!);
-    await _controller.initialize();
-    setState(() {});
+    if (videos.isNotEmpty) {
+      _controller = VideoPlayerController.file(videos[0]!);
+      await _initializeVideoPlayer();
+    } else {
+      _controller = VideoPlayerController.file(File(''));
+    }
 
     Navigator.push(
       context,
@@ -113,6 +116,15 @@ class _ImageAddState extends State<ImageAdd> {
         ),
       ),
     );
+  }
+
+  Future<void> _initializeVideoPlayer() async {
+    try {
+      await _controller.initialize();
+      setState(() {});
+    } catch (e) {
+      print('Video Player Error: $e');
+    }
   }
 
   @override

@@ -52,8 +52,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           content: Text('Profil bilgileri güncellendi.'),
         ),
       );
-            Navigator.pop(context);
-
+      Navigator.pop(context);
     }
   }
 
@@ -61,7 +60,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profil Düzenle',style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Profil Düzenle',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
@@ -84,7 +86,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 Text(
                   'Ad',
-                  textAlign: TextAlign.center, // Metni merkeze hizala
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -105,7 +107,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 Text(
                   'Soyad',
-                  textAlign: TextAlign.center, // Metni merkeze hizala
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -126,7 +128,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 Text(
                   'Telefon',
-                  textAlign: TextAlign.center, // Metni merkeze hizala
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
