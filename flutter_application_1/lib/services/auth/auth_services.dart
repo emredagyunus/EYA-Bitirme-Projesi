@@ -16,8 +16,14 @@ class AuthService {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
-      return userCredential;
+      if (userCredential.user!.emailVerified) {
+        return userCredential;
+      } else {
+        _firebaseAuth.signOut();
+        throw 'Lütfen e-posta adresine iletilen link ile hesabını doğrula!';
+      }
     }
+
     //catch any errors
     on FirebaseAuthException catch (e) {
       throw Exception(e.code);
@@ -25,31 +31,35 @@ class AuthService {
   }
 
   //sign up
-  Future<UserCredential> signUpWithEmailPassword(String email, password,  name,  surname,  phone) async {
-  try {
-    // Kullanıcıyı e-posta ve şifre ile kaydet
-    UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  Future<UserCredential> signUpWithEmailPassword(
+      String email, password, name, surname, phone) async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await userCredential.user?.sendEmailVerification();
+      _firebaseAuth.signOut();
 
-    // Yeni bir kullanıcı belgesi oluştur
-    final userDoc = FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid);
+      final userDoc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid);
 
-    // Kullanıcı bilgilerini belgeye ekle
-    await userDoc.set({
-      'name': name,
-      'surname': surname,
-      'phone': phone,
-      // Diğer kullanıcı bilgileri eklemek isterseniz burada ekleyebilirsiniz
-    });
+      await userDoc.set({
+        'name': name,
+        'surname': surname,
+        'phone': phone, 
+        'email': email,
+        'password': password,
+      });
 
-    return userCredential;
-  } catch (e) {
-    // FirebaseAuthException veya diğer hataları yakala
-    throw Exception('Sign up failed: $e');
+      return userCredential;
+    } catch (e) {
+      throw Exception('Sign up failed: $e');
+    }
   }
-}
+
   //sign out
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();

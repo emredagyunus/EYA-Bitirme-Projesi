@@ -4,6 +4,7 @@ import 'package:flutter_application_1/pages/aboutus.dart';
 import 'package:flutter_application_1/pages/iletisim_page.dart';
 import 'package:flutter_application_1/pages/my_complaint_page.dart';
 import 'package:flutter_application_1/pages/settings_page.dart';
+import 'package:flutter_application_1/pages/sss_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
 
@@ -57,7 +58,11 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BAĞIŞ KAMPANYALARI", icon: Icons.person, onTap: () {}),
+              text: "BAĞIŞ KAMPANYALARI",
+              icon: Icons.person,
+              onTap: () {
+                
+              }),
           MyDrawerTile(
               text: "İLETİŞİM",
               icon: Icons.person,
@@ -68,7 +73,11 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => iletisimPage(),
                     ));
               }),
-          MyDrawerTile(text: "SSS", icon: Icons.person, onTap: () {}),
+          MyDrawerTile(text: "SSS", icon: Icons.person, onTap: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FAQPage(),
+                    ));}),
 
           //settings list tile
           MyDrawerTile(

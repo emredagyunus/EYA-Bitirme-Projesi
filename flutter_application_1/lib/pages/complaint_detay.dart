@@ -75,7 +75,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
       await favoriteRef.delete();
       setState(() {
         isFavorite = false;
-        widget.complaint.favoritesCount -= 1; // Favorilere eklenme sayısını azalt
+        widget.complaint.favoritesCount -= 1;
       });
     } else {
       await favoriteRef.set({
@@ -90,17 +90,23 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         'ilce': widget.complaint.ilce,
         'mahalle': widget.complaint.mahalle,
         'sokak': widget.complaint.sokak,
-        'favoritesCount': widget.complaint.favoritesCount + 1, 
+        'favoritesCount': widget.complaint.favoritesCount + 1,
       });
       setState(() {
         isFavorite = true;
         widget.complaint.favoritesCount += 1; 
       });
     }
+
+    await FirebaseFirestore.instance
+        .collection('complaints')
+        .doc(widget.complaint.id)
+        .update({'favoritesCount': widget.complaint.favoritesCount});
   } catch (e) {
     print('Favorilere eklerken hata oluştu: $e');
   }
 }
+
 
   @override
   Widget build(BuildContext context) {

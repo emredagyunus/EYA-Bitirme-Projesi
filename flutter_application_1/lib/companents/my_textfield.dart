@@ -47,6 +47,8 @@ class MyTextField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+          labelText: hintText,
+
         ),
         textAlign: textAlign ?? TextAlign.start,
       ),

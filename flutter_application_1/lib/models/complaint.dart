@@ -12,7 +12,7 @@ class ComplaintModel {
   final String ilce;
   final String mahalle;
   final String sokak;
-  late  int favoritesCount; 
+  late int favoritesCount;
 
   ComplaintModel({
     required this.id,
@@ -26,7 +26,7 @@ class ComplaintModel {
     required this.ilce,
     required this.mahalle,
     required this.sokak,
-    required this.favoritesCount, 
+    required this.favoritesCount,
   });
 
   factory ComplaintModel.fromFirestore(DocumentSnapshot doc) {
@@ -59,7 +59,18 @@ class ComplaintModel {
       ilce: data['ilce'] ?? '',
       mahalle: data['mahalle'] ?? '',
       sokak: data['sokak'] ?? '',
-      favoritesCount: data['favoritesCount'] ?? 0, 
+      favoritesCount: data['favoritesCount'] ?? 0,
     );
+  }
+  Future<void> updateFavoritesCount(int newCount) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('complaints')
+          .doc(id)
+          .update({'favoritesCount': newCount});
+      favoritesCount = newCount;
+    } catch (e) {
+      print('Favori sayısı güncellenirken bir hata oluştu: $e');
+    }
   }
 }
