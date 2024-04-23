@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
-import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/user_pages/login_page.dart';
 import 'package:flutter_application_1/services/auth/login_or_register.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_drawer_tile.dart';
-import 'package:flutter_application_1/pages/aboutus.dart';
-import 'package:flutter_application_1/pages/iletisim_page.dart';
-import 'package:flutter_application_1/pages/my_complaint_page.dart';
-import 'package:flutter_application_1/pages/settings_page.dart';
-import 'package:flutter_application_1/pages/sss_page.dart';
+import 'package:flutter_application_1/user_pages/aboutus_page.dart';
+import 'package:flutter_application_1/user_pages/iletisim_page.dart';
+import 'package:flutter_application_1/user_pages/my_complaint_page.dart';
+import 'package:flutter_application_1/user_pages/root_page.dart';
+import 'package:flutter_application_1/user_pages/settings_page.dart';
+import 'package:flutter_application_1/user_pages/sss_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
 
@@ -33,7 +34,7 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTile(
             text: "ANASAYFA",
             icon: Icons.home,
-            onTap: () => Navigator.pop(context),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) => RootPage(initialIndex: 0,),)),
           ),
           MyDrawerTile(
               text: "HAKKIMIZDA",

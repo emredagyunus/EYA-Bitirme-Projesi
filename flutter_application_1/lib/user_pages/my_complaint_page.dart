@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/models/complaint.dart';
-import 'package:flutter_application_1/pages/complaint_detay.dart';
+import 'package:flutter_application_1/user_pages/complaint_detail_page.dart';
 
 class MyComplaint extends StatelessWidget {
   @override

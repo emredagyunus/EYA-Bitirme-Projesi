@@ -1,15 +1,16 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/constants.dart';
-import 'package:flutter_application_1/pages/all_complaint_page.dart';
-import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/pages/my_favori_page.dart';
-import 'package:flutter_application_1/pages/myprof%C4%B1le.dart';
-import 'package:flutter_application_1/pages/sikayet_1.dart';
+import 'package:flutter_application_1/user_pages/all_complaint_page.dart';
+import 'package:flutter_application_1/user_pages/home_page.dart';
+import 'package:flutter_application_1/user_pages/my_favori_page.dart';
+import 'package:flutter_application_1/user_pages/myprof%C4%B1le_page.dart';
+import 'package:flutter_application_1/user_pages/sikayet_1.dart';
 import 'package:page_transition/page_transition.dart';
 
 class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+  final int? initialIndex;
+  const RootPage({super.key, this.initialIndex});
 
   @override
   State<RootPage> createState() => _RootPageState();
@@ -17,6 +18,12 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _bottomNavIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _bottomNavIndex = widget.initialIndex?? 0;
+  }
 
   //List of the pages
   List<Widget> _widgetOptions() {

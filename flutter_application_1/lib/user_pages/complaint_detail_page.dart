@@ -71,12 +71,19 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         .collection('complaints')
         .doc(widget.complaint.id);
 
-    if (isFavorite) {
+    DocumentSnapshot favoriteDoc = await favoriteRef.get();
+
+    if (favoriteDoc.exists) {
       await favoriteRef.delete();
       setState(() {
         isFavorite = false;
         widget.complaint.favoritesCount -= 1;
       });
+
+      await FirebaseFirestore.instance
+          .collection('complaints')
+          .doc(widget.complaint.id)
+          .update({'favoritesCount': FieldValue.increment(-1)});
     } else {
       await favoriteRef.set({
         'id': widget.complaint.id,
@@ -90,22 +97,22 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         'ilce': widget.complaint.ilce,
         'mahalle': widget.complaint.mahalle,
         'sokak': widget.complaint.sokak,
-        'favoritesCount': widget.complaint.favoritesCount + 1,
+        'favoritesCount': FieldValue.increment(1), 
       });
       setState(() {
         isFavorite = true;
-        widget.complaint.favoritesCount += 1; 
+        widget.complaint.favoritesCount += 1;
       });
+      await FirebaseFirestore.instance
+          .collection('sikayet')
+          .doc(widget.complaint.id)
+          .update({'favoritesCount': FieldValue.increment(1)});
     }
-
-    await FirebaseFirestore.instance
-        .collection('complaints')
-        .doc(widget.complaint.id)
-        .update({'favoritesCount': widget.complaint.favoritesCount});
   } catch (e) {
     print('Favorilere eklerken hata oluştu: $e');
   }
 }
+
 
 
   @override

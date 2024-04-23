@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/companents/number_circle_widget.dart';
-import 'package:flutter_application_1/pages/sikayet_2.dart';
+import 'package:flutter_application_1/user_pages/sikayet_2.dart';
 
 class SikayetIlkPage extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();

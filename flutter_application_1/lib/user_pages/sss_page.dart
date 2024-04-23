@@ -28,26 +28,29 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(text: 'SSS'),
-              Tab(text: 'Mesaj Formu'),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
+      body: SingleChildScrollView( // SingleChildScrollView kullanarak ekranı kaydırılabilir yapın
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TabBar(
               controller: _tabController,
-              children: [
-                FAQSection(),
-                FeedbackForm(),
+              tabs: [
+                Tab(text: 'SSS'),
+                Tab(text: 'Mesaj Formu'),
               ],
             ),
-          ),
-        ],
+            Container(
+              height: MediaQuery.of(context).size.height - kToolbarHeight - 50, // Ekran yüksekliğini alarak içeriği klavye boyutuna göre ayarlayın
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  FAQSection(),
+                  FeedbackForm(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -56,29 +59,27 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
 class FAQSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(height: 30),
-          ExpansionTile(
-            title: Text('Sorulacak Soru 1'),
-            children: <Widget>[
-              ListTile(
-                title: Text('Cevabı 1'),
-              ),
-            ],
-          ),
-          ExpansionTile(
-            title: Text('Sorulacak Soru 2'),
-            children: <Widget>[
-              ListTile(
-                title: Text('Cevabı 2'),
-              ),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        SizedBox(height: 30),
+        ExpansionTile(
+          title: Text('Sorulacak Soru 1'),
+          children: <Widget>[
+            ListTile(
+              title: Text('Cevabı 1'),
+            ),
+          ],
+        ),
+        ExpansionTile(
+          title: Text('Sorulacak Soru 2'),
+          children: <Widget>[
+            ListTile(
+              title: Text('Cevabı 2'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

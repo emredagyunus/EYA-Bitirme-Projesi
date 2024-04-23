@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_1/companents/my_drawer.dart';
 import 'package:flutter_application_1/models/complaint.dart';
-import 'package:flutter_application_1/pages/complaint_detay.dart';
+import 'package:flutter_application_1/user_pages/complaint_detail_page.dart';
 
-class AllComplaint extends StatelessWidget {
+class AllFavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Şikayetler',
+          'En Popüler Şikayetler',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
-      drawer: MyDrawer(),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('sikayet').snapshots(),
+        stream: FirebaseFirestore.instance.collection('sikayet').where('favoritesCount', isGreaterThan: 0).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -42,6 +40,8 @@ class AllComplaint extends StatelessWidget {
           List<ComplaintModel> complaints = snapshot.data!.docs.map((doc) {
             return ComplaintModel.fromFirestore(doc);
           }).toList();
+
+          complaints.sort((a, b) => b.favoritesCount.compareTo(a.favoritesCount));
 
           return ListView.builder(
             itemCount: complaints.length,

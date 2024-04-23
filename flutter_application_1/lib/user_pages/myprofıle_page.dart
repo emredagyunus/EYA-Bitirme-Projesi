@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/companents/my_drawer.dart';
-import 'package:flutter_application_1/pages/profile_edit_page.dart';
+import 'package:flutter_application_1/user_pages/profile_edit_page.dart';
 
 class MyProfilePage extends StatefulWidget {
   @override
