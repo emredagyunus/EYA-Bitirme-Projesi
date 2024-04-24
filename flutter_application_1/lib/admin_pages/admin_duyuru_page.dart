@@ -93,9 +93,9 @@ class AdminDuyuruPage extends StatelessWidget {
                 child: ListTile(
                   title: Text(duyuru.title),
                   subtitle: Text(duyuru.description),
-                  leading: duyuru.imageUrls.isNotEmpty
+                  leading: duyuru.imageURLs.isNotEmpty
                       ? Image.network(
-                          duyuru.imageUrls.first,
+                          duyuru.imageURLs.first,
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,

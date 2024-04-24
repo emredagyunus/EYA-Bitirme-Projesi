@@ -27,7 +27,7 @@ class _BlogAddState extends State<BlogAdd> {
         return;
       }
 
-      List<String> imageUrls = [];
+      List<String> imageURLs = [];
       for (File imageFile in _imageFiles) {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
         Reference reference =
@@ -35,13 +35,13 @@ class _BlogAddState extends State<BlogAdd> {
         UploadTask uploadTask = reference.putFile(imageFile);
         TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
         String imageUrl = await snapshot.ref.getDownloadURL();
-        imageUrls.add(imageUrl);
+        imageURLs.add(imageUrl);
       }
 
       await FirebaseFirestore.instance.collection('blog').add({
         'title': _titleController.text,
         'description': _descriptionController.text,
-        'imageUrls': imageUrls,
+        'imageURLs': imageURLs,
         'isVisible': false,
         'timestamp': FieldValue.serverTimestamp(),
       });

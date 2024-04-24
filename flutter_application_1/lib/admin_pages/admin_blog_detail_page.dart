@@ -23,14 +23,14 @@ class BlogDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (blog.imageUrls.isNotEmpty)
+            if (blog.imageURLs.isNotEmpty)
               Image.network(
-                blog.imageUrls.first,
+                blog.imageURLs.first,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 200,
               ),
-            if (blog.imageUrls.isEmpty)
+            if (blog.imageURLs.isEmpty)
               Image.asset(
                 'lib/images/eya/logo.png',
                 fit: BoxFit.cover,

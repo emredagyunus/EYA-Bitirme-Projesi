@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_drawer_tile.dart';
 import 'package:flutter_application_1/user_pages/aboutus_page.dart';
+import 'package:flutter_application_1/user_pages/blog_page.dart';
+import 'package:flutter_application_1/user_pages/duyuru_page.dart';
 import 'package:flutter_application_1/user_pages/iletisim_page.dart';
 import 'package:flutter_application_1/user_pages/my_complaint_page.dart';
 import 'package:flutter_application_1/user_pages/root_page.dart';
@@ -52,8 +54,26 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => AboutUsPage(),
                     ));
               }),
-          MyDrawerTile(text: "BLOG", icon: Icons.person, onTap: () {}),
-          MyDrawerTile(text: "DUYURU", icon: Icons.person, onTap: () {}),
+          MyDrawerTile(
+              text: "BLOG",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlogPage(),
+                    ));
+              }),
+          MyDrawerTile(
+              text: "DUYURU",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DuyuruPage(),
+                    ));
+              }),
           MyDrawerTile(
               text: "ŞİKAYETLERİM",
               icon: Icons.person,

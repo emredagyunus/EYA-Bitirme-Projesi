@@ -23,14 +23,14 @@ class DuyuruDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (duyuru.imageUrls.isNotEmpty)
+            if (duyuru.imageURLs.isNotEmpty)
               Image.network(
-                duyuru.imageUrls.first,
+                duyuru.imageURLs.first,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 200,
               ),
-            if (duyuru.imageUrls.isEmpty)
+            if (duyuru.imageURLs.isEmpty)
               Image.asset(
                 'lib/images/eya/logo.png',
                 fit: BoxFit.cover,

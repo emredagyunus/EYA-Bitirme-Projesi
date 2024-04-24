@@ -93,9 +93,9 @@ class AdminBlogPage extends StatelessWidget {
                 child: ListTile(
                   title: Text(blog.title),
                   subtitle: Text(blog.description),
-                  leading: blog.imageUrls.isNotEmpty
+                  leading: blog.imageURLs.isNotEmpty
                       ? Image.network(
-                          blog.imageUrls.first,
+                          blog.imageURLs.first,
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,
