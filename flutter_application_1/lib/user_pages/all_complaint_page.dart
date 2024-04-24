@@ -19,7 +19,10 @@ class AllComplaint extends StatelessWidget {
       ),
       drawer: MyDrawer(),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('sikayet').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('sikayet')
+            .where('isVisible', isEqualTo: true) 
+            .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

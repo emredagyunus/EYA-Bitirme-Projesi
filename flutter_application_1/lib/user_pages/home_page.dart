@@ -141,8 +141,7 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
-            SizedBox(
-                height: 20), // Arama çubuğu ile MyImageBox arasındaki boşluk
+            SizedBox(height: 20),
             TabBar(
               controller: _tabController,
               indicatorColor: Colors.deepPurple,
@@ -159,6 +158,7 @@ class _HomePageState extends State<HomePage>
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('sikayet')
+                        .where('isVisible', isEqualTo: true)
                         .orderBy('timestamp', descending: true)
                         .limit(5)
                         .snapshots(),
@@ -215,6 +215,7 @@ class _HomePageState extends State<HomePage>
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('sikayet')
+                        .where('isVisible', isEqualTo: true)
                         .where('favoritesCount', isGreaterThan: 0)
                         .orderBy('favoritesCount', descending: true)
                         .limit(5)

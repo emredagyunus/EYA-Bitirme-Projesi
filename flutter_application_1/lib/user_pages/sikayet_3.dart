@@ -62,6 +62,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
           'sokak': sokak,
           'timestamp': FieldValue.serverTimestamp(),
           'favoritesCount': 0,
+          'isVisible': false,
         });
         // ignore: unused_local_variable
         String docId = docRef.id;

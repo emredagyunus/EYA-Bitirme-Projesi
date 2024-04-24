@@ -17,7 +17,11 @@ class AllFavoritesPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('sikayet').where('favoritesCount', isGreaterThan: 0).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('sikayet')
+            .where('favoritesCount', isGreaterThan: 0)
+            .where('isVisible', isEqualTo: true)
+            .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -41,7 +45,8 @@ class AllFavoritesPage extends StatelessWidget {
             return ComplaintModel.fromFirestore(doc);
           }).toList();
 
-          complaints.sort((a, b) => b.favoritesCount.compareTo(a.favoritesCount));
+          complaints
+              .sort((a, b) => b.favoritesCount.compareTo(a.favoritesCount));
 
           return ListView.builder(
             itemCount: complaints.length,

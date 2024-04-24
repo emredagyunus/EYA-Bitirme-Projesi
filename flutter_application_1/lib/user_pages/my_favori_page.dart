@@ -103,7 +103,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           ilce: complaintData['ilce'],
                           mahalle: complaintData['mahalle'],
                           sokak: complaintData['sokak'],
-                          favoritesCount:complaintData['favoritesCount'], 
+                          favoritesCount: complaintData['favoritesCount'],
+                          isVisible: complaintData['isVisible'],
                         ),
                       ),
                     ),
@@ -130,7 +131,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           : complaintData['description'],
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon(
+                        Icons.favorite,
+                        color: Colors.deepPurple,
+                      ),
                       onPressed: () {
                         removeFromFavorites(complaintData['id']);
                       },

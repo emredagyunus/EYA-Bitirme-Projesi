@@ -132,7 +132,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Slider
             CarouselSlider(
               options: CarouselOptions(
                 height: MediaQuery.of(context).size.height * 0.3,

@@ -19,6 +19,7 @@ class MyComplaint extends StatelessWidget {
         stream: FirebaseFirestore.instance
             .collection('sikayet')
             .where('userID', isEqualTo: currentUserUid)
+            .where('isVisible', isEqualTo: true)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {

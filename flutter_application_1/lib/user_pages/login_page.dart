@@ -68,10 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                   //logo
                   Image(
                     image: const AssetImage("lib/images/eya/logo.png"),
-                    width: MediaQuery.of(context).size.width *
-                        0.7, // Ekran genişliğinin %80'i kadar
-                    height: MediaQuery.of(context).size.width *
-                        0.7, // Ekran genişliğinin %80'i kadar
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: MediaQuery.of(context).size.width * 0.7,
                   ),
 
                   const SizedBox(height: 25),

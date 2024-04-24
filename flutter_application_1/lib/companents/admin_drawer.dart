@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/admin_pages/admin_blog_page.dart';
+import 'package:flutter_application_1/admin_pages/admin_duyuru_page.dart';
+import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
 import 'package:flutter_application_1/companents/my_drawer_tile.dart';
-import 'package:flutter_application_1/user_pages/aboutus_page.dart';
-import 'package:flutter_application_1/user_pages/iletisim_page.dart';
-import 'package:flutter_application_1/user_pages/my_complaint_page.dart';
-import 'package:flutter_application_1/user_pages/root_page.dart';
 import 'package:flutter_application_1/user_pages/settings_page.dart';
-import 'package:flutter_application_1/user_pages/sss_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+class MyAdminDrawer extends StatelessWidget {
+  const MyAdminDrawer({super.key});
 
   void logout() {
     final authService = AuthService();
@@ -35,55 +33,30 @@ class MyDrawer extends StatelessWidget {
             text: "ANASAYFA",
             icon: Icons.home,
             onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RootPage(
-                    initialIndex: 0,
-                  ),
-                )),
+              context,
+              MaterialPageRoute(
+                builder: (context) => AdminHomePage(),
+              ),
+            ),
           ),
           MyDrawerTile(
-              text: "HAKKIMIZDA",
+              text: "Admin Blog",
               icon: Icons.person,
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AboutUsPage(),
-                    ));
-              }),
-          MyDrawerTile(text: "BLOG", icon: Icons.person, onTap: () {}),
-          MyDrawerTile(text: "DUYURU", icon: Icons.person, onTap: () {}),
-          MyDrawerTile(
-              text: "ŞİKAYETLERİM",
-              icon: Icons.person,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MyComplaint(),
+                      builder: (context) => AdminBlogPage(),
                     ));
               }),
           MyDrawerTile(
-              text: "BAĞIŞ KAMPANYALARI", icon: Icons.person, onTap: () {}),
-          MyDrawerTile(
-              text: "İLETİŞİM",
+              text: "Admin Duyuru",
               icon: Icons.person,
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => iletisimPage(),
-                    ));
-              }),
-          MyDrawerTile(
-              text: "SSS",
-              icon: Icons.person,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FAQPage(),
+                      builder: (context) => AdminDuyuruPage(),
                     ));
               }),
 
