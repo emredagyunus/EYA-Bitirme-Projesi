@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "607045222348",
+    "firebase_url": "https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "eyaapp-6595d",
+    "storage_bucket": "eyaapp-6595d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:b0907bff9a8aead59e6769",
+        "android_client_info": {
+          "package_name": "com.example.engelsizyasam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:9365607b5a8817419e6769",
+        "android_client_info": {
+          "package_name": "com.example.eyaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:0b851873f097b4b39e6769",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:d51195dcd381bd729e6769",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:6d6e55ae9027b9509e6769",
+        "android_client_info": {
+          "package_name": "com.example.grocery_shop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
