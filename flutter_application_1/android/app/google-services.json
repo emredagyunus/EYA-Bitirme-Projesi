@@ -1,13 +1,52 @@
 {
   "project_info": {
-    "project_number": "804087765930",
-    "project_id": "food-edfd7",
-    "storage_bucket": "food-edfd7.appspot.com"
+    "project_number": "607045222348",
+    "firebase_url": "https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "eyaapp-6595d",
+    "storage_bucket": "eyaapp-6595d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:804087765930:android:a74ed7617d8b79d726a9d3",
+        "mobilesdk_app_id": "1:607045222348:android:b0907bff9a8aead59e6769",
+        "android_client_info": {
+          "package_name": "com.example.engelsizyasam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:9365607b5a8817419e6769",
+        "android_client_info": {
+          "package_name": "com.example.eyaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:0b851873f097b4b39e6769",
         "android_client_info": {
           "package_name": "com.example.flutter_application_1"
         }
@@ -15,7 +54,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDMQ69NDQOeDKx48O5W5Ea3bGWbe2fwCkY"
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607045222348:android:6d6e55ae9027b9509e6769",
+        "android_client_info": {
+          "package_name": "com.example.grocery_shop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ"
         }
       ],
       "services": {

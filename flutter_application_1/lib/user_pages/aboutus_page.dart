@@ -4,7 +4,6 @@ import 'package:flutter_application_1/companents/my_image_box.dart';
 class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(

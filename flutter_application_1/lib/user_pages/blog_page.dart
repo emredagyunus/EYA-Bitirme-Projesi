@@ -19,7 +19,9 @@ class BlogPage extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('blog')
-            .where('isVisible', isEqualTo: true) 
+            .where('isVisible', isEqualTo: true)
+            .orderBy('timestamp', descending: true)
+            .limit(5)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -47,7 +49,7 @@ class BlogPage extends StatelessWidget {
           return ListView.builder(
             itemCount: blog.length,
             itemBuilder: (context, index) {
-              Blog currentBlog  = blog[index];
+              Blog currentBlog = blog[index];
 
               return GestureDetector(
                 onTap: () {

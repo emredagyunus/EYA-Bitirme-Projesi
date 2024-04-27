@@ -16,6 +16,7 @@ class AdminDuyuruPage extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white),
           bottom: TabBar(
@@ -103,7 +104,7 @@ class AdminDuyuruPage extends StatelessWidget {
                       : Image.asset(
                           'lib/images/eya/logo.png',
                           fit: BoxFit.cover,
-                          width: double.infinity,
+                          width: 100,
                           height: 200,
                         ),
                   trailing: Row(

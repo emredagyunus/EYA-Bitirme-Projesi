@@ -21,7 +21,7 @@ class AllComplaint extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('sikayet')
-            .where('isVisible', isEqualTo: true) 
+            .where('isVisible', isEqualTo: true)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

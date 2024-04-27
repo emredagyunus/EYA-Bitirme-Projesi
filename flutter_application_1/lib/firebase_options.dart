@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,54 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAKrqthgKu9Ssu9IGLjux-tS-ISb73B_tE',
-    appId: '1:804087765930:web:a4bd6153950c8c7f26a9d3',
-    messagingSenderId: '804087765930',
-    projectId: 'food-edfd7',
-    authDomain: 'food-edfd7.firebaseapp.com',
-    storageBucket: 'food-edfd7.appspot.com',
-    measurementId: 'G-GDCHXZWXJT',
+    apiKey: 'AIzaSyBgsrfrf8gf9IG3rDRH0k4JooQ3YzxKaEc',
+    appId: '1:607045222348:web:2d0699974bd738c49e6769',
+    messagingSenderId: '607045222348',
+    projectId: 'eyaapp-6595d',
+    authDomain: 'eyaapp-6595d.firebaseapp.com',
+    databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'eyaapp-6595d.appspot.com',
+    measurementId: 'G-HM8GQ2HNKH',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDMQ69NDQOeDKx48O5W5Ea3bGWbe2fwCkY',
-    appId: '1:804087765930:android:a74ed7617d8b79d726a9d3',
-    messagingSenderId: '804087765930',
-    projectId: 'food-edfd7',
-    storageBucket: 'food-edfd7.appspot.com',
+    apiKey: 'AIzaSyDXxkpOjviYjtTs96v9lbYf36YSD4nq7DQ',
+    appId: '1:607045222348:android:0b851873f097b4b39e6769',
+    messagingSenderId: '607045222348',
+    projectId: 'eyaapp-6595d',
+    databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'eyaapp-6595d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDuTxWyKdDU9tidLXvo9HOxiBprLlupqkw',
-    appId: '1:804087765930:ios:218fa0b4235e953826a9d3',
-    messagingSenderId: '804087765930',
-    projectId: 'food-edfd7',
-    storageBucket: 'food-edfd7.appspot.com',
+    apiKey: 'AIzaSyBb8mWZDHF0sKbAJ0ROsLffS1TK-HKy520',
+    appId: '1:607045222348:ios:ac23f5b9771aa9b69e6769',
+    messagingSenderId: '607045222348',
+    projectId: 'eyaapp-6595d',
+    databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'eyaapp-6595d.appspot.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDuTxWyKdDU9tidLXvo9HOxiBprLlupqkw',
-    appId: '1:804087765930:ios:7a68f6b38bc7dcda26a9d3',
-    messagingSenderId: '804087765930',
-    projectId: 'food-edfd7',
-    storageBucket: 'food-edfd7.appspot.com',
-    iosBundleId: 'com.example.flutterApplication1.RunnerTests',
+    apiKey: 'AIzaSyBb8mWZDHF0sKbAJ0ROsLffS1TK-HKy520',
+    appId: '1:607045222348:ios:ac23f5b9771aa9b69e6769',
+    messagingSenderId: '607045222348',
+    projectId: 'eyaapp-6595d',
+    databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'eyaapp-6595d.appspot.com',
+    iosBundleId: 'com.example.flutterApplication1',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBgsrfrf8gf9IG3rDRH0k4JooQ3YzxKaEc',
+    appId: '1:607045222348:web:afd74a476ddc98849e6769',
+    messagingSenderId: '607045222348',
+    projectId: 'eyaapp-6595d',
+    authDomain: 'eyaapp-6595d.firebaseapp.com',
+    databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'eyaapp-6595d.appspot.com',
+    measurementId: 'G-D0PZJZLD44',
+  );
+
 }

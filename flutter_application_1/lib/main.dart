@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/user_pages/onboarding_screen.dart';
 import 'package:flutter_application_1/firebase_options.dart';
+import 'package:flutter_application_1/user_pages/onboarding_screen.dart';
 import 'package:flutter_application_1/user_pages/root_page.dart';
 import 'package:flutter_application_1/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           }
           //user is NOT logged in
           else {
-            return const OnboardingScreen();
+            return OnboardingScreen();
           }
         },
       ),

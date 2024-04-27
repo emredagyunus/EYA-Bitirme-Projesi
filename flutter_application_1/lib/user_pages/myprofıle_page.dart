@@ -35,9 +35,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
       if (snapshot.exists) {
         Map<String, dynamic> userData = snapshot.data() as Map<String, dynamic>;
         setState(() {
-          ad = userData['name'];
-          soyad = userData['surname'];
-          telefon = userData['phone'];
+          ad = userData['name'] ?? '';
+          soyad = userData['surname'] ?? '';
+          telefon = userData['phone'] ?? '';
           mail = user!.email!;
         });
       }
@@ -62,9 +62,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        EditProfilePage()),
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
               );
             },
           ),

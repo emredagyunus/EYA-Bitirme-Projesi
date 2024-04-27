@@ -20,13 +20,6 @@ class _DuyuruAddState extends State<DuyuruAdd> {
 
   Future<void> _saveForm() async {
     try {
-      if (_imageFiles.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Lütfen bir veya daha fazla resim seçin.'),
-        ));
-        return;
-      }
-
       List<String> imageUrls = [];
       for (File imageFile in _imageFiles) {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();

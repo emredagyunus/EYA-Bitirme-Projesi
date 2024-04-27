@@ -62,58 +62,56 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   }
 
   Future<void> addToFavorites() async {
-  try {
-    User? user = FirebaseAuth.instance.currentUser;
-    String userId = user!.uid;
-    DocumentReference favoriteRef = FirebaseFirestore.instance
-        .collection('favorites')
-        .doc(userId)
-        .collection('complaints')
-        .doc(widget.complaint.id);
-
-    DocumentSnapshot favoriteDoc = await favoriteRef.get();
-
-    if (favoriteDoc.exists) {
-      await favoriteRef.delete();
-      setState(() {
-        isFavorite = false;
-        widget.complaint.favoritesCount -= 1;
-      });
-
-      await FirebaseFirestore.instance
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      String userId = user!.uid;
+      DocumentReference favoriteRef = FirebaseFirestore.instance
+          .collection('favorites')
+          .doc(userId)
           .collection('complaints')
-          .doc(widget.complaint.id)
-          .update({'favoritesCount': FieldValue.increment(-1)});
-    } else {
-      await favoriteRef.set({
-        'id': widget.complaint.id,
-        'userId': widget.complaint.userID,
-        'imageURLs': widget.complaint.imageURLs,
-        'videoURLs': widget.complaint.videoURLs,
-        'title': widget.complaint.title,
-        'timestamp': widget.complaint.timestamp,
-        'description': widget.complaint.description,
-        'il': widget.complaint.il,
-        'ilce': widget.complaint.ilce,
-        'mahalle': widget.complaint.mahalle,
-        'sokak': widget.complaint.sokak,
-        'favoritesCount': FieldValue.increment(1), 
-      });
-      setState(() {
-        isFavorite = true;
-        widget.complaint.favoritesCount += 1;
-      });
-      await FirebaseFirestore.instance
-          .collection('sikayet')
-          .doc(widget.complaint.id)
-          .update({'favoritesCount': FieldValue.increment(1)});
+          .doc(widget.complaint.id);
+
+      DocumentSnapshot favoriteDoc = await favoriteRef.get();
+
+      if (favoriteDoc.exists) {
+        await favoriteRef.delete();
+        setState(() {
+          isFavorite = false;
+          widget.complaint.favoritesCount -= 1;
+        });
+
+        await FirebaseFirestore.instance
+            .collection('complaints')
+            .doc(widget.complaint.id)
+            .update({'favoritesCount': FieldValue.increment(-1)});
+      } else {
+        await favoriteRef.set({
+          'id': widget.complaint.id,
+          'userId': widget.complaint.userID,
+          'imageURLs': widget.complaint.imageURLs,
+          'videoURLs': widget.complaint.videoURLs,
+          'title': widget.complaint.title,
+          'timestamp': widget.complaint.timestamp,
+          'description': widget.complaint.description,
+          'il': widget.complaint.il,
+          'ilce': widget.complaint.ilce,
+          'mahalle': widget.complaint.mahalle,
+          'sokak': widget.complaint.sokak,
+          'favoritesCount': FieldValue.increment(1),
+        });
+        setState(() {
+          isFavorite = true;
+          widget.complaint.favoritesCount += 1;
+        });
+        await FirebaseFirestore.instance
+            .collection('sikayet')
+            .doc(widget.complaint.id)
+            .update({'favoritesCount': FieldValue.increment(1)});
+      }
+    } catch (e) {
+      print('Favorilere eklerken hata oluştu: $e');
     }
-  } catch (e) {
-    print('Favorilere eklerken hata oluştu: $e');
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +148,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               items: _buildCarouselItems(),
             ),
             SizedBox(height: 16),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -171,7 +168,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               ],
             ),
             SizedBox(height: 8),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -187,7 +183,6 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               ],
             ),
             SizedBox(height: 16),
-
             Text(
               'Konum Bilgileri:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -254,6 +249,107 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                 ),
               ],
             ),
+            const SizedBox(height: 25),
+            Column(
+              children: [
+                Container(
+                  alignment: Alignment.bottomRight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "ilgili kurum:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 12),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '${widget.complaint.kurum}',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                Text(
+                  'Cevap:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('sikayet')
+                        .doc(widget.complaint.id)
+                        .collection('cevaplar')
+                        .orderBy('timestampkurum', descending: false)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text(
+                              'Bir hata oluştu: ${snapshot.error.toString()}'),
+                        );
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      final List<DocumentSnapshot> documents =
+                          snapshot.data!.docs;
+
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: documents.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final DocumentSnapshot document = documents[index];
+                          final data = document.data() as Map<String, dynamic>;
+
+                          DateTime timestamp =
+                              (data['timestampkurum'] as Timestamp).toDate();
+
+                          String formattedDate =
+                              '${timestamp.day}/${timestamp.month}/${timestamp.year}';
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Tarih: $formattedDate',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Kurum: ${widget.complaint.kurum}',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              Text(
+                                'Cevap: ${data['cevap']}',
+                              ),
+                              SizedBox(height: 25),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 50),
+              ],
+            ),
           ],
         ),
       ),
@@ -285,6 +381,33 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           ),
         );
       }));
+    }
+    if (widget.complaint.imageURLs.isNotEmpty) {
+      items.addAll(
+        widget.complaint.imageURLs.map((imageUrl) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              imageUrl,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.3,
+              fit: BoxFit.cover,
+            ),
+          );
+        }),
+      );
+    } else {
+      items.add(
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(
+            "lib/images/eya/logo.png",
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
     }
 
     if (_videoControllers.isNotEmpty) {

@@ -1,6 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
@@ -49,28 +47,20 @@ class _MyLocationPageState extends State<MyLocationPage> {
         mahalle.isNotEmpty &&
         sokak.isNotEmpty) {
       try {
-        var docRef =
-            await FirebaseFirestore.instance.collection('sikayet').add({
-          'title': widget.title,
-          'description': widget.description,
-          'userID': widget.userID,
-          'imageURLs': widget.imageURLs,
-          'videoURLs': widget.videoURLs,
-          'il': il,
-          'ilce': ilce,
-          'mahalle': mahalle,
-          'sokak': sokak,
-          'timestamp': FieldValue.serverTimestamp(),
-          'favoritesCount': 0,
-          'isVisible': false,
-        });
-        // ignore: unused_local_variable
-        String docId = docRef.id;
-
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ComplaintProcessedPage(),
+            builder: (context) => KurumEkle(
+              title: widget.title,
+              description: widget.description,
+              userID: widget.userID,
+              imageURLs: widget.imageURLs,
+              videoURLs: widget.videoURLs,
+              il: il,
+              ilce: ilce,
+              mahalle: mahalle,
+              sokak: sokak,
+            ),
           ),
         );
       } catch (e) {
@@ -80,7 +70,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Hata'),
-              content: Text('Şikayetler kaydedilirken bir hata oluştu.'),
+              content: Text('.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),

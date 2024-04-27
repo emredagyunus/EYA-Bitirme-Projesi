@@ -30,7 +30,7 @@ class Blog {
       id: doc.id,
       title: data['title'] ?? '',
       description: data['description'] ?? '',
-      imageURLs: List<String>.from(data['imageURLs'] ?? []),
+      imageURLs: imageURLs,
       isVisible: data['isVisible'],
       timestamp: timestamp,
       favoritesCount: data['favoritesCount'] ?? 0,

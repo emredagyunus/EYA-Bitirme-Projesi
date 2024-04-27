@@ -16,6 +16,7 @@ class AdminBlogPage extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white),
           bottom: TabBar(
@@ -103,8 +104,8 @@ class AdminBlogPage extends StatelessWidget {
                       : Image.asset(
                           'lib/images/eya/logo.png',
                           fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: 200,
+                          width: 100,
+                          height: 100,
                         ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

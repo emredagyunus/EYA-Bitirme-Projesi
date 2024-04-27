@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/admin_pages/admin_blog_page.dart';
 import 'package:flutter_application_1/admin_pages/admin_duyuru_page.dart';
 import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
+import 'package:flutter_application_1/admin_pages/admin_kurum_ekle.dart';
 import 'package:flutter_application_1/companents/my_drawer_tile.dart';
 import 'package:flutter_application_1/user_pages/settings_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
@@ -41,7 +42,7 @@ class MyAdminDrawer extends StatelessWidget {
           ),
           MyDrawerTile(
               text: "Admin Blog",
-              icon: Icons.person,
+              icon: Icons.add,
               onTap: () {
                 Navigator.push(
                     context,
@@ -51,13 +52,27 @@ class MyAdminDrawer extends StatelessWidget {
               }),
           MyDrawerTile(
               text: "Admin Duyuru",
-              icon: Icons.person,
+              icon: Icons.add,
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => AdminDuyuruPage(),
                     ));
+              }),
+          MyDrawerTile(
+              text: "Kurum Ekle",
+              icon: Icons.add,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AdminKurumKayit(
+                      onTap: null,
+                    ),
+                  ),
+                );
               }),
 
           //settings list tile

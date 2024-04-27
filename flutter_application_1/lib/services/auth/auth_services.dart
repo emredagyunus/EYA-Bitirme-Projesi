@@ -30,6 +30,23 @@ class AuthService {
     }
   }
 
+  // sign in kurum
+  Future<UserCredential> signInWithEmailPasswordKurum(
+      String email, password) async {
+    //try sign in user in
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      return userCredential;
+    }
+
+    //catch any errors
+    on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
+
   //sign up
   Future<UserCredential> signUpWithEmailPassword(
       String email, password, name, surname, phone) async {
@@ -49,9 +66,38 @@ class AuthService {
       await userDoc.set({
         'name': name,
         'surname': surname,
-        'phone': phone, 
+        'phone': phone,
         'email': email,
         'password': password,
+      });
+
+      return userCredential;
+    } catch (e) {
+      throw Exception('Sign up failed: $e');
+    }
+  }
+
+  //sign up kurum
+  Future<UserCredential> signUpWithEmailPasswordKurum(
+      String email, password, kurumname, il, ilce) async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final userDoc = FirebaseFirestore.instance
+          .collection('kurum')
+          .doc(userCredential.user!.uid);
+
+      await userDoc.set({
+        'name': kurumname,
+        'il': il,
+        'ilce': ilce,
+        'email': email,
+        'password': password,
+        'userID': userCredential.user!.uid,
       });
 
       return userCredential;

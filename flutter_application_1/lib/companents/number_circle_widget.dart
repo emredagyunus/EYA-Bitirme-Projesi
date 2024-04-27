@@ -5,21 +5,26 @@ class NumberCircleContainer extends StatelessWidget {
   final Color? backgroundColor2;
   final Color? backgroundColor3;
   final Color? backgroundColor4;
+  final Color? backgroundColor5;
   final Color? lineColor1;
   final Color? lineColor2;
   final Color? lineColor3;
   final Color? lineColor4;
+  final Color? lineColor5;
 
-  const NumberCircleContainer(
-      {super.key,
-      this.lineColor1,
-      this.lineColor2,
-      this.lineColor3,
-      this.lineColor4,
-      this.backgroundColor1,
-      this.backgroundColor2,
-      this.backgroundColor3,
-      this.backgroundColor4});
+  const NumberCircleContainer({
+    super.key,
+    this.lineColor1,
+    this.lineColor2,
+    this.lineColor3,
+    this.lineColor4,
+    this.lineColor5,
+    this.backgroundColor1,
+    this.backgroundColor2,
+    this.backgroundColor3,
+    this.backgroundColor4,
+    this.backgroundColor5,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,6 +74,16 @@ class NumberCircleContainer extends StatelessWidget {
               '4',
               style: TextStyle(
                   color: lineColor4 != null ? lineColor4 : Colors.deepPurple),
+            ),
+          ),
+          SizedBox(width: 10.0),
+          CircleAvatar(
+            backgroundColor:
+                backgroundColor5 != null ? backgroundColor5 : Colors.white,
+            child: Text(
+              '5',
+              style: TextStyle(
+                  color: lineColor5 != null ? lineColor5 : Colors.deepPurple),
             ),
           ),
         ],

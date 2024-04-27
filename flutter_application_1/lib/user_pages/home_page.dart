@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_application_1/admin_pages/admin_blog_detail_page.dart';
+import 'package:flutter_application_1/admin_pages/admin_duyuru_detail_page.dart';
 import 'package:flutter_application_1/companents/constants.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_image_box.dart';
 import 'package:flutter_application_1/companents/my_drawer.dart';
+import 'package:flutter_application_1/models/Blog.dart';
 import 'package:flutter_application_1/models/complaint.dart';
+import 'package:flutter_application_1/models/duyuru.dart';
 import 'package:flutter_application_1/user_pages/all_favorites_page.dart';
+import 'package:flutter_application_1/user_pages/blog_page.dart';
 import 'package:flutter_application_1/user_pages/complaint_detail_page.dart';
+import 'package:flutter_application_1/user_pages/duyuru_page.dart';
 import 'package:flutter_application_1/user_pages/root_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +30,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -69,6 +75,92 @@ class _HomePageState extends State<HomePage>
                 complaint.description.length > 50
                     ? '${complaint.description.substring(0, 62)}...'
                     : complaint.description,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildBlogList(List<Blog> blog) {
+    return ListView.builder(
+      itemCount: blog.length,
+      itemBuilder: (context, index) {
+        Blog blogs = blog[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlogDetailPage(
+                  blog: blogs,
+                ),
+              ),
+            );
+          },
+          child: Card(
+            margin: EdgeInsets.all(8),
+            child: ListTile(
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: blogs.imageURLs.isNotEmpty
+                    ? Image.network(
+                        blogs.imageURLs[0],
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset("lib/images/eya/logo.png"),
+              ),
+              title: Text(blogs.title),
+              subtitle: Text(
+                blogs.description.length > 50
+                    ? '${blogs.description.substring(0, 62)}...'
+                    : blogs.description,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildDuyuruList(List<Duyuru> duyuru) {
+    return ListView.builder(
+      itemCount: duyuru.length,
+      itemBuilder: (context, index) {
+        Duyuru duyurular = duyuru[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DuyuruDetailPage(
+                  duyuru: duyurular,
+                ),
+              ),
+            );
+          },
+          child: Card(
+            margin: EdgeInsets.all(8),
+            child: ListTile(
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: duyurular.imageURLs.isNotEmpty
+                    ? Image.network(
+                        duyurular.imageURLs[0],
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset("lib/images/eya/logo.png"),
+              ),
+              title: Text(duyurular.title),
+              subtitle: Text(
+                duyurular.description.length > 50
+                    ? '${duyurular.description.substring(0, 62)}...'
+                    : duyurular.description,
               ),
             ),
           ),
@@ -145,9 +237,14 @@ class _HomePageState extends State<HomePage>
             TabBar(
               controller: _tabController,
               indicatorColor: Colors.deepPurple,
+              isScrollable: true,
+              labelPadding: EdgeInsets.symmetric(horizontal: 10),
+              tabAlignment: TabAlignment.start,
               tabs: [
                 Tab(text: 'En Yeni Şikayetler'),
                 Tab(text: 'En Popüler Şikayetler'),
+                Tab(text: 'Blog'),
+                Tab(text: 'Duyuru'),
               ],
             ),
             SizedBox(height: 10),
@@ -261,6 +358,114 @@ class _HomePageState extends State<HomePage>
                                 );
                               },
                               text: "En Popüler Şikayetleri Gör",
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('blog')
+                        .where('isVisible', isEqualTo: true)
+                        .orderBy('timestamp', descending: true)
+                        .limit(5)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Bir hata oluştu.'),
+                        );
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Text('Hiç şikayet bulunamadı.'),
+                        );
+                      }
+
+                      List<Blog> blogs = snapshot.data!.docs.map((doc) {
+                        return Blog.fromFirestore(doc);
+                      }).toList();
+
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: buildBlogList(blogs),
+                          ),
+                          SizedBox(height: 10),
+                          Center(
+                            child: MyButton(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BlogPage(),
+                                  ),
+                                );
+                              },
+                              text: "blog Gör",
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      );
+                    },
+                  ),
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('duyuru')
+                        .where('isVisible', isEqualTo: true)
+                        .orderBy('timestamp', descending: true)
+                        .limit(5)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Bir hata oluştu.'),
+                        );
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Text('Hiç şikayet bulunamadı.'),
+                        );
+                      }
+
+                      List<Duyuru> duyurular = snapshot.data!.docs.map((doc) {
+                        return Duyuru.fromFirestore(doc);
+                      }).toList();
+
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: buildDuyuruList(duyurular),
+                          ),
+                          SizedBox(height: 10),
+                          Center(
+                            child: MyButton(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DuyuruPage(),
+                                  ),
+                                );
+                              },
+                              text: "Duyurular",
                             ),
                           ),
                           SizedBox(height: 10),

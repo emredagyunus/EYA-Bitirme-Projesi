@@ -14,6 +14,11 @@ class ComplaintModel {
   final String sokak;
   late int favoritesCount;
   late bool isVisible;
+  late bool islemDurumu;
+  late bool cozuldumu;
+  final String kurum;
+
+  final String cevap;
 
   ComplaintModel({
     required this.id,
@@ -28,7 +33,11 @@ class ComplaintModel {
     required this.mahalle,
     required this.sokak,
     required this.favoritesCount,
+    required this.kurum,
     required this.isVisible,
+    required this.islemDurumu,
+    required this.cozuldumu,
+    required this.cevap,
   });
 
   factory ComplaintModel.fromFirestore(DocumentSnapshot doc) {
@@ -62,7 +71,11 @@ class ComplaintModel {
       mahalle: data['mahalle'] ?? '',
       sokak: data['sokak'] ?? '',
       favoritesCount: data['favoritesCount'] ?? 0,
-      isVisible: data['isVisible'],
+      isVisible: data['isVisible'] ?? false,
+      islemDurumu: data['islemDurumu'] ?? false,
+      cozuldumu: data['cozuldumu'] ?? false,
+      kurum: data['kurum'] ?? '',
+      cevap: data['cevap'] ?? '',
     );
   }
 }
