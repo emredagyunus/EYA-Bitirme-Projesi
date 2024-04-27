@@ -28,7 +28,7 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
-      body: SingleChildScrollView( // SingleChildScrollView kullanarak ekranı kaydırılabilir yapın
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -40,7 +40,7 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
               ],
             ),
             Container(
-              height: MediaQuery.of(context).size.height - kToolbarHeight - 50, // Ekran yüksekliğini alarak içeriği klavye boyutuna göre ayarlayın
+              height: MediaQuery.of(context).size.height - kToolbarHeight - 50, 
               child: TabBarView(
                 controller: _tabController,
                 children: [

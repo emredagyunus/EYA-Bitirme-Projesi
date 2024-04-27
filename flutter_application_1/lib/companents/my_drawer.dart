@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_drawer_tile.dart';
 import 'package:flutter_application_1/user_pages/aboutus_page.dart';
 import 'package:flutter_application_1/user_pages/blog_page.dart';
+import 'package:flutter_application_1/user_pages/donation_page.dart';
 import 'package:flutter_application_1/user_pages/duyuru_page.dart';
 import 'package:flutter_application_1/user_pages/iletisim_page.dart';
 import 'package:flutter_application_1/user_pages/my_complaint_page.dart';
@@ -85,7 +86,15 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BAĞIŞ KAMPANYALARI", icon: Icons.person, onTap: () {}),
+              text: "BAĞIŞ KAMPANYALARI",
+              icon: Icons.person,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DonationPage(),
+                    ));
+              }),
           MyDrawerTile(
               text: "İLETİŞİM",
               icon: Icons.person,
