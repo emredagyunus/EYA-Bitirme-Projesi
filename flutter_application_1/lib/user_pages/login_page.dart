@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/user_pages/forgot_password_page.dart';
@@ -28,10 +29,19 @@ class _LoginPageState extends State<LoginPage> {
 
     //try sign in
     try {
-      await _authService.signInWithEmailPassword(
-        emailController.text,
-        passwordController.text,
-      );
+      if (emailController.text == 'eya@admin.com' &&
+          passwordController.text == 'admin12345') {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdminHomePage(),
+            ));
+      } else {
+        await _authService.signInWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+        );
+      }
     }
 
     // display any errors

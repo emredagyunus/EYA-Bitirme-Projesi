@@ -32,6 +32,7 @@ class _ImageAddState extends State<ImageAdd> {
   List<File?> videos = [];
   final picker = ImagePicker();
   late VideoPlayerController _controller;
+  bool _uploading = false;
 
   @override
   void initState() {
@@ -64,6 +65,9 @@ class _ImageAddState extends State<ImageAdd> {
   }
 
   Future<void> _uploadFiles() async {
+    setState(() {
+      _uploading = true;
+    });
     List<String> imageURLs = [];
     List<String> videoURLs = [];
 
@@ -103,7 +107,9 @@ class _ImageAddState extends State<ImageAdd> {
     } else {
       _controller = VideoPlayerController.file(File(''));
     }
-
+    setState(() {
+      _uploading = false;
+    });
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -227,6 +233,10 @@ class _ImageAddState extends State<ImageAdd> {
                               ),
                             ),
                           ),
+                          if (_uploading)
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
                         ],
                       );
                     } else {
@@ -279,6 +289,10 @@ class _ImageAddState extends State<ImageAdd> {
                               ),
                             ),
                           ),
+                          if (_uploading)
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
                         ],
                       );
                     }

@@ -145,6 +145,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
       _currentPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       _getAddressFromLatLng();
+       _onFindLocation();
     } catch (e) {
       print(e);
     }
@@ -186,7 +187,9 @@ class _MyLocationPageState extends State<MyLocationPage> {
     setState(() {
       mapController = controller;
     });
+    _onFindLocation();
   }
+  
 
   // ignore: unused_element
   void _onFindLocation() {
