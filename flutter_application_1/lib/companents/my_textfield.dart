@@ -8,6 +8,7 @@ class MyTextField extends StatelessWidget {
   final TextInputType? inputType;
   final int? maxLines;
   final TextAlign? textAlign;
+  final Widget? suffixIcon;
 
   const MyTextField({
     Key? key,
@@ -18,6 +19,7 @@ class MyTextField extends StatelessWidget {
     this.inputType,
     this.maxLines,
     this.textAlign,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -49,7 +51,8 @@ class MyTextField extends StatelessWidget {
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
           labelText: hintText,
 
-          prefixIcon: icon, 
+          prefixIcon: icon,
+          suffixIcon: suffixIcon, 
         ),
         textAlign: textAlign ?? TextAlign.start,
       ),

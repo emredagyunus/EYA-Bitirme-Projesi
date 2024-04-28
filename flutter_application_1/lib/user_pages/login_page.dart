@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/user_pages/forgot_password_page.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
+  bool _obscureText = true;
+
   // login method
   void login() async {
     //get instance of auth services
@@ -26,19 +28,10 @@ class _LoginPageState extends State<LoginPage> {
 
     //try sign in
     try {
-      if (emailController.text == 'eya@admin.com' &&
-          passwordController.text == 'admin12345') {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdminHomePage(),
-            ));
-      } else {
-        await _authService.signInWithEmailPassword(
-          emailController.text,
-          passwordController.text,
-        );
-      }
+      await _authService.signInWithEmailPassword(
+        emailController.text,
+        passwordController.text,
+      );
     }
 
     // display any errors
@@ -98,19 +91,28 @@ class _LoginPageState extends State<LoginPage> {
                   //email textfield
                   MyTextField(
                     controller: emailController,
-                    hintText: "Email",
+                    hintText: "E-posta",
                     obscureText: false,
-                    icon: const Icon(Icons.mail),
+                    icon: const Icon(UniconsLine.envelope),
                   ),
 
                   const SizedBox(height: 10),
                   //password textfield
                   MyTextField(
-                    controller: passwordController,
-                    hintText: "Şifre",
-                    obscureText: true,
-                    icon: const Icon(Icons.password),
-                  ),
+                      controller: passwordController,
+                      hintText: "Şifre",
+                      obscureText: _obscureText,
+                      icon: const Icon(UniconsLine.lock_alt),
+                      suffixIcon: IconButton(
+                        icon: Icon(_obscureText
+                            ? UniconsLine.eye
+                            : UniconsLine.eye_slash),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      )),
 
                   const SizedBox(height: 10),
                   //sign in button
@@ -152,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Üye degil misin?",
+                        "Üye değil misin?",
                         style: TextStyle(
                             color:
                                 Theme.of(context).colorScheme.inversePrimary),
@@ -161,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                       GestureDetector(
                         onTap: widget.onTap,
                         child: Text(
-                          "Hemen üye ol!",
+                          "Hemen kaydol!",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.inversePrimary,
                             fontWeight: FontWeight.bold,

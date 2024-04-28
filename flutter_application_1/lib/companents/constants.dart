@@ -7,10 +7,10 @@ class Constants {
 
   //Onboarding texts
   static var titleOne = "EYA'ya Hoş Geldiniz";
-  static var descriptionOne = "EYA ile engelli vatandaşlarımıza yardımcı olun";
+  static var descriptionOne = "EYA ile engelli bireylere yardımcı olun";
   static var titleTwo = "Sessiz Kalmayın";
-  static var descriptionTwo = "Yapılan haksızlıklara sessiz kalmayın";
+  static var descriptionTwo = "Olumsuzluklara karşı sessiz kalmayın";
   static var titleThree = "EYA Platformu";
   static var descriptionThree =
-      "EYA platformu engellı vatandaşlarımızın sesi olmak için burda";
+      "EYA platformu engelli bireylerin sesi olmak için burada";
 }

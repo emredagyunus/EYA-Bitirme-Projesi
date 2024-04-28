@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -24,6 +25,44 @@ class _RegisterState extends State<RegisterPage> {
   //register method
   void register() async {
     final _authService = AuthService();
+
+    // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
+    if (nameController.text.isEmpty ||
+        surnameController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        confirmPasswordController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Lütfen gerekli tüm bilgileri gir!"),
+        ),
+      );
+      return; // Bilgiler eksik olduğu için fonksiyonu sonlandır
+    }
+
+    // Telefon numarasının geçerli olup olmadığını kontrol et
+    if (!isValidPhoneNumber(phoneController.text)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Lütfen geçerli bir telefon numarası gir!"),
+        ),
+      );
+      return; // Geçerli bir telefon numarası girilmediği için fonksiyonu sonlandır
+    }
+
+    // E-posta adresinin geçerli olup olmadığını kontrol et
+    if (!isValidEmail(emailController.text)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Lütfen geçerli bir e-posta adresi gir!"),
+        ),
+      );
+      return; // Geçerli bir e-posta adresi girilmediği için fonksiyonu sonlandır
+    }
 
     //check password -> creat user
     if (passwordController.text == confirmPasswordController.text) {
@@ -52,7 +91,7 @@ class _RegisterState extends State<RegisterPage> {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
-          title: Text("Password dont match!"),
+          title: Text("Şifreler eşleşmiyor, tekrar dene!"),
         ),
       );
     }
@@ -79,7 +118,7 @@ class _RegisterState extends State<RegisterPage> {
 
                   //message, app slogan
                   Text(
-                    "Kayıt Ol",
+                    "Kaydol",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -90,31 +129,31 @@ class _RegisterState extends State<RegisterPage> {
                   const SizedBox(height: 25),
                   MyTextField(
                     controller: nameController,
-                    hintText: "İsim",
+                    hintText: "Ad",
                     obscureText: false,
-                    icon: Icon(Icons.book),
+                    icon: Icon(UniconsLine.user),
                   ),
                   const SizedBox(height: 10),
                   MyTextField(
                     controller: surnameController,
-                    hintText: "Soyisim",
+                    hintText: "Soyad",
                     obscureText: false,
-                    icon: Icon(Icons.book),
+                    icon: Icon(UniconsLine.user),
                   ),
                   const SizedBox(height: 10),
                   MyTextField(
                     controller: phoneController,
                     hintText: "Telefon",
                     obscureText: false,
-                    icon: Icon(Icons.phone),
+                    icon: Icon(UniconsLine.phone),
                   ),
                   const SizedBox(height: 10),
                   //email textfield
                   MyTextField(
                     controller: emailController,
-                    hintText: "Email",
+                    hintText: "E-posta",
                     obscureText: false,
-                    icon: Icon(Icons.mail),
+                    icon: Icon(UniconsLine.envelope),
                   ),
 
                   const SizedBox(height: 10),
@@ -123,7 +162,7 @@ class _RegisterState extends State<RegisterPage> {
                     controller: passwordController,
                     hintText: "Şifre",
                     obscureText: false,
-                    icon: Icon(Icons.password),
+                    icon: Icon(UniconsLine.lock_alt),
                   ),
 
                   const SizedBox(height: 10),
@@ -131,16 +170,16 @@ class _RegisterState extends State<RegisterPage> {
                   //confirm password textfield
                   MyTextField(
                     controller: confirmPasswordController,
-                    hintText: "Şifre tekrar",
+                    hintText: "Şifreyi onayla",
                     obscureText: false,
-                    icon: Icon(Icons.password),
+                    icon: Icon(UniconsLine.lock_alt),
                   ),
 
                   const SizedBox(height: 10),
                   //sign up button
                   MyButton(
                     onTap: register,
-                    text: "Kayıt Ol",
+                    text: "Kaydol",
                   ),
 
                   const SizedBox(height: 25),
@@ -174,5 +213,17 @@ class _RegisterState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  // Telefon numarasının geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidPhoneNumber(String phoneNumber) {
+    RegExp regex = RegExp(r'^0\d{10}$');
+    return regex.hasMatch(phoneNumber);
+  }
+
+  // E-posta adresinin geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidEmail(String email) {
+    RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return regex.hasMatch(email);
   }
 }

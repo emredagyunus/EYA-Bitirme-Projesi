@@ -5,6 +5,7 @@ import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/user_pages/login_page.dart';
 import 'package:flutter_application_1/services/auth/login_or_register.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:unicons/unicons.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -50,10 +51,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: const Text(
-                  'Sifremi\nUnuttum',
+                  'Şifremi\nUnuttum',
                   style: TextStyle(
                     fontSize: 35.0,
                     fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: const Text(
+                  "Şifreni değiştirmek için\nhesabınla ilişkilendirilmiş\ne-posta adresini gir.",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
                   ),
                 ),
               ),
@@ -63,8 +74,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               MyTextField(
                 controller: emailController,
                 obscureText: false,
-                hintText: 'Mail',
-                icon: Icon(Icons.alternate_email),
+                hintText: 'E-posta',
+                icon: Icon(UniconsLine.envelope),
               ),
               SizedBox(
                 height: 20,
