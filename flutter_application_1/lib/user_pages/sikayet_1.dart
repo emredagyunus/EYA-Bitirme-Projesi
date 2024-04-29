@@ -4,6 +4,7 @@ import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/companents/number_circle_widget.dart';
 import 'package:flutter_application_1/user_pages/sikayet_2.dart';
+import 'package:unicons/unicons.dart';
 
 class SikayetIlkPage extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
@@ -18,8 +19,11 @@ class SikayetIlkPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Hata'),
-            content: Text('Başlık veya açıklama boş olamaz.'),
+            title: Text(
+              'Hata',
+              textAlign: TextAlign.center,
+            ),
+            content: Text('Şikayet başlığı veya detayı boş olamaz!'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -54,21 +58,24 @@ class SikayetIlkPage extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Emin misiniz?'),
-              content:
-                  Text('Şikayeti iptal etmek istediğinizden emin misiniz?'),
+              title: Text(
+                'Emin misiniz?',
+                textAlign: TextAlign.center,
+              ),
+              content: Text(
+                  'Şikayet oluşturmayı iptal etmek istediğinizden emin misiniz?'),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text('Hayır'),
-                ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('Hayır'),
                 ),
               ],
             );
@@ -78,7 +85,7 @@ class SikayetIlkPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Şikayet Oluşturma Sayfası',
+            'Şikayet Oluştur',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
@@ -101,21 +108,21 @@ class SikayetIlkPage extends StatelessWidget {
               SizedBox(height: 10.0),
               MyTextField(
                 controller: titleController,
-                hintText: 'Şikayet Başlığı',
+                hintText: 'Başlık',
                 obscureText: false,
-                icon: Icon(Icons.title),
+                icon: Icon(UniconsLine.subject),
               ),
               SizedBox(height: 10.0),
               Text(
-                'Şikayetiniz',
+                'Şikayet Detayı',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20.0),
               MyTextField(
                 controller: descriptionController,
-                hintText: 'Şikayetinizin detaylarını buraya yazınız...',
+                hintText: 'Detay',
                 obscureText: false,
-                icon: Icon(Icons.read_more),
+                icon: Icon(UniconsLine.bars),
                 maxLines: 10,
               ),
               SizedBox(
@@ -125,7 +132,7 @@ class SikayetIlkPage extends StatelessWidget {
                 onTap: () {
                   addSikayetToFirestore(context);
                 },
-                text: "devam et",
+                text: "Devam Et",
               ),
               SizedBox(
                 height: 130,

@@ -68,7 +68,7 @@ class DonationPage extends StatelessWidget {
               width: 10,
             ),
             const Text(
-              'Bağış Sayfası',
+              'Bağış Kampanyaları',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 30,

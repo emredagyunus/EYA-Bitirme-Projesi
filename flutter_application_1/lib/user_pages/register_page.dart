@@ -197,7 +197,7 @@ class _RegisterState extends State<RegisterPage> {
                       GestureDetector(
                         onTap: widget.onTap,
                         child: Text(
-                          "Hemen giriş yap...",
+                          "Hemen giriş yap!",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.inversePrimary,
                             fontWeight: FontWeight.bold,

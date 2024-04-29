@@ -7,6 +7,7 @@ import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:unicons/unicons.dart';
 
 class DuyuruAdd extends StatefulWidget {
   @override
@@ -121,16 +122,16 @@ class _DuyuruAddState extends State<DuyuruAdd> {
               SizedBox(height: 20),
               MyTextField(
                 controller: _titleController,
-                hintText: 'Duyuru Basligi',
+                hintText: 'Duyuru Başlığı',
                 obscureText: false,
-                icon: Icon(Icons.add),
+                icon: Icon(UniconsLine.subject),
               ),
               SizedBox(height: 10),
               MyTextField(
                 controller: _descriptionController,
-                hintText: 'Duyuru Yaziniz',
+                hintText: 'Duyuru Metni',
                 obscureText: false,
-                icon: Icon(Icons.add),
+                icon: Icon(UniconsLine.bars),
               ),
               SizedBox(height: 20),
               MyButton(

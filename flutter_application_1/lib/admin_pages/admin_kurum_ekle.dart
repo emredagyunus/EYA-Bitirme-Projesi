@@ -3,6 +3,7 @@ import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class AdminKurumKayit extends StatefulWidget {
   final void Function()? onTap;
@@ -69,7 +70,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Kurum ekle',
+          'Kurum Ekle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -92,31 +93,31 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
 
                 MyTextField(
                   controller: kurumNameController,
-                  hintText: "Kurum Ismi",
+                  hintText: "Kurum Adı",
                   obscureText: false,
-                  icon: Icon(Icons.book),
+                  icon: Icon(UniconsLine.university),
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
                   controller: ilController,
-                  hintText: "il",
+                  hintText: "İl",
                   obscureText: false,
-                  icon: Icon(Icons.book),
+                  icon: Icon(UniconsLine.location_point),
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
                   controller: ilceController,
-                  hintText: "ilce",
+                  hintText: "İlçe",
                   obscureText: false,
-                  icon: Icon(Icons.add),
+                  icon: Icon(UniconsLine.location_point),
                 ),
                 const SizedBox(height: 10),
                 //email textfield
                 MyTextField(
                   controller: emailController,
-                  hintText: "Email",
+                  hintText: "E-posta",
                   obscureText: false,
-                  icon: Icon(Icons.mail),
+                  icon: Icon(UniconsLine.envelope),
                 ),
 
                 const SizedBox(height: 10),
@@ -125,7 +126,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                   controller: passwordController,
                   hintText: "Şifre",
                   obscureText: false,
-                  icon: Icon(Icons.password),
+                  icon: Icon(UniconsLine.lock_alt),
                 ),
 
                 const SizedBox(height: 10),
@@ -133,16 +134,16 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                 //confirm password textfield
                 MyTextField(
                   controller: confirmPasswordController,
-                  hintText: "Şifre tekrar",
+                  hintText: "Şifreyi onayla",
                   obscureText: false,
-                  icon: Icon(Icons.password),
+                  icon: Icon(UniconsLine.lock_alt),
                 ),
 
                 const SizedBox(height: 20),
                 //sign up button
                 MyButton(
                   onTap: register,
-                  text: "Kurum Ekle",
+                  text: "Ekle",
                 ),
               ],
             ),

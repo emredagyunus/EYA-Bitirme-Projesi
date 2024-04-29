@@ -14,6 +14,7 @@ import 'package:flutter_application_1/user_pages/blog_page.dart';
 import 'package:flutter_application_1/user_pages/complaint_detail_page.dart';
 import 'package:flutter_application_1/user_pages/duyuru_page.dart';
 import 'package:flutter_application_1/user_pages/root_page.dart';
+import 'package:unicons/unicons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -185,7 +186,7 @@ class _HomePageState extends State<HomePage>
         actions: [
           IconButton(
             icon: Icon(
-              Icons.notifications,
+              UniconsLine.bell,
               color: Colors.white,
             ),
             onPressed: () {},
@@ -223,11 +224,11 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.search),
+                    icon: Icon(UniconsLine.search),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(Icons.mic),
+                    icon: Icon(UniconsLine.microphone),
                     onPressed: () {},
                   ),
                 ],
@@ -301,7 +302,7 @@ class _HomePageState extends State<HomePage>
                                   ),
                                 );
                               },
-                              text: "Tum Sikayetleri gor",
+                              text: "Tüm Şikayetleri Gör",
                             ),
                           ),
                           SizedBox(height: 10),
@@ -411,7 +412,7 @@ class _HomePageState extends State<HomePage>
                                   ),
                                 );
                               },
-                              text: "blog Gör",
+                              text: "Tüm Blog Yazılarını Gör",
                             ),
                           ),
                           SizedBox(height: 10),
@@ -465,7 +466,7 @@ class _HomePageState extends State<HomePage>
                                   ),
                                 );
                               },
-                              text: "Duyurular",
+                              text: "Tüm Duyuruları Gör",
                             ),
                           ),
                           SizedBox(height: 10),

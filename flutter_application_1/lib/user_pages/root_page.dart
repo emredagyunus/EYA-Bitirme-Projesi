@@ -7,6 +7,7 @@ import 'package:flutter_application_1/user_pages/my_favori_page.dart';
 import 'package:flutter_application_1/user_pages/myprof%C4%B1le_page.dart';
 import 'package:flutter_application_1/user_pages/sikayet_1.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:unicons/unicons.dart';
 
 class RootPage extends StatefulWidget {
   final int? initialIndex;
@@ -37,10 +38,10 @@ class _RootPageState extends State<RootPage> {
 
   //List of the pages icons
   List<IconData> iconList = [
-    Icons.home,
-    Icons.favorite,
-    Icons.read_more,
-    Icons.person,
+    UniconsLine.estate,
+    UniconsLine.heart_alt,
+    UniconsLine.sort_amount_down,
+    UniconsLine.user,
   ];
 
   //List of the pages titles

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/companents/my_drawer.dart';
 import 'package:flutter_application_1/user_pages/profile_edit_page.dart';
+import 'package:unicons/unicons.dart';
 
 class MyProfilePage extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: Icon(UniconsLine.edit_alt),
             onPressed: () {
               Navigator.push(
                 context,

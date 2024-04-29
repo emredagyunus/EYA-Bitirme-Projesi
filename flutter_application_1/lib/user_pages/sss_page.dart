@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
+import 'package:unicons/unicons.dart';
 
 class FAQPage extends StatefulWidget {
   @override
@@ -109,34 +110,34 @@ class FeedbackForm extends StatelessWidget {
               children: <Widget>[
                 MyTextField(
                   controller: TextEditingController(),
-                  hintText: 'adiniz',
+                  hintText: 'Ad',
                   obscureText: false,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.user),
                 ),
                 SizedBox(height: 10),
                 MyTextField(
                   controller: TextEditingController(),
-                  hintText: 'soyad',
+                  hintText: 'Soyad',
                   obscureText: false,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.user),
                 ),
                 SizedBox(height: 10),
                 MyTextField(
                   controller: TextEditingController(),
-                  hintText: 'Email',
+                  hintText: 'E-posta',
                   obscureText: false,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.envelope),
                 ),
                 SizedBox(height: 10),
                 MyTextField(
                   controller: TextEditingController(),
-                  hintText: 'Sorunuz..',
+                  hintText: 'Mesaj',
                   obscureText: false,
                   maxLines: 4,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.bars),
                 ),
                 SizedBox(height: 50),
-                MyButton(text: "Gonder")
+                MyButton(text: "Gönder")
               ],
             ),
           ),

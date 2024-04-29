@@ -11,7 +11,7 @@ class MyComplaint extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Şikayetler'),
+        title: Text('Şikayetlerim'),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),

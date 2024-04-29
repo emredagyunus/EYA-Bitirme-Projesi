@@ -3,6 +3,7 @@ import 'package:flutter_application_1/companents/my_button.dart';
 import 'package:flutter_application_1/companents/my_image_box.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:unicons/unicons.dart';
 
 class iletisimPage extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class iletisimPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Iletisim',
+          'İletişim',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -37,15 +38,15 @@ class iletisimPage extends StatelessWidget {
                     controller: TextEditingController(),
                     obscureText: false,
                     hintText: 'Ad Soyad',
-                    icon: Icon(Icons.text_decrease),
+                    icon: Icon(UniconsLine.user),
                   ),
                 ),
                 Expanded(
                   child: MyTextField(
                     controller: TextEditingController(),
                     obscureText: false,
-                    hintText: 'Telefon Numarasi',
-                    icon: Icon(Icons.text_decrease),
+                    hintText: 'Telefon',
+                    icon: Icon(UniconsLine.phone),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -59,8 +60,8 @@ class iletisimPage extends StatelessWidget {
                   child: MyTextField(
                     controller: TextEditingController(),
                     obscureText: false,
-                    hintText: 'Mail Adresiniz..',
-                    icon: Icon(Icons.text_decrease),
+                    hintText: 'E-posta',
+                    icon: Icon(UniconsLine.envelope),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -74,8 +75,8 @@ class iletisimPage extends StatelessWidget {
                   child: MyTextField(
                     controller: TextEditingController(),
                     obscureText: false,
-                    hintText: 'Mesajınız...',
-                    icon: Icon(Icons.text_decrease),
+                    hintText: 'Mesaj',
+                    icon: Icon(UniconsLine.bars),
                     textAlign: TextAlign.center,
                     maxLines: 5,
                   ),
@@ -84,7 +85,7 @@ class iletisimPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             MyButton(
-              text: "Gonder",
+              text: "Gönder",
               onTap: () {},
             ),
             SizedBox(height: 16),

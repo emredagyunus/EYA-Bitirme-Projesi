@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/companents/my_textfield.dart';
+import 'package:unicons/unicons.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: Icon(UniconsLine.save),
             onPressed: () {
               _updateUserData();
             },
@@ -97,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   controller: adController,
                   hintText: 'Ad',
                   obscureText: false,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.user),
                 ),
               ],
             ),
@@ -118,7 +119,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   controller: soyadController,
                   hintText: 'Soyad',
                   obscureText: false,
-                  icon: Icon(Icons.person),
+                  icon: Icon(UniconsLine.user),
                 ),
               ],
             ),
@@ -139,7 +140,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   controller: telefonController,
                   hintText: 'Telefon',
                   obscureText: false,
-                  icon: Icon(Icons.phone),
+                  icon: Icon(UniconsLine.phone),
                 ),
               ],
             ),

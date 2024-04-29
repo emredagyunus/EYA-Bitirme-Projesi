@@ -82,7 +82,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
               MyButton(
                 onTap: passwordReset,
-                text: "Devam et",
+                text: "Devam Et",
               ),
               const SizedBox(height: 15),
               GestureDetector(
@@ -103,7 +103,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                       TextSpan(
-                        text: 'Giriş yap',
+                        text: 'Giriş yap!',
                         style: TextStyle(
                           color: Colors.deepPurple,
                         ),

@@ -322,7 +322,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               ),
               const SizedBox(height: 15),
               MyButton(
-                text: 'Gonder',
+                text: 'Gönder',
                 onTap: submitComplaints,
               ),
             ],
