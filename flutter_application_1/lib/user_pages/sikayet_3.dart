@@ -12,6 +12,7 @@ class MyLocationPage extends StatefulWidget {
   final String title;
   final String description;
   final String userID;
+  final String userName;
   final List<String> imageURLs;
   final List<String> videoURLs;
 
@@ -19,6 +20,7 @@ class MyLocationPage extends StatefulWidget {
     required this.title,
     required this.description,
     required this.userID,
+    required this.userName,
     required this.imageURLs,
     required this.videoURLs,
   });
@@ -54,6 +56,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               title: widget.title,
               description: widget.description,
               userID: widget.userID,
+              userName:widget.userName,
               imageURLs: widget.imageURLs,
               videoURLs: widget.videoURLs,
               il: il,

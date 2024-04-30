@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/admin_pages/admin_blog_add.dart';
 import 'package:flutter_application_1/admin_pages/admin_blog_detail_page.dart';
+import 'package:flutter_application_1/companents/admin_drawer.dart';
 import 'package:flutter_application_1/models/Blog.dart';
 
 class AdminBlogPage extends StatelessWidget {
@@ -16,7 +17,6 @@ class AdminBlogPage extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
-          automaticallyImplyLeading: false,
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white),
           bottom: TabBar(
@@ -26,6 +26,7 @@ class AdminBlogPage extends StatelessWidget {
             ],
           ),
         ),
+        drawer: MyAdminDrawer(),
         body: TabBarView(
           children: [
             _buildBlogList(context, isVisible: true),

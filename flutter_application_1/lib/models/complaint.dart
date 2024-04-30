@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ComplaintModel {
   final String id;
   final String userID;
+  final String userName;
   final List<String> imageURLs;
   final List<String> videoURLs;
   final String title;
@@ -23,6 +24,7 @@ class ComplaintModel {
   ComplaintModel({
     required this.id,
     required this.userID,
+    required this.userName,
     required this.imageURLs,
     required this.videoURLs,
     required this.title,
@@ -61,6 +63,7 @@ class ComplaintModel {
     return ComplaintModel(
       id: doc.id,
       userID: data['userID'] ?? '',
+      userName: data['userName'] ?? '',
       imageURLs: imageURLs,
       videoURLs: videoURLs,
       title: data['title'] ?? '',

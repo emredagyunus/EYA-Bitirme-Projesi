@@ -21,12 +21,10 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   bool _obscureText = true;
-
   // login method
   void login() async {
     //get instance of auth services
     final _authService = AuthService();
-
     //try sign in
     try {
       if (emailController.text == 'eya@admin.com' &&

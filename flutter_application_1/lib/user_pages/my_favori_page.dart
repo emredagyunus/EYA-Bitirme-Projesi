@@ -92,6 +92,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         complaint: ComplaintModel(
                           id: complaintData['id'],
                           userID: complaintData['userId'],
+                          userName: complaintData['userName'],
                           imageURLs:
                               List<String>.from(complaintData['imageURLs']),
                           videoURLs:

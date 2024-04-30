@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/companents/my_button.dart';
@@ -11,9 +12,20 @@ class SikayetIlkPage extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
 
   Future<void> addSikayetToFirestore(BuildContext context) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
     String? userID = user?.uid;
 
+    Future<String> getName() async {
+      DocumentSnapshot documentSnapshot =
+          await _firestore.collection('users').doc(userID).get();
+
+      String veri = documentSnapshot.get('name');
+
+      return veri;
+    }
+
+    
     if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
       showDialog(
         context: context,
@@ -43,6 +55,7 @@ class SikayetIlkPage extends StatelessWidget {
             title: titleController.text,
             description: descriptionController.text,
             userID: userID!,
+            userName: getName().toString(),
           ),
         ),
       );

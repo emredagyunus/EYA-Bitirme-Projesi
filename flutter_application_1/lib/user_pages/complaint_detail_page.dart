@@ -79,9 +79,8 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           isFavorite = false;
           widget.complaint.favoritesCount -= 1;
         });
-
         await FirebaseFirestore.instance
-            .collection('complaints')
+            .collection('sikayet')
             .doc(widget.complaint.id)
             .update({'favoritesCount': FieldValue.increment(-1)});
       } else {
@@ -171,9 +170,29 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Şikayet Açıklaması:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Şikayet Açıklaması:',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Kullanıcı:",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          widget.complaint.userName,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(height: 8),
                 Text(

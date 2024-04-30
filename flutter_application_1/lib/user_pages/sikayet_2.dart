@@ -14,6 +14,7 @@ class ImageAdd extends StatefulWidget {
   final String title;
   final String description;
   final String userID;
+  final String userName;
 
   ImageAdd({
     Key? key,
@@ -21,6 +22,7 @@ class ImageAdd extends StatefulWidget {
     required this.title,
     required this.description,
     required this.userID,
+    required this.userName,
   }) : super(key: key);
 
   @override
@@ -119,6 +121,7 @@ class _ImageAddState extends State<ImageAdd> {
           userID: widget.userID,
           imageURLs: imageURLs,
           videoURLs: videoURLs,
+          userName: widget.userName,
         ),
       ),
     );
