@@ -62,7 +62,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profil Düzenle',
+          'Profilini Düzenle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -99,6 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   hintText: 'Ad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
+                  maxLines: 1,
                 ),
               ],
             ),
@@ -120,6 +121,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   hintText: 'Soyad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
+                  maxLines: 1,
                 ),
               ],
             ),
@@ -141,6 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   hintText: 'Telefon',
                   obscureText: false,
                   icon: Icon(UniconsLine.phone),
+                  maxLines: 1,
                 ),
               ],
             ),

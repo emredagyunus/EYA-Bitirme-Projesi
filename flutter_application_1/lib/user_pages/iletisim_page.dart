@@ -39,6 +39,7 @@ class iletisimPage extends StatelessWidget {
                     obscureText: false,
                     hintText: 'Ad Soyad',
                     icon: Icon(UniconsLine.user),
+                    maxLines: 1,
                   ),
                 ),
                 Expanded(
@@ -48,6 +49,7 @@ class iletisimPage extends StatelessWidget {
                     hintText: 'Telefon',
                     icon: Icon(UniconsLine.phone),
                     textAlign: TextAlign.center,
+                    maxLines: 1,
                   ),
                 ),
               ],
@@ -60,9 +62,10 @@ class iletisimPage extends StatelessWidget {
                   child: MyTextField(
                     controller: TextEditingController(),
                     obscureText: false,
-                    hintText: 'E-posta',
+                    hintText: 'E-Posta',
                     icon: Icon(UniconsLine.envelope),
                     textAlign: TextAlign.center,
+                    maxLines: 1,
                   ),
                 ),
               ],

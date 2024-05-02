@@ -125,6 +125,7 @@ class _BlogAddState extends State<BlogAdd> {
                 hintText: 'Blog Başlığı',
                 obscureText: false,
                 icon: Icon(UniconsLine.subject),
+                maxLines: 1,
               ),
               SizedBox(height: 10),
               MyTextField(
@@ -132,6 +133,7 @@ class _BlogAddState extends State<BlogAdd> {
                 hintText: 'Blog Metni',
                 obscureText: false,
                 icon: Icon(UniconsLine.bars),
+                maxLines: 1,
               ),
               SizedBox(height: 20),
               MyButton(

@@ -96,6 +96,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                   hintText: "Kurum Adı",
                   obscureText: false,
                   icon: Icon(UniconsLine.university),
+                  maxLines: 1,
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
@@ -103,6 +104,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                   hintText: "İl",
                   obscureText: false,
                   icon: Icon(UniconsLine.location_point),
+                  maxLines: 1,
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
@@ -110,14 +112,16 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                   hintText: "İlçe",
                   obscureText: false,
                   icon: Icon(UniconsLine.location_point),
+                  maxLines: 1,
                 ),
                 const SizedBox(height: 10),
                 //email textfield
                 MyTextField(
                   controller: emailController,
-                  hintText: "E-posta",
+                  hintText: "E-Posta",
                   obscureText: false,
                   icon: Icon(UniconsLine.envelope),
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
@@ -127,6 +131,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                   hintText: "Şifre",
                   obscureText: false,
                   icon: Icon(UniconsLine.lock_alt),
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
@@ -134,9 +139,10 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                 //confirm password textfield
                 MyTextField(
                   controller: confirmPasswordController,
-                  hintText: "Şifreyi onayla",
+                  hintText: "Şifreyi Onayla",
                   obscureText: false,
                   icon: Icon(UniconsLine.lock_alt),
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 20),

@@ -124,6 +124,7 @@ class SikayetIlkPage extends StatelessWidget {
                 hintText: 'Başlık',
                 obscureText: false,
                 icon: Icon(UniconsLine.subject),
+                maxLines: 1,
               ),
               SizedBox(height: 10.0),
               Text(

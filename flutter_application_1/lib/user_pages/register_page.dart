@@ -151,7 +151,7 @@ class _RegisterState extends State<RegisterPage> {
                   //email textfield
                   MyTextField(
                     controller: emailController,
-                    hintText: "E-posta",
+                    hintText: "E-Posta",
                     obscureText: false,
                     icon: Icon(UniconsLine.envelope),
                   ),
@@ -170,7 +170,7 @@ class _RegisterState extends State<RegisterPage> {
                   //confirm password textfield
                   MyTextField(
                     controller: confirmPasswordController,
-                    hintText: "Şifreyi onayla",
+                    hintText: "Şifreyi Onayla",
                     obscureText: false,
                     icon: Icon(UniconsLine.lock_alt),
                   ),
@@ -191,7 +191,7 @@ class _RegisterState extends State<RegisterPage> {
                         "Zaten bir hesabın var mı?",
                         style: TextStyle(
                             color:
-                                Theme.of(context).colorScheme.inversePrimary),
+                                Colors.black),
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(

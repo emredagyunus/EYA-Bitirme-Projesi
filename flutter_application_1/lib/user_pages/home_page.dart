@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/admin_pages/admin_blog_detail_page.dart';
@@ -186,7 +187,7 @@ class _HomePageState extends State<HomePage>
         actions: [
           IconButton(
             icon: Icon(
-              UniconsLine.bell,
+              CupertinoIcons.bell,
               color: Colors.white,
             ),
             onPressed: () {},
@@ -224,11 +225,11 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   IconButton(
-                    icon: Icon(UniconsLine.search),
+                    icon: Icon(UniconsLine.search, /*color: Colors.deepPurple,*/),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(UniconsLine.microphone),
+                    icon: Icon(UniconsLine.microphone, /*color: Colors.deepPurple,*/),
                     onPressed: () {},
                   ),
                 ],

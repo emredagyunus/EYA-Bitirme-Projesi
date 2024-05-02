@@ -74,7 +74,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               MyTextField(
                 controller: emailController,
                 obscureText: false,
-                hintText: 'E-posta',
+                hintText: 'E-Posta',
                 icon: Icon(UniconsLine.envelope),
               ),
               SizedBox(
@@ -106,6 +106,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         text: 'Giriş yap!',
                         style: TextStyle(
                           color: Colors.deepPurple,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ]),

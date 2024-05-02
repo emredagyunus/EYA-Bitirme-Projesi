@@ -11,6 +11,7 @@ import 'package:flutter_application_1/user_pages/settings_page.dart';
 import 'package:flutter_application_1/user_pages/sss_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -35,8 +36,8 @@ class MyDrawer extends StatelessWidget {
 
           //home list tile
           MyDrawerTile(
-            text: "ANASAYFA",
-            icon: Icons.home,
+            text: "Ana Sayfa",
+            icon: UniconsLine.home_alt,
             onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -46,8 +47,8 @@ class MyDrawer extends StatelessWidget {
                 )),
           ),
           MyDrawerTile(
-              text: "HAKKIMIZDA",
-              icon: Icons.person,
+              text: "Hakkımızda",
+              icon: UniconsLine.info_circle,
               onTap: () {
                 Navigator.push(
                     context,
@@ -56,8 +57,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BLOG",
-              icon: Icons.person,
+              text: "Blog",
+              icon: UniconsLine.blogger_alt,
               onTap: () {
                 Navigator.push(
                     context,
@@ -66,8 +67,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "DUYURU",
-              icon: Icons.person,
+              text: "Duyuru",
+              icon: UniconsLine.megaphone,
               onTap: () {
                 Navigator.push(
                     context,
@@ -76,8 +77,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "ŞİKAYETLERİM",
-              icon: Icons.person,
+              text: "Şikayetlerim",
+              icon: UniconsLine.bookmark,
               onTap: () {
                 Navigator.push(
                     context,
@@ -86,8 +87,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "BAĞIŞ KAMPANYALARI",
-              icon: Icons.person,
+              text: "Bağış Kanalları",
+              icon: UniconsLine.gift,
               onTap: () {
                 Navigator.push(
                     context,
@@ -96,8 +97,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "İLETİŞİM",
-              icon: Icons.person,
+              text: "İletişim",
+              icon: UniconsLine.envelope_send,
               onTap: () {
                 Navigator.push(
                     context,
@@ -106,8 +107,8 @@ class MyDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "SSS",
-              icon: Icons.person,
+              text: "Sıkça Sorulan Sorular",
+              icon: UniconsLine.comment_question,
               onTap: () {
                 Navigator.push(
                     context,
@@ -118,8 +119,8 @@ class MyDrawer extends StatelessWidget {
 
           //settings list tile
           MyDrawerTile(
-              text: "AYARLAR",
-              icon: Icons.settings,
+              text: "Ayarlar",
+              icon: UniconsLine.setting,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -133,8 +134,8 @@ class MyDrawer extends StatelessWidget {
           const Spacer(),
           //logout list tile
           MyDrawerTile(
-              text: "ÇIKIŞ YAP",
-              icon: Icons.logout,
+              text: "Çıkış Yap",
+              icon: UniconsLine.sign_out_alt,
               onTap: () {
                 logout();
                 Navigator.push(

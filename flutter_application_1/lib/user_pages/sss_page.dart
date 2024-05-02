@@ -113,6 +113,7 @@ class FeedbackForm extends StatelessWidget {
                   hintText: 'Ad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
+                  maxLines: 1,
                 ),
                 SizedBox(height: 10),
                 MyTextField(
@@ -120,13 +121,15 @@ class FeedbackForm extends StatelessWidget {
                   hintText: 'Soyad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
+                  maxLines: 1,
                 ),
                 SizedBox(height: 10),
                 MyTextField(
                   controller: TextEditingController(),
-                  hintText: 'E-posta',
+                  hintText: 'E-Posta',
                   obscureText: false,
                   icon: Icon(UniconsLine.envelope),
+                  maxLines: 1,
                 ),
                 SizedBox(height: 10),
                 MyTextField(

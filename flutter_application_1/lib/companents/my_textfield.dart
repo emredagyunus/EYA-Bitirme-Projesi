@@ -36,16 +36,18 @@ class MyTextField extends StatelessWidget {
         ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Theme.of(context).colorScheme.secondary,
+          fillColor: Colors.white,
           contentPadding:
               EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
             borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                BorderSide(color: Colors.black),
           ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
             borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
+                BorderSide(color: Colors.black),
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),

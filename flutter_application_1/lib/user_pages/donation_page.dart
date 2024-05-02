@@ -8,45 +8,45 @@ class DonationPage extends StatelessWidget {
   final List<Map<String, String>> campaignData = [
     {
       "image": "lib/images/eya/kizilay.jpg",
-      "title": "Kızılay Bağış Kampanyası",
+      "title": "Türk Kızılay",
       "description":
-          " Çocuklarımıza en hızlı şekilde bağış yaparak onların hayatına dokunmak için bağış yapabilirsiniz.",
-      "url": "https://www.kizilay.org.tr/",
+          "Ülkemizde ve dünyada ihtiyaç sahiplerine yönelik insani yardım faaliyetlerine destek olabilirsin! Bağış sayfasına gitmek için tıkla!",
+      "url": "https://bagis.kizilay.org.tr/tr",
     },
     {
       "image": "lib/images/eya/te.jpg",
-      "title": "Türk Eğitim Vakfı Bağış Kampanyası",
+      "title": "Türk Eğitim Vakfı",
       "description":
-          "Eğitimde fırsat eşitliğini sağlamak için destek olabilirsiniz.",
-      "url": "https://tev.org.tr/",
+          "Ülkemizin başarılı gençleri okumak istiyor, okutmak ister misin? Bağış sayfasına gitmek için tıkla!",
+      "url": "https://www.tev.org.tr/bagis/tr",
     },
     {
       "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay Bağış Kampanyası ",
+      "title": "Yeşilay",
       "description":
-          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
-      "url": "https://www.yesilay.org.tr/",
+          "İyi ve sağlıklı yaşam farkındalığı kazandırarak geleceğimizi bağımlılıklardan korumak amacıyla sen de destek olabilirsin! Bağış sayfasına gitmek için tıkla!",
+      "url": "https://www.yesilay.org.tr/tr/bagis-yap",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
-      "title": "Tegv Bağış Kampanyası",
+      "title": "Türkiye Eğitim Gönüllüleri Vakfı",
       "description":
-          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunabilirsiniz",
-      "url": "https://www.tegv.org/",
+          "Bağış Yap; Bir Çocuk Değişsin, Türkiye Gelişsin! Bağış sayfasına gitmek için tıkla!",
+      "url": "https://tegv.org/bagis-yap",
     },
     {
       "image": "lib/images/eya/haytap.jpg",
-      "title": "Haytap Bağış Kampanyası",
+      "title": "HAYTAP",
       "description":
-          "Sokak hayvanlarının yaşam koşullarını iyileştirmek için onlara destek olabilirsiniz",
-      "url": "https://www.haytap.org/",
+          "Türkiye'nin hayvan hakları konusunda kurulmuş ilk federasyonu olan HAYTAP'a yapacağınız bağışlar, ülkenin dört bir yanındaki muhtaç hayvanlara yardım olarak ulaşacaktır. Bağış sayfasına gitmek için tıkla!",
+      "url": "https://fonzip.com/haytap/bagis",
     },
     {
       "image": "lib/images/eya/tocev.jpg",
-      "title": "Tocev Bağış Kampanyası ",
+      "title": "TOÇEV",
       "description":
-          "Çozukların eğitimine destek olmak için bağış yapabilirsiniz",
-      "url": "https://www.tocev.org.tr/",
+          "Daha çok çocuğumuzun bugünü güzel yaşaması ve güzel bir gelecek düşlemesi için destekte bulunarak, daha umutlu bir yarın hayalimize sen de ortak olabilirsin! Bağış sayfasına gitmek için tıkla!",
+      "url": "https://www.tocev.org.tr/bagis/",
     }
   ];
 
@@ -58,24 +58,9 @@ class DonationPage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
-        title: Row(
-          children: [
-            Image.asset(
-              'lib/images/eya/logo.png',
-              scale: 15,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text(
-              'Bağış Kampanyaları',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
-                color: Colors.white,
-              ),
-            )
-          ],
+        title: Text(
+          'Bağış Kanalları',
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Padding(

@@ -7,6 +7,7 @@ import 'package:flutter_application_1/companents/my_drawer_tile.dart';
 import 'package:flutter_application_1/user_pages/settings_page.dart';
 import 'package:flutter_application_1/services/auth/auth_gate.dart';
 import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class MyAdminDrawer extends StatelessWidget {
   const MyAdminDrawer({super.key});
@@ -31,8 +32,8 @@ class MyAdminDrawer extends StatelessWidget {
 
           //home list tile
           MyDrawerTile(
-            text: "ANASAYFA",
-            icon: Icons.home,
+            text: "Ana Sayfa",
+            icon: UniconsLine.home_alt,
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -41,8 +42,8 @@ class MyAdminDrawer extends StatelessWidget {
             ),
           ),
           MyDrawerTile(
-              text: "Admin Blog",
-              icon: Icons.add,
+              text: "Blog Yönet",
+              icon: UniconsLine.blogger_alt,
               onTap: () {
                 Navigator.push(
                     context,
@@ -51,8 +52,8 @@ class MyAdminDrawer extends StatelessWidget {
                     ));
               }),
           MyDrawerTile(
-              text: "Admin Duyuru",
-              icon: Icons.add,
+              text: "Duyuru Yönet",
+              icon: UniconsLine.megaphone,
               onTap: () {
                 Navigator.push(
                     context,
@@ -62,7 +63,7 @@ class MyAdminDrawer extends StatelessWidget {
               }),
           MyDrawerTile(
               text: "Kurum Ekle",
-              icon: Icons.add,
+              icon: UniconsLine.university,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -77,8 +78,8 @@ class MyAdminDrawer extends StatelessWidget {
 
           //settings list tile
           MyDrawerTile(
-              text: "AYARLAR",
-              icon: Icons.settings,
+              text: "Ayarlar",
+              icon: UniconsLine.setting,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -92,8 +93,8 @@ class MyAdminDrawer extends StatelessWidget {
           const Spacer(),
           //logout list tile
           MyDrawerTile(
-              text: "ÇIKIŞ YAP",
-              icon: Icons.logout,
+              text: "Çıkış Yap",
+              icon: UniconsLine.sign_out_alt,
               onTap: () {
                 logout();
                 Navigator.push(

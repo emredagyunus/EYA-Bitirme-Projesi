@@ -101,7 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                     controller: emailController,
                     hintText: "E-posta",
                     obscureText: false,
-                    icon: const Icon(UniconsLine.envelope),
+                    icon: const Icon(
+                      UniconsLine.envelope,
+                    ),
                   ),
 
                   const SizedBox(height: 10),
@@ -110,7 +112,9 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       hintText: "Şifre",
                       obscureText: _obscureText,
-                      icon: const Icon(UniconsLine.lock_alt),
+                      icon: const Icon(
+                        UniconsLine.lock_alt,
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(_obscureText
                             ? UniconsLine.eye
@@ -165,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                         "Üye değil misin?",
                         style: TextStyle(
                             color:
-                                Theme.of(context).colorScheme.inversePrimary),
+                                Colors.black,),
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(
