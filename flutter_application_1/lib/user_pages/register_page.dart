@@ -132,6 +132,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "Ad",
                     obscureText: false,
                     icon: Icon(UniconsLine.user),
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 10),
                   MyTextField(
@@ -139,6 +140,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "Soyad",
                     obscureText: false,
                     icon: Icon(UniconsLine.user),
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 10),
                   MyTextField(
@@ -146,6 +148,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "Telefon",
                     obscureText: false,
                     icon: Icon(UniconsLine.phone),
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 10),
                   //email textfield
@@ -154,6 +157,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "E-Posta",
                     obscureText: false,
                     icon: Icon(UniconsLine.envelope),
+                    maxLines: 1,
                   ),
 
                   const SizedBox(height: 10),
@@ -163,6 +167,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "Şifre",
                     obscureText: false,
                     icon: Icon(UniconsLine.lock_alt),
+                    maxLines: 1,
                   ),
 
                   const SizedBox(height: 10),
@@ -173,6 +178,7 @@ class _RegisterState extends State<RegisterPage> {
                     hintText: "Şifreyi Onayla",
                     obscureText: false,
                     icon: Icon(UniconsLine.lock_alt),
+                    maxLines: 1,
                   ),
 
                   const SizedBox(height: 10),

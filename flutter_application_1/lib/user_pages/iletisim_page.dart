@@ -95,13 +95,13 @@ class iletisimPage extends StatelessWidget {
             Expanded(
               child: GoogleMap(
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(41.1102, 29.0370),
+                  target: LatLng(41.11739921218435, 29.00383209842172),
                   zoom: 15,
                 ),
                 markers: {
                   Marker(
                     markerId: MarkerId('Konumum'),
-                    position: LatLng(41.1102, 29.0370),
+                    position: LatLng(41.11739921218435, 29.00383209842172),
                     icon: BitmapDescriptor.defaultMarkerWithHue(
                         BitmapDescriptor.hueRed),
                     infoWindow: InfoWindow(

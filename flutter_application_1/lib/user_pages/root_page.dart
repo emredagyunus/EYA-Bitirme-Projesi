@@ -41,7 +41,7 @@ class _RootPageState extends State<RootPage> {
     UniconsLine.estate,
     UniconsLine.heart_alt,
     UniconsLine.sort_amount_down,
-    UniconsLine.user,
+    UniconsLine.user_circle,
   ];
 
   //List of the pages titles
@@ -55,11 +55,15 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: IndexedStack(
         index: _bottomNavIndex,
         children: _widgetOptions(),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: SizedBox(
+        width: 40,
+        height: 40,
+         child: FloatingActionButton(
         onPressed: () {
           Navigator.push(
               context,
@@ -67,14 +71,14 @@ class _RootPageState extends State<RootPage> {
                   child: SikayetIlkPage(),
                   type: PageTransitionType.bottomToTop));
         },
-        backgroundColor: Constants.primaryColor,
-        child: Icon(Icons.add),
-      ),
+        backgroundColor: Colors.deepPurple,
+        child: Icon(UniconsLine.plus, color: Colors.white,),
+      ), ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
-          splashColor: Constants.primaryColor,
-          activeColor: Constants.primaryColor,
-          inactiveColor: Colors.black.withOpacity(.5),
+          splashColor: Colors.deepPurple,
+          activeColor: Colors.deepPurple,
+          inactiveColor: Colors.black,
           icons: iconList,
           activeIndex: _bottomNavIndex,
           gapLocation: GapLocation.center,

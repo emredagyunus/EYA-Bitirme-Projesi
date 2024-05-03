@@ -89,21 +89,21 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Hoş Geldiniz...",
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                    ),
+                              color: Colors.deepPurple,
+                              fontWeight: FontWeight.bold,
+                            ),
                   ),
 
                   const SizedBox(height: 25),
                   //email textfield
                   MyTextField(
                     controller: emailController,
-                    hintText: "E-posta",
+                    hintText: "E-Posta",
                     obscureText: false,
                     icon: const Icon(
                       UniconsLine.envelope,
                     ),
+                    maxLines: 1,
                   ),
 
                   const SizedBox(height: 10),
@@ -112,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       hintText: "Şifre",
                       obscureText: _obscureText,
+                      maxLines: 1,
                       icon: const Icon(
                         UniconsLine.lock_alt,
                       ),

@@ -13,14 +13,14 @@ class MyDrawerTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 25.0),
       child: ListTile(
-        tileColor: Colors.white,
+        tileColor: Colors.white10,
         title: Text(
           text,
-          style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+          style: TextStyle(color: Colors.deepPurple),
         ),
         leading: Icon(
           icon,
-          color: Theme.of(context).colorScheme.inversePrimary,
+          color: Colors.deepPurple,
         ),
         onTap: onTap,
       ),

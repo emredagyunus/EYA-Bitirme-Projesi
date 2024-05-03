@@ -76,6 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 obscureText: false,
                 hintText: 'E-Posta',
                 icon: Icon(UniconsLine.envelope),
+                maxLines: 1,
               ),
               SizedBox(
                 height: 20,
