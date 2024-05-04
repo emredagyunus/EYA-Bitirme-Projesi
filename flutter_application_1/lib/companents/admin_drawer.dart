@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/admin_pages/admin_blog_page.dart';
-import 'package:flutter_application_1/admin_pages/admin_duyuru_page.dart';
-import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
-import 'package:flutter_application_1/admin_pages/admin_kurum_ekle.dart';
-import 'package:flutter_application_1/companents/my_drawer_tile.dart';
-import 'package:flutter_application_1/user_pages/settings_page.dart';
-import 'package:flutter_application_1/services/auth/auth_gate.dart';
-import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:EYA/admin_pages/admin_blog_page.dart';
+import 'package:EYA/admin_pages/admin_duyuru_page.dart';
+import 'package:EYA/admin_pages/admin_home_page.dart';
+import 'package:EYA/admin_pages/admin_kurum_ekle.dart';
+import 'package:EYA/admin_pages/admin_message_page.dart';
+import 'package:EYA/companents/my_drawer_tile.dart';
+import 'package:EYA/user_pages/settings_page.dart';
+import 'package:EYA/services/auth/auth_gate.dart';
+import 'package:EYA/services/auth/auth_services.dart';
 import 'package:unicons/unicons.dart';
 
 class MyAdminDrawer extends StatelessWidget {
@@ -72,6 +73,19 @@ class MyAdminDrawer extends StatelessWidget {
                     builder: (context) => const AdminKurumKayit(
                       onTap: null,
                     ),
+                  ),
+                );
+              }),
+
+               MyDrawerTile(
+              text: "Mesajlar",
+              icon: UniconsLine.university,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>  FirebaseDataPage(),
                   ),
                 );
               }),

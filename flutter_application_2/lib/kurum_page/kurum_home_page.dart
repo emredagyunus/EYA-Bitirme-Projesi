@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_2/kurum_page/complaint_detail_page.dart';
-import 'package:flutter_application_2/kurum_page/kurum_cevap_page.dart';
-import 'package:flutter_application_2/models/complaint.dart';
+import 'package:EYA_KURUM/kurum_page/complaint_detail_page.dart';
+import 'package:EYA_KURUM/kurum_page/kurum_cevap_page.dart';
+import 'package:EYA_KURUM/models/complaint.dart';
 
+// ignore: must_be_immutable
 class KurumHomePage extends StatelessWidget {
   late  String kurumId;
 

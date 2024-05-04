@@ -9,6 +9,7 @@ class MyTextField extends StatelessWidget {
   final int? maxLines;
   final TextAlign? textAlign;
   final Widget? suffixIcon;
+  final double? width; // Ekran boyutuna göre genişlik
 
   const MyTextField({
     Key? key,
@@ -20,43 +21,45 @@ class MyTextField extends StatelessWidget {
     this.maxLines,
     this.textAlign,
     this.suffixIcon,
+    this.width, // Genişlik özelliği eklendi
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: inputType,
-        maxLines: obscureText ? 1 : maxLines,
-        style: TextStyle(
-          fontSize: 14.0,
-        ),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide:
-                BorderSide(color: Colors.black),
+      child: SizedBox(
+        width: width ?? double.infinity, // Genişlik kontrolü eklendi
+        child: TextField(
+          controller: controller,
+          obscureText: obscureText,
+          keyboardType: inputType,
+          maxLines: obscureText ? 1 : maxLines,
+          style: TextStyle(
+            fontSize: 14.0,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide:
-                BorderSide(color: Colors.black),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            hintText: hintText,
+            hintStyle:
+                TextStyle(color: Theme.of(context).colorScheme.primary),
+            labelText: hintText,
+            prefixIcon: icon,
+            suffixIcon: suffixIcon,
           ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-          labelText: hintText,
-
-          prefixIcon: icon,
-          suffixIcon: suffixIcon, 
+          textAlign: textAlign ?? TextAlign.start,
         ),
-        textAlign: textAlign ?? TextAlign.start,
       ),
     );
   }

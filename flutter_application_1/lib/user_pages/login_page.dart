@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/admin_pages/admin_home_page.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
-import 'package:flutter_application_1/user_pages/forgot_password_page.dart';
-import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:EYA/admin_pages/admin_home_page.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_textfield.dart';
+import 'package:EYA/user_pages/forgot_password_page.dart';
+import 'package:EYA/services/auth/auth_services.dart';
 import 'package:unicons/unicons.dart';
 
 class LoginPage extends StatefulWidget {

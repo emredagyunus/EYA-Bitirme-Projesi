@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/companents/constants.dart';
-import 'package:flutter_application_2/services/auth/auth_gate.dart';
+import 'package:EYA_KURUM/companents/constants.dart';
+import 'package:EYA_KURUM/services/auth/auth_gate.dart';
 
 
 class OnboardingScreen extends StatefulWidget {

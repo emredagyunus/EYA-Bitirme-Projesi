@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
-import 'package:flutter_application_1/companents/number_circle_widget.dart';
-import 'package:flutter_application_1/user_pages/sikayet_4.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_textfield.dart';
+import 'package:EYA/companents/number_circle_widget.dart';
+import 'package:EYA/user_pages/sikayet_4.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

@@ -1,11 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/my_image_box.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_image_box.dart';
+import 'package:EYA/companents/my_textfield.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:unicons/unicons.dart';
 
-class iletisimPage extends StatelessWidget {
+class iletisimPage extends StatefulWidget {
+  @override
+  State<iletisimPage> createState() => _iletisimPageState();
+}
+
+class _iletisimPageState extends State<iletisimPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  Future<void> saveForm() async {
+    try {
+      await FirebaseFirestore.instance.collection('iletisim').add({
+        'name': nameController.text,
+        'phone': phoneController.text,
+        'mail': mailController.text,
+        'description': descriptionController.text,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Form başarıyla kaydedildi.'),
+      ));
+      nameController.clear();
+      phoneController.clear();
+      mailController.clear();
+      descriptionController.clear();
+    } catch (e) {
+      print('Hata: $e');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Form kaydedilirken bir hata oluştu.'),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +71,7 @@ class iletisimPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: MyTextField(
-                    controller: TextEditingController(),
+                    controller: nameController,
                     obscureText: false,
                     hintText: 'Ad Soyad',
                     icon: Icon(UniconsLine.user),
@@ -44,7 +80,7 @@ class iletisimPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: MyTextField(
-                    controller: TextEditingController(),
+                    controller: phoneController,
                     obscureText: false,
                     hintText: 'Telefon',
                     icon: Icon(UniconsLine.phone),
@@ -60,7 +96,7 @@ class iletisimPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: MyTextField(
-                    controller: TextEditingController(),
+                    controller: mailController,
                     obscureText: false,
                     hintText: 'E-Posta',
                     icon: Icon(UniconsLine.envelope),
@@ -76,7 +112,7 @@ class iletisimPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: MyTextField(
-                    controller: TextEditingController(),
+                    controller: descriptionController,
                     obscureText: false,
                     hintText: 'Mesaj',
                     icon: Icon(UniconsLine.bars),
@@ -89,7 +125,7 @@ class iletisimPage extends StatelessWidget {
             SizedBox(height: 16),
             MyButton(
               text: "Gönder",
-              onTap: () {},
+              onTap: saveForm,
             ),
             SizedBox(height: 16),
             Expanded(

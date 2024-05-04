@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/Blog.dart';
+import 'package:EYA/models/Blog.dart';
 
 class BlogDetailPage extends StatelessWidget {
   final Blog blog;

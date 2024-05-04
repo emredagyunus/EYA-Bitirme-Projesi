@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/companents/my_button.dart';
-import 'package:flutter_application_2/companents/my_textfield.dart';
-import 'package:flutter_application_2/kurum_page/kurum_home_page.dart';
-import 'package:flutter_application_2/services/auth/auth_services.dart';
+import 'package:EYA_KURUM/companents/my_button.dart';
+import 'package:EYA_KURUM/companents/my_textfield.dart';
+import 'package:EYA_KURUM/kurum_page/kurum_home_page.dart';
+import 'package:EYA_KURUM/services/auth/auth_services.dart';
 
 
 class KurumLoginPage extends StatefulWidget {

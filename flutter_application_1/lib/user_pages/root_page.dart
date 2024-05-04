@@ -1,11 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/constants.dart';
-import 'package:flutter_application_1/user_pages/all_complaint_page.dart';
-import 'package:flutter_application_1/user_pages/home_page.dart';
-import 'package:flutter_application_1/user_pages/my_favori_page.dart';
-import 'package:flutter_application_1/user_pages/myprof%C4%B1le_page.dart';
-import 'package:flutter_application_1/user_pages/sikayet_1.dart';
+import 'package:EYA/user_pages/all_complaint_page.dart';
+import 'package:EYA/user_pages/home_page.dart';
+import 'package:EYA/user_pages/my_favori_page.dart';
+import 'package:EYA/user_pages/myprof%C4%B1le_page.dart';
+import 'package:EYA/user_pages/sikayet_1.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:unicons/unicons.dart';
 

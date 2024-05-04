@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/themes/dark_mode.dart';
-import 'package:flutter_application_2/themes/light_mode.dart';
+import 'package:EYA_KURUM/themes/dark_mode.dart';
+import 'package:EYA_KURUM/themes/light_mode.dart';
 
 
 class ThemeProvider with ChangeNotifier{

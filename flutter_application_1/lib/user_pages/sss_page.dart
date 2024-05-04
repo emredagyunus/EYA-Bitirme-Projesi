@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_textfield.dart';
 import 'package:unicons/unicons.dart';
 
 class FAQPage extends StatefulWidget {

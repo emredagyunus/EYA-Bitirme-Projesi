@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/firebase_options.dart';
-import 'package:flutter_application_2/kurum_page/kurum_home_page.dart';
-import 'package:flutter_application_2/kurum_page/onboarding_screen.dart';
-import 'package:flutter_application_2/themes/theme_provider.dart';
+import 'package:EYA_KURUM/firebase_options.dart';
+import 'package:EYA_KURUM/kurum_page/kurum_home_page.dart';
+import 'package:EYA_KURUM/kurum_page/onboarding_screen.dart';
+import 'package:EYA_KURUM/themes/theme_provider.dart';
 
 
 import 'package:provider/provider.dart';

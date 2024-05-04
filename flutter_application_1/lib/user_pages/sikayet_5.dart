@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/number_circle_widget.dart';
-import 'package:flutter_application_1/user_pages/root_page.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/number_circle_widget.dart';
+import 'package:EYA/user_pages/root_page.dart';
 
 class ComplaintProcessedPage extends StatelessWidget {
   @override

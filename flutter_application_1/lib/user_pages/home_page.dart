@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_1/admin_pages/admin_blog_detail_page.dart';
-import 'package:flutter_application_1/admin_pages/admin_duyuru_detail_page.dart';
-import 'package:flutter_application_1/companents/constants.dart';
-import 'package:flutter_application_1/companents/my_button.dart';
-import 'package:flutter_application_1/companents/my_image_box.dart';
-import 'package:flutter_application_1/companents/my_drawer.dart';
-import 'package:flutter_application_1/models/Blog.dart';
-import 'package:flutter_application_1/models/complaint.dart';
-import 'package:flutter_application_1/models/duyuru.dart';
-import 'package:flutter_application_1/user_pages/all_favorites_page.dart';
-import 'package:flutter_application_1/user_pages/blog_page.dart';
-import 'package:flutter_application_1/user_pages/complaint_detail_page.dart';
-import 'package:flutter_application_1/user_pages/duyuru_page.dart';
-import 'package:flutter_application_1/user_pages/root_page.dart';
+import 'package:EYA/admin_pages/admin_blog_detail_page.dart';
+import 'package:EYA/admin_pages/admin_duyuru_detail_page.dart';
+import 'package:EYA/companents/constants.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_image_box.dart';
+import 'package:EYA/companents/my_drawer.dart';
+import 'package:EYA/models/Blog.dart';
+import 'package:EYA/models/complaint.dart';
+import 'package:EYA/models/duyuru.dart';
+import 'package:EYA/user_pages/all_favorites_page.dart';
+import 'package:EYA/user_pages/blog_page.dart';
+import 'package:EYA/user_pages/complaint_detail_page.dart';
+import 'package:EYA/user_pages/duyuru_page.dart';
+import 'package:EYA/user_pages/root_page.dart';
 import 'package:unicons/unicons.dart';
 
 class HomePage extends StatefulWidget {

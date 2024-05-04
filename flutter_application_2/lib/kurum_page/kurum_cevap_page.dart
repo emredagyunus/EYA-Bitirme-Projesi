@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_2/companents/my_button.dart';
-import 'package:flutter_application_2/companents/my_textfield.dart';
-import 'package:flutter_application_2/kurum_page/kurum_onay_page.dart';
+import 'package:EYA_KURUM/companents/my_button.dart';
+import 'package:EYA_KURUM/companents/my_textfield.dart';
+import 'package:EYA_KURUM/kurum_page/kurum_onay_page.dart';
 
 class KurumCevapPage extends StatefulWidget {
   final String complaintId;

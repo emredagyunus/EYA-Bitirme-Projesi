@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/themes/theme_provider.dart';
-import 'package:flutter_application_1/user_pages/mail_changing_page.dart';
-import 'package:flutter_application_1/user_pages/password_changing_page.dart';
+import 'package:EYA/themes/theme_provider.dart';
+import 'package:EYA/user_pages/mail_changing_page.dart';
+import 'package:EYA/user_pages/password_changing_page.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {

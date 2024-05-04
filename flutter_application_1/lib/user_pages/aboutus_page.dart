@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_image_box.dart';
+import 'package:EYA/companents/my_image_box.dart';
 
 class AboutUsPage extends StatelessWidget {
   @override

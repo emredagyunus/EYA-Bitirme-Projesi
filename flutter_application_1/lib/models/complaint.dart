@@ -18,7 +18,6 @@ class ComplaintModel {
   late bool islemDurumu;
   late bool cozuldumu;
   final String kurum;
-
   final String cevap;
 
   ComplaintModel({

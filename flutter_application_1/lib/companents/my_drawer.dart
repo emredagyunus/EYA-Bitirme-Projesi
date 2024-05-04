@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/companents/my_drawer_tile.dart';
-import 'package:flutter_application_1/user_pages/aboutus_page.dart';
-import 'package:flutter_application_1/user_pages/blog_page.dart';
-import 'package:flutter_application_1/user_pages/donation_page.dart';
-import 'package:flutter_application_1/user_pages/duyuru_page.dart';
-import 'package:flutter_application_1/user_pages/iletisim_page.dart';
-import 'package:flutter_application_1/user_pages/my_complaint_page.dart';
-import 'package:flutter_application_1/user_pages/root_page.dart';
-import 'package:flutter_application_1/user_pages/settings_page.dart';
-import 'package:flutter_application_1/user_pages/sss_page.dart';
-import 'package:flutter_application_1/services/auth/auth_gate.dart';
-import 'package:flutter_application_1/services/auth/auth_services.dart';
+import 'package:EYA/companents/my_drawer_tile.dart';
+import 'package:EYA/user_pages/aboutus_page.dart';
+import 'package:EYA/user_pages/blog_page.dart';
+import 'package:EYA/user_pages/donation_page.dart';
+import 'package:EYA/user_pages/duyuru_page.dart';
+import 'package:EYA/user_pages/iletisim_page.dart';
+import 'package:EYA/user_pages/my_complaint_page.dart';
+import 'package:EYA/user_pages/root_page.dart';
+import 'package:EYA/user_pages/settings_page.dart';
+import 'package:EYA/user_pages/sss_page.dart';
+import 'package:EYA/services/auth/auth_gate.dart';
+import 'package:EYA/services/auth/auth_services.dart';
 import 'package:unicons/unicons.dart';
 
 class MyDrawer extends StatelessWidget {

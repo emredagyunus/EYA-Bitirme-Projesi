@@ -1,8 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
-import 'package:unicons/unicons.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -42,18 +41,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future<void> _updateUserData() async {
-    if (user != null) {
-      await _firestore.collection('users').doc(user!.uid).update({
-        'name': adController.text,
-        'surname': soyadController.text,
-        'phone': telefonController.text,
-      });
+    try {
+      // Telefon numarasının doğrulaması
+      if (telefonController.text.length != 11) {
+        // Telefon numarasının 11 karakter olmadığını belirten bir uyarı mesajı
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Telefon numarası 11 karakter olmalıdır.'),
+          ),
+        );
+        return; // Güncellemeyi durdur
+      }
+
+      if (user != null) {
+        await _firestore.collection('users').doc(user!.uid).update({
+          'name': adController.text,
+          'surname': soyadController.text,
+          'phone': telefonController.text,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Profil bilgileri başarıyla güncellendi.'),
+          ),
+        );
+        Navigator.pop(context);
+      }
+    } catch (error) {
+      // Hataları yönetme
+      print("Kullanıcı verilerini güncelleme hatası: $error");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Profil bilgileri güncellendi.'),
+          content: Text('Profil bilgilerini güncellerken hata oluştu.'),
         ),
       );
-      Navigator.pop(context);
     }
   }
 
@@ -62,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profilini Düzenle',
+          'Profil Düzenle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -70,7 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(UniconsLine.save),
+            icon: Icon(CupertinoIcons.floppy_disk),
             onPressed: () {
               _updateUserData();
             },
@@ -82,73 +103,63 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Ad',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: adController,
-                  hintText: 'Ad',
-                  obscureText: false,
-                  icon: Icon(UniconsLine.user),
-                  maxLines: 1,
-                ),
-              ],
-            ),
+            _buildSectionTitle('Ad'),
+            _buildTextField(adController, CupertinoIcons.person),
             const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Soyad',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: soyadController,
-                  hintText: 'Soyad',
-                  obscureText: false,
-                  icon: Icon(UniconsLine.user),
-                  maxLines: 1,
-                ),
-              ],
-            ),
+            _buildSectionTitle('Soyad'),
+            _buildTextField(soyadController, CupertinoIcons.person),
             const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Telefon',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: telefonController,
-                  hintText: 'Telefon',
-                  obscureText: false,
-                  icon: Icon(UniconsLine.phone),
-                  maxLines: 1,
-                ),
-              ],
-            ),
+            _buildSectionTitle('Telefon'),
+            _buildTextField(telefonController, CupertinoIcons.phone),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, IconData icon) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: TextField(
+        controller: controller,
+        keyboardType: icon == CupertinoIcons.phone
+            ? TextInputType.phone // Telefon numarası için özel bir giriş türü
+            : TextInputType.text,
+        maxLength: icon == CupertinoIcons.phone
+            ? 11
+            : null, // Telefon numarası için maksimum uzunluk
+        decoration: InputDecoration(
+          hintText: controller.text.isEmpty ? 'Değer girin' : controller.text,
+          prefixIcon: Icon(icon),
+          border: InputBorder.none,
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

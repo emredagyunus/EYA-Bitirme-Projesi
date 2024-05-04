@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/companents/my_textfield.dart';
+import 'package:EYA/companents/my_textfield.dart';
 import 'package:unicons/unicons.dart';
 
 class MailChangingPage extends StatefulWidget {
@@ -67,6 +67,7 @@ class _ChangeEmailPageState extends State<MailChangingPage> {
           ),
         );
         Navigator.pop(context);
+      // ignore: unused_catch_clause
       } on FirebaseAuthException catch (e) {
         String errorMessage = 'Geçersiz şifre! Lütfen doğru şifreyi gir!';
 

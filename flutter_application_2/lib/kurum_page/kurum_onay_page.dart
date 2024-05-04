@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/companents/my_button.dart';
-import 'package:flutter_application_2/companents/number_circle_widget.dart';
-import 'package:flutter_application_2/kurum_page/kurum_home_page.dart';
+import 'package:EYA_KURUM/companents/my_button.dart';
+import 'package:EYA_KURUM/companents/number_circle_widget.dart';
+import 'package:EYA_KURUM/kurum_page/kurum_home_page.dart';
 
 class KurumOnayPage extends StatelessWidget {
   @override

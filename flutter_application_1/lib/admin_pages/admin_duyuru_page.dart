@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/admin_pages/admin_duyuru_add.dart';
-import 'package:flutter_application_1/admin_pages/admin_duyuru_detail_page.dart';
-import 'package:flutter_application_1/companents/admin_drawer.dart';
-import 'package:flutter_application_1/models/duyuru.dart';
+import 'package:EYA/admin_pages/admin_duyuru_add.dart';
+import 'package:EYA/admin_pages/admin_duyuru_detail_page.dart';
+import 'package:EYA/companents/admin_drawer.dart';
+import 'package:EYA/models/duyuru.dart';
 
 class AdminDuyuruPage extends StatelessWidget {
   @override
