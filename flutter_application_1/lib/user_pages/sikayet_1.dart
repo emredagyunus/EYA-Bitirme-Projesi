@@ -16,14 +16,14 @@ class SikayetIlkPage extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
     String? userID = user?.uid;
 
-    Future<String> getName() async {
+   
       DocumentSnapshot documentSnapshot =
           await _firestore.collection('users').doc(userID).get();
 
       String veri = documentSnapshot.get('name');
 
-      return veri;
-    }
+     
+    
 
     
     if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
@@ -55,7 +55,7 @@ class SikayetIlkPage extends StatelessWidget {
             title: titleController.text,
             description: descriptionController.text,
             userID: userID!,
-            userName: getName().toString(),
+            userName: veri,
           ),
         ),
       );
