@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unicons/unicons.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -83,7 +84,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profil Düzenle',
+          'Profilini Düzenle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -91,7 +92,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(CupertinoIcons.floppy_disk),
+            icon: Icon(UniconsLine.save),
             onPressed: () {
               _updateUserData();
             },
@@ -103,14 +104,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 25),
             _buildSectionTitle('Ad'),
-            _buildTextField(adController, CupertinoIcons.person),
+            _buildTextField(adController, UniconsLine.user),
             const SizedBox(height: 25),
             _buildSectionTitle('Soyad'),
-            _buildTextField(soyadController, CupertinoIcons.person),
+            _buildTextField(soyadController, UniconsLine.user),
             const SizedBox(height: 25),
             _buildSectionTitle('Telefon'),
-            _buildTextField(telefonController, CupertinoIcons.phone),
+            _buildTextField(telefonController, UniconsLine.phone),
           ],
         ),
       ),
@@ -124,11 +126,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
+              offset: Offset(0, 5),
+              color: Colors.deepPurple,
+              spreadRadius: 2,
+              blurRadius: 10),
         ],
       ),
       child: TextField(

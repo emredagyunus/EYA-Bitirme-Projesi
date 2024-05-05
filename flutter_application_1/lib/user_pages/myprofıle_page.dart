@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/user_pages/profile_edit_page.dart';
+import 'package:unicons/unicons.dart';
 
 class MyProfilePage extends StatefulWidget {
   @override
@@ -62,20 +63,24 @@ class _MyProfilePageState extends State<MyProfilePage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             CircleAvatar(
               radius: 50,
-              child: Icon(CupertinoIcons.person_fill,
-                  color: Colors.white, size: 75),
+              backgroundColor: Colors.grey.shade200,
+              child: Icon(
+                UniconsLine.user_circle,
+                color: Colors.deepPurple,
+                size: 75,
+              ),
             ),
             const SizedBox(height: 20),
-            itemProfile('İsim', ad, CupertinoIcons.person),
+            itemProfile('Ad', ad, UniconsLine.user),
             const SizedBox(height: 10),
-            itemProfile('Soyisim', soyad, CupertinoIcons.person),
+            itemProfile('Soyad', soyad, UniconsLine.user),
             const SizedBox(height: 10),
-            itemProfile('Telefon numarası', telefon, CupertinoIcons.phone),
+            itemProfile('Telefon', telefon, UniconsLine.phone),
             const SizedBox(height: 10),
-            itemProfile('E-mail', mail, CupertinoIcons.mail),
+            itemProfile('E-Posta', mail, UniconsLine.envelope),
             const SizedBox(
               height: 20,
             ),
@@ -109,12 +114,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       child: Row(
                         children: [
                           Icon(
-                            CupertinoIcons.pen,
+                            UniconsLine.pen,
                             color: Colors.deepPurple,
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Edit Profile',
+                            'Profilini Düzenle',
                             style: TextStyle(
                               color: Colors.deepPurple,
                               fontWeight: FontWeight.bold,

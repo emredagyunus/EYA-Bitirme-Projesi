@@ -145,7 +145,7 @@ class _RegisterState extends State<RegisterPage> {
                   const SizedBox(height: 10),
                   MyTextField(
                     controller: phoneController,
-                    hintText: "Telefon",
+                    hintText: "Telefon (05xx xxx xx xx)",
                     obscureText: false,
                     icon: Icon(UniconsLine.phone),
                     maxLines: 1,
