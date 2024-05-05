@@ -125,6 +125,7 @@ class SikayetIlkPage extends StatelessWidget {
                 obscureText: false,
                 icon: Icon(UniconsLine.subject),
                 maxLines: 1,
+                
               ),
               SizedBox(height: 10.0),
               Text(
