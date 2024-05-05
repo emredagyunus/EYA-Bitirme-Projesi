@@ -79,7 +79,7 @@ class MyAdminDrawer extends StatelessWidget {
 
                MyDrawerTile(
               text: "Mesajlar",
-              icon: UniconsLine.university,
+              icon: UniconsLine.chat,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(

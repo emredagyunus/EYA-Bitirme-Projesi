@@ -80,7 +80,7 @@ class _DuyuruAddState extends State<DuyuruAdd> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Duyuru Ekleme',
+          'Duyuru Ekle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,

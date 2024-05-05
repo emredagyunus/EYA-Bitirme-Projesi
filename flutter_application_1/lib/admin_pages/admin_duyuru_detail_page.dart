@@ -11,7 +11,7 @@ class DuyuruDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Duyuru Detayı',
+          'Duyuru Detay',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,

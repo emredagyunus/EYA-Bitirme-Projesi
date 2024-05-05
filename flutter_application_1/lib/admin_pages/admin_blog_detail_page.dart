@@ -11,7 +11,7 @@ class BlogDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Blog Detayı',
+          'Blog Detay',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,

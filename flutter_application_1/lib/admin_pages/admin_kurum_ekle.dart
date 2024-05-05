@@ -149,7 +149,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                 //sign up button
                 MyButton(
                   onTap: register,
-                  text: "Ekle",
+                  text: "Kaydet",
                 ),
               ],
             ),

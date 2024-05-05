@@ -13,7 +13,7 @@ class AdminDuyuruPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Admin Duyuru Sayfası',
+            'Duyuru Yönet',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,

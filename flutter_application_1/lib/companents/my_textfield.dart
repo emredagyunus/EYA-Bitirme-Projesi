@@ -52,8 +52,7 @@ class MyTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.black),
             ),
             hintText: hintText,
-            hintStyle:
-                TextStyle(color: Theme.of(context).colorScheme.primary),
+            hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
             labelText: hintText,
             prefixIcon: icon,
             suffixIcon: suffixIcon,

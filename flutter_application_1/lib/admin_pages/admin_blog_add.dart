@@ -80,7 +80,7 @@ class _BlogAddState extends State<BlogAdd> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Blog Yazısı Ekleme',
+          'Blog Ekle',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,

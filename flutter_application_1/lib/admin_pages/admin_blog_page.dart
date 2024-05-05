@@ -13,7 +13,7 @@ class AdminBlogPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Admin Blog Sayfası',
+            'Blog Yönet',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,

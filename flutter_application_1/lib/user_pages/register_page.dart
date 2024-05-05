@@ -195,9 +195,7 @@ class _RegisterState extends State<RegisterPage> {
                     children: [
                       Text(
                         "Zaten bir hesabın var mı?",
-                        style: TextStyle(
-                            color:
-                                Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(
