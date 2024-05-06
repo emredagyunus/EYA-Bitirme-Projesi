@@ -1,3 +1,4 @@
+import 'package:EYA/user_pages/sikayet_2_web.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:EYA/companents/my_textfield.dart';
 import 'package:EYA/companents/number_circle_widget.dart';
 import 'package:EYA/user_pages/sikayet_2.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SikayetIlkPage extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
@@ -19,8 +21,8 @@ class SikayetIlkPage extends StatelessWidget {
    
       DocumentSnapshot documentSnapshot =
           await _firestore.collection('users').doc(userID).get();
-
-      String veri = documentSnapshot.get('name');
+      String name = documentSnapshot.get('name');
+      String surname = documentSnapshot.get('surname');
 
      
     
@@ -48,17 +50,35 @@ class SikayetIlkPage extends StatelessWidget {
         },
       );
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => ImageAdd(
-            title: titleController.text,
-            description: descriptionController.text,
-            userID: userID!,
-            userName: veri,
-          ),
-        ),
-      );
+      if (kIsWeb) {
+  // Web platformundaysa
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ImageAddWeb(
+        title: titleController.text,
+        description: descriptionController.text,
+        userID: userID!,
+        userName: name,
+        userSurname: surname,
+      ),
+    ),
+  );
+} else {
+  // Mobil platformdaysa
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ImageAdd(
+        title: titleController.text,
+        description: descriptionController.text,
+        userID: userID!,
+        userName: name,
+        userSurname: surname,
+      ),
+    ),
+  );
+}
     }
   }
 

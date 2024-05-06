@@ -178,7 +178,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                     size: 25.0,
                      ),
                 Text(
-                  " kullanıcı Adı: " + widget.complaint.userName + " ",
+                  " kullanıcı Adı: " + widget.complaint.userName + " "+ widget.complaint.userSurname+"",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,

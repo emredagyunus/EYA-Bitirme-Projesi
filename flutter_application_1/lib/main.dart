@@ -7,6 +7,9 @@ import 'package:EYA/user_pages/root_page.dart';
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
+
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

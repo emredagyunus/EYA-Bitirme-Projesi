@@ -110,6 +110,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           cozuldumu: complaintData['cozuldumu'],
                           kurum: complaintData['kurum'],
                           cevap: complaintData['cevap'],
+                          userSurname: complaintData['surname'],
                         ),
                       ),
                     ),

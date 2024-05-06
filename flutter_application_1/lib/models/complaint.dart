@@ -4,6 +4,7 @@ class ComplaintModel {
   final String id;
   final String userID;
   final String userName;
+  final String userSurname;
   final List<String> imageURLs;
   final List<String> videoURLs;
   final String title;
@@ -24,6 +25,7 @@ class ComplaintModel {
     required this.id,
     required this.userID,
     required this.userName,
+    required this.userSurname,
     required this.imageURLs,
     required this.videoURLs,
     required this.title,
@@ -63,6 +65,7 @@ class ComplaintModel {
       id: doc.id,
       userID: data['userID'] ?? '',
       userName: data['userName'] ?? '',
+      userSurname: data['surname'] ?? '',
       imageURLs: imageURLs,
       videoURLs: videoURLs,
       title: data['title'] ?? '',

@@ -137,7 +137,7 @@ class _ChangeEmailPageState extends State<MailChangingPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Yeni E-Posta',
+                  'Yeni E-Posta', 
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,

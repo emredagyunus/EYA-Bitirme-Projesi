@@ -17,6 +17,8 @@ import 'package:EYA/user_pages/duyuru_page.dart';
 import 'package:EYA/user_pages/root_page.dart';
 import 'package:unicons/unicons.dart';
 
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
 
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage>
               title: Text(complaint.title),
               subtitle: Text(
                 complaint.description.length > 50
-                    ? '${complaint.description.substring(0, 62)}...'
+                    ? '${complaint.description.substring(0, 50)}...'
                     : complaint.description,
               ),
             ),

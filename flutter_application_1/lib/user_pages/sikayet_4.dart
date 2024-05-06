@@ -18,6 +18,7 @@ class KurumEkle extends StatefulWidget {
   final String sokak;
   final List<String> imageURLs;
   final List<String> videoURLs;
+  final String userSurname;
 
   KurumEkle({
     required this.title,
@@ -30,7 +31,7 @@ class KurumEkle extends StatefulWidget {
     required this.ilce,
     required this.mahalle,
     required this.sokak,
-    this.onTap,
+    this.onTap, required this.userSurname,
   });
 
   @override
@@ -66,6 +67,7 @@ class _KurumEkleState extends State<KurumEkle> {
         'cozuldumu': false,
         'cevap': '',
         'userName': widget.userName,
+        'userSurname': widget.userSurname,
       });
 
       // ignore: unused_local_variable

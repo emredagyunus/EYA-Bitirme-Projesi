@@ -1,12 +1,11 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:EYA/user_pages/sikayet_3.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:EYA/user_pages/sikayet_3.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/number_circle_widget.dart';
+import 'package:uuid/uuid.dart';
 import 'package:video_player/video_player.dart';
 
 class ImageAdd extends StatefulWidget {
@@ -15,6 +14,7 @@ class ImageAdd extends StatefulWidget {
   final String description;
   final String userID;
   final String userName;
+  final String userSurname;
 
   ImageAdd({
     Key? key,
@@ -23,6 +23,7 @@ class ImageAdd extends StatefulWidget {
     required this.description,
     required this.userID,
     required this.userName,
+    required this.userSurname,
   }) : super(key: key);
 
   @override
@@ -66,66 +67,76 @@ class _ImageAddState extends State<ImageAdd> {
     });
   }
 
-  Future<void> _uploadFiles() async {
-    setState(() {
-      _uploading = true;
-    });
-    List<String> imageURLs = [];
-    List<String> videoURLs = [];
+ Future<void> _uploadFiles() async {
+  setState(() {
+    _uploading = true;
+  });
+  List<String> imageURLs = [];
+  List<String> videoURLs = [];
 
-    for (int i = 0; i < images.length; i++) {
-      final File? file = images[i];
-      final String fileName =
-          DateTime.now().millisecondsSinceEpoch.toString() + i.toString();
+  for (int i = 0; i < images.length; i++) {
+    final File? file = images[i];
+    final String uuid = Uuid().v4();
+    final String fileName = 'image_$uuid.png';
 
-      final firebase_storage.Reference storageRef = firebase_storage
-          .FirebaseStorage.instance
-          .ref()
-          .child('sikayet/$fileName');
-      await storageRef.putFile(file!);
+    final firebase_storage.Reference storageRef = firebase_storage
+        .FirebaseStorage.instance
+        .ref()
+        .child('sikayet/$fileName');
 
-      final String downloadURL = await storageRef.getDownloadURL();
-      imageURLs.add(downloadURL);
-    }
 
-    for (int i = 0; i < videos.length; i++) {
-      final File? file = videos[i];
-      final String fileName =
-          DateTime.now().millisecondsSinceEpoch.toString() + i.toString();
-
-      final firebase_storage.Reference storageRef = firebase_storage
-          .FirebaseStorage.instance
-          .ref()
-          .child('sikayet/videos/$fileName');
-      await storageRef.putFile(file!);
-
-      final String downloadURL = await storageRef.getDownloadURL();
-      videoURLs.add(downloadURL);
-    }
-
-    if (videos.isNotEmpty) {
-      _controller = VideoPlayerController.file(videos[0]!);
-      await _initializeVideoPlayer();
-    } else {
-      _controller = VideoPlayerController.file(File(''));
-    }
-    setState(() {
-      _uploading = false;
-    });
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MyLocationPage(
-          title: widget.title,
-          description: widget.description,
-          userID: widget.userID,
-          imageURLs: imageURLs,
-          videoURLs: videoURLs,
-          userName: widget.userName,
-        ),
-      ),
+    await storageRef.putFile(
+      file!,
+      firebase_storage.SettableMetadata(contentType: 'image/png'),
     );
+
+    final String downloadURL = await storageRef.getDownloadURL();
+    imageURLs.add(downloadURL);
   }
+
+  for (int i = 0; i < videos.length; i++) {
+    final File? file = videos[i];
+    final String uuid = Uuid().v4();
+    final String fileName = 'video_$uuid.mp4'; 
+
+    final firebase_storage.Reference storageRef = firebase_storage
+        .FirebaseStorage.instance
+        .ref()
+        .child('sikayet/videos/$fileName');
+
+    await storageRef.putFile(
+      file!,
+      firebase_storage.SettableMetadata(contentType: 'video/mp4'),
+    );
+
+    final String downloadURL = await storageRef.getDownloadURL();
+    videoURLs.add(downloadURL);
+  }
+
+  if (videos.isNotEmpty) {
+    _controller = VideoPlayerController.file(videos[0]!);
+    await _initializeVideoPlayer();
+  } else {
+    _controller = VideoPlayerController.file(File(''));
+  }
+  setState(() {
+    _uploading = false;
+  });
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MyLocationPage(
+        title: widget.title,
+        description: widget.description,
+        userID: widget.userID,
+        imageURLs: imageURLs,
+        videoURLs: videoURLs,
+        userName: widget.userName,
+        userSurname: widget.userSurname,
+      ),
+    ),
+  );
+}
 
   Future<void> _initializeVideoPlayer() async {
     try {

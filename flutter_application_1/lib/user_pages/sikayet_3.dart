@@ -15,6 +15,7 @@ class MyLocationPage extends StatefulWidget {
   final String userName;
   final List<String> imageURLs;
   final List<String> videoURLs;
+  final String userSurname;
 
   MyLocationPage({
     required this.title,
@@ -22,7 +23,7 @@ class MyLocationPage extends StatefulWidget {
     required this.userID,
     required this.userName,
     required this.imageURLs,
-    required this.videoURLs,
+    required this.videoURLs, required this.userSurname,
   });
 
   @override
@@ -63,6 +64,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               ilce: ilce,
               mahalle: mahalle,
               sokak: sokak,
+              userSurname: widget.userSurname,
             ),
           ),
         );
