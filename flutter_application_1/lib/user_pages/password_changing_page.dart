@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -65,13 +66,21 @@ class _PasswordChangingPageState extends State<PasswordChangingPage> {
             email: user!.email!, password: oldPasswordController.text.trim());
         await user!.reauthenticateWithCredential(credential);
         await user!.updatePassword(newPasswordController.text.trim());
+
+        // Şifre değişikliği başarılı oldu, Firestore belgesini güncelle
+        final userDoc =
+            FirebaseFirestore.instance.collection('users').doc(user!.uid);
+        await userDoc.update({
+          'password': newPasswordController.text.trim(),
+        });
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Şifren başarıyla güncellendi!'),
           ),
         );
         Navigator.pop(context);
-      // ignore: unused_catch_clause
+        // ignore: unused_catch_clause
       } on FirebaseAuthException catch (e) {
         String errorMessage =
             'Geçersiz şifre! Lütfen var olan şifreyi doğru gir!';
