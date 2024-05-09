@@ -1,5 +1,5 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:EYA/user_pages/all_complaint_page.dart';
 import 'package:EYA/user_pages/home_page.dart';
 import 'package:EYA/user_pages/my_favori_page.dart';
@@ -10,7 +10,7 @@ import 'package:unicons/unicons.dart';
 
 class RootPage extends StatefulWidget {
   final int? initialIndex;
-  const RootPage({super.key, this.initialIndex});
+  const RootPage({Key? key, this.initialIndex}) : super(key: key);
 
   @override
   State<RootPage> createState() => _RootPageState();
@@ -22,7 +22,7 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    _bottomNavIndex = widget.initialIndex?? 0;
+    _bottomNavIndex = widget.initialIndex ?? 0;
   }
 
   //List of the pages
@@ -53,40 +53,72 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: IndexedStack(
-        index: _bottomNavIndex,
-        children: _widgetOptions(),
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false, // Set hasScrollBody to false
+            child: Column(
+              children: [
+                Expanded(
+                  child: IndexedStack(
+                    index: _bottomNavIndex,
+                    children: _widgetOptions(),
+                  ),
+                ),
+                if (isMobile)
+                  AnimatedBottomNavigationBar(
+                    splashColor: Colors.deepPurple,
+                    activeColor: Colors.deepPurple,
+                    inactiveColor: Colors.black,
+                    icons: iconList,
+                    activeIndex: _bottomNavIndex,
+                    gapLocation: GapLocation.center,
+                    notchSmoothness: NotchSmoothness.softEdge,
+                    onTap: (index) {
+                      setState(() {
+                        _bottomNavIndex = index;
+                      });
+                    },
+                  ),
+                // Footer expanded to fill remaining space
+                Container(
+                  color: Colors.deepPurple.shade300,
+                  padding: EdgeInsets.all(16),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'footer alani doldurulucak',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: SizedBox(
-        width: 40,
-        height: 40,
-         child: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: SikayetIlkPage(),
-                  type: PageTransitionType.bottomToTop));
-        },
-        backgroundColor: Colors.deepPurple,
-        child: Icon(UniconsLine.plus, color: Colors.white,),
-      ), ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-          splashColor: Colors.deepPurple,
-          activeColor: Colors.deepPurple,
-          inactiveColor: Colors.black,
-          icons: iconList,
-          activeIndex: _bottomNavIndex,
-          gapLocation: GapLocation.center,
-          notchSmoothness: NotchSmoothness.softEdge,
-          onTap: (index) {
-            setState(() {
-              _bottomNavIndex = index;
-            });
-          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked, // Change FloatingActionButton location to endDocked
+      floatingActionButton: MediaQuery.of(context).viewInsets.bottom > 0
+          ? SizedBox.shrink()
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    child: SikayetIlkPage(),
+                    type: PageTransitionType.bottomToTop,
+                  ),
+                );
+              },
+              backgroundColor: Colors.deepPurple,
+              child: Icon(UniconsLine.plus, color: Colors.white),
+            ),
+      bottomNavigationBar: isMobile ? null : SizedBox(height: 50), // Hide bottom navigation bar on web
     );
   }
 }
