@@ -24,9 +24,6 @@ class SikayetIlkPage extends StatelessWidget {
       String name = documentSnapshot.get('name');
       String surname = documentSnapshot.get('surname');
 
-     
-    
-
     
     if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
       showDialog(

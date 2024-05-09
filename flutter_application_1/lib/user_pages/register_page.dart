@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -74,6 +76,7 @@ class _RegisterState extends State<RegisterPage> {
             nameController.text,
             surnameController.text,
             phoneController.text);
+
       }
 
       //display any errors

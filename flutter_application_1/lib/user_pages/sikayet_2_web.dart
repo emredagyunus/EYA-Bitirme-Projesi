@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/number_circle_widget.dart';
+import 'package:EYA/user_pages/sikayet_3.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:EYA/user_pages/sikayet_3.dart';
-import 'package:EYA/companents/my_button.dart';
-import 'package:EYA/companents/number_circle_widget.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_player/video_player.dart';
 
@@ -32,26 +31,46 @@ class ImageAddWeb extends StatefulWidget {
 }
 
 class _ImageAddWebState extends State<ImageAddWeb> {
-  List<Uint8List?> images = [];
-  List<Uint8List?> videos = [];
+  List<File?> images = [];
+  List<File?> videos = [];
   bool _uploading = false;
+  late VideoPlayerController videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    if (videos.isNotEmpty) {
+      final videoFile = videos[0];
+      if (videoFile != null) {
+        videoController = VideoPlayerController.file(videoFile);
+        videoController.initialize().then((_) {
+          setState(() {});
+        });
+      }
+    }
+  }
 
   Future<void> _pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
 
     if (result != null) {
       setState(() {
-        images.add(result!.files.first.bytes);
+        images.add(File(result.files.first.path!));
       });
     }
   }
 
   Future<void> _pickVideo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.video);
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.video);
 
-    if (result != null) {
+    if (result != null && result.files.isNotEmpty) {
       setState(() {
-        videos.add(result!.files.first.bytes);
+        final file = File(result.files.first.path!);
+        if (file != null) {
+          videos.add(file);
+        }
       });
     }
   }
@@ -60,11 +79,41 @@ class _ImageAddWebState extends State<ImageAddWeb> {
     setState(() {
       _uploading = true;
     });
-    List<String> imageURLs = [];
-    List<String> videoURLs = [];
+
+    try {
+      final List<String> imageURLs = await _uploadImages();
+      final List<String> videoURLs = await _uploadVideos();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyLocationPage(
+            title: widget.title,
+            description: widget.description,
+            userID: widget.userID,
+            imageURLs: imageURLs,
+            videoURLs: videoURLs,
+            userName: widget.userName,
+            userSurname: widget.userSurname,
+          ),),
+      );
+    } catch (e, stackTrace) {
+      print('Error uploading files: $e');
+      print('Stack trace: $stackTrace');
+    } finally {
+      setState(() {
+        _uploading = false;
+      });
+    }
+  }
+
+  Future<List<String>> _uploadImages() async {
+    final List<String> imageURLs = [];
 
     for (int i = 0; i < images.length; i++) {
-      final Uint8List? file = images[i];
+      final File? file = images[i];
+      if (file == null) continue;
+
       final String uuid = Uuid().v4();
       final String fileName = 'image_$uuid.png';
 
@@ -73,51 +122,46 @@ class _ImageAddWebState extends State<ImageAddWeb> {
           .ref()
           .child('sikayet/$fileName');
 
-      await storageRef.putData(
-        file!,
-        firebase_storage.SettableMetadata(contentType: 'image/png'),
-      );
+      await storageRef.putFile(file).whenComplete(() {
+        setState(() {});
+      });
 
       final String downloadURL = await storageRef.getDownloadURL();
       imageURLs.add(downloadURL);
     }
 
+    return imageURLs;
+  }
+
+  Future<List<String>> _uploadVideos() async {
+    final List<String> videoURLs = [];
+
     for (int i = 0; i < videos.length; i++) {
-      final Uint8List? file = videos[i];
-      final String uuid = Uuid().v4();
-      final String fileName = 'video_$uuid.mp4';
+      try {
+        final File? file = videos[i];
+        if (file == null) continue;
 
-      final firebase_storage.Reference storageRef = firebase_storage
-          .FirebaseStorage.instance
-          .ref()
-          .child('sikayet/videos/$fileName');
+        final String uuid = Uuid().v4();
+        final String fileName = 'video_$uuid.mp4';
 
-      await storageRef.putData(
-        file!,
-        firebase_storage.SettableMetadata(contentType: 'video/mp4'),
-      );
+        final firebase_storage.Reference storageRef = firebase_storage
+            .FirebaseStorage.instance
+            .ref()
+            .child('sikayet/videos/$fileName');
 
-      final String downloadURL = await storageRef.getDownloadURL();
-      videoURLs.add(downloadURL);
+        await storageRef.putFile(file).whenComplete(() {
+          setState(() {});
+        });
+
+        final String downloadURL = await storageRef.getDownloadURL();
+        videoURLs.add(downloadURL);
+      } catch (e, stackTrace) {
+        print('Error uploading video at index $i: $e');
+        print('Stack trace: $stackTrace');
+      }
     }
 
-    setState(() {
-      _uploading = false;
-    });
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MyLocationPage(
-          title: widget.title,
-          description: widget.description,
-          userID: widget.userID,
-          imageURLs: imageURLs,
-          videoURLs: videoURLs,
-          userName: widget.userName,
-          userSurname: widget.userSurname,
-        ),
-      ),
-    );
+    return videoURLs;
   }
 
   @override
@@ -159,22 +203,63 @@ class _ImageAddWebState extends State<ImageAddWeb> {
                   childAspectRatio: 1.0,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  if (index < images.length) {
+                  if (index < images.length + videos.length) {
+                    Widget itemWidget;
+                    double aspectRatio = 1.0;
+
+                    if (index < images.length) {
+                      itemWidget = Image.file(
+                        images[index]!,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      final videoIndex = index - images.length;
+                      final videoFile = videos[videoIndex]!;
+                      final videoController = VideoPlayerController.file(videoFile);
+
+                      itemWidget = FutureBuilder(
+                        future: videoController.initialize(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            videoController.play();
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  videoController.value.isPlaying
+                                      ? videoController.pause()
+                                      : videoController.play();
+                                });
+                              },
+                              child: AspectRatio(
+                                aspectRatio: videoController.value.aspectRatio,
+                                child: VideoPlayer(videoController),
+                              ),
+                            );
+                          } else {
+                            return CircularProgressIndicator();
+                          }
+                        },
+                      );
+
+                      aspectRatio = videoController.value.aspectRatio;
+                    }
+
                     return Stack(
                       children: [
-                        Image.memory(
-                          images[index]!,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
+                        itemWidget,
                         Positioned(
                           top: 4,
                           right: 4,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                images.removeAt(index);
+                                if (index < images.length) {
+                                  images.removeAt(index);
+                                } else {
+                                  final videoIndex = index - images.length;
+                                  videos.removeAt(videoIndex);
+                                }
                               });
                             },
                             child: Container(
@@ -190,60 +275,14 @@ class _ImageAddWebState extends State<ImageAddWeb> {
                             ),
                           ),
                         ),
+                        if (_uploading)
+                          Center(
+                            child: CircularProgressIndicator(),
+                          ),
                       ],
                     );
                   } else {
-                    final videoIndex = index - images.length;
-                    final videoFile = videos[videoIndex]!;
-                    final videoController =
-                        VideoPlayerController.file(File.fromRawPath(videoFile));
-                    return Stack(
-                      children: [
-                        FutureBuilder(
-                          future: videoController.initialize(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    videoController.play();
-                                  });
-                                },
-                                child: AspectRatio(
-                                  aspectRatio: videoController.value.aspectRatio,
-                                  child: VideoPlayer(videoController),
-                                ),
-                              );
-                            } else {
-                              return CircularProgressIndicator();
-                            }
-                          },
-                        ),
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                videos.removeAt(videoIndex);
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              padding: EdgeInsets.all(6),
-                              child: Icon(
-                                Icons.close,
-                                size: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+                    return SizedBox.shrink();
                   }
                 },
               ),
@@ -255,11 +294,11 @@ class _ImageAddWebState extends State<ImageAddWeb> {
             children: [
               MyButton(
                 text: 'Resim Ekle',
-                onTap: _pickImage,
+                onTap: () => _pickImage(),
               ),
               MyButton(
                 text: 'Video Ekle',
-                onTap: _pickVideo,
+                onTap: () => _pickVideo(),
               ),
             ],
           ),
@@ -272,5 +311,11 @@ class _ImageAddWebState extends State<ImageAddWeb> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    videoController.dispose();
+    super.dispose();
   }
 }

@@ -265,6 +265,7 @@ class _ImageAddState extends State<ImageAdd> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.done) {
+                                     videoController.play();
                                 return GestureDetector(
                                   onTap: () {
                                     setState(() {

@@ -1,4 +1,7 @@
+import 'package:EYA_KURUM/services/auth/auth_gate.dart';
+import 'package:EYA_KURUM/services/auth/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA_KURUM/kurum_page/complaint_detail_page.dart';
@@ -8,6 +11,11 @@ import 'package:EYA_KURUM/models/complaint.dart';
 // ignore: must_be_immutable
 class KurumHomePage extends StatelessWidget {
   late  String kurumId;
+
+    void logout() {
+    final authService = AuthService();
+    authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +31,22 @@ class KurumHomePage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           automaticallyImplyLeading: false,
           centerTitle: true,
+          actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              logout();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AuthGate(),
+                    ));
+            }
+          ),
+        ],
           bottom: TabBar(
             tabs: [
               Tab(text: 'Onaylanmamış Şikayetler'),

@@ -76,10 +76,14 @@ class BlogPage extends StatelessWidget {
                             )
                           : Image.asset("lib/images/eya/logo.png"),
                     ),
-                    title: Text(currentBlog.title),
+                    title: Text(
+                      currentBlog.title.length > 50
+                          ? '${currentBlog.title.substring(0, 50)}...'
+                          : currentBlog.title,
+                    ),
                     subtitle: Text(
                       currentBlog.description.length > 50
-                          ? '${currentBlog.description.substring(0, 62)}...'
+                          ? '${currentBlog.description.substring(0, 50)}...'
                           : currentBlog.description,
                     ),
                   ),
