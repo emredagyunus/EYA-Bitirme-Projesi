@@ -68,6 +68,7 @@ class _KurumEkleState extends State<KurumEkle> {
         'cevap': '',
         'userName': widget.userName,
         'userSurname': widget.userSurname,
+        
       });
 
       // ignore: unused_local_variable

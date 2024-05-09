@@ -69,6 +69,7 @@ class AuthService {
         'phone': phone,
         'email': email,
         'password': password,
+        'fcmToken':'',
       });
 
       return userCredential;
