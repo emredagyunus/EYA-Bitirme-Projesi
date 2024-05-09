@@ -5,8 +5,6 @@ import 'package:EYA_KURUM/firebase_options.dart';
 import 'package:EYA_KURUM/kurum_page/kurum_home_page.dart';
 import 'package:EYA_KURUM/kurum_page/onboarding_screen.dart';
 import 'package:EYA_KURUM/themes/theme_provider.dart';
-
-
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -15,7 +13,6 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        //theme provider
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: const MyApp(),
