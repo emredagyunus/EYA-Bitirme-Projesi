@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/number_circle_widget.dart';
 import 'package:EYA/user_pages/sikayet_5.dart';
+import 'package:unicons/unicons.dart';
 
 class KurumEkle extends StatefulWidget {
   final void Function()? onTap;
@@ -174,21 +175,21 @@ class _KurumEkleState extends State<KurumEkle> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Emin misiniz?'),
+              title: Text('Emin misiniz?', textAlign: TextAlign.center,),
               content: Text(
-                  'Geri gitmek istediğinizden emin misiniz islemleriniz iptal edilecektir?'),
+                  'Önceki sayfaya dönmek istediğinizden emin misiniz?'),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text('Hayır'),
-                ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('Hayır'),
                 ),
               ],
             );
@@ -198,7 +199,7 @@ class _KurumEkleState extends State<KurumEkle> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Kurum Sec',
+            'Kurum',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
@@ -237,8 +238,8 @@ class _KurumEkleState extends State<KurumEkle> {
                       ),
                       hintStyle: TextStyle(
                           color: Theme.of(context).colorScheme.primary),
-                      labelText: "Kurum Secin",
-                      prefixIcon: Icon(Icons.select_all),
+                      labelText: "Kurum Seç",
+                      prefixIcon: Icon(UniconsLine.university),
                     ),
                   ),
                 ),
@@ -270,7 +271,7 @@ class _KurumEkleState extends State<KurumEkle> {
             ),
             MyButton(
               onTap: _saveToFirebase,
-              text: "Kaydet",
+              text: "Gönder",
             ),
             const SizedBox(height: 25),
           ],

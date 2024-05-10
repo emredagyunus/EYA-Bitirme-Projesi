@@ -168,7 +168,7 @@ class _ImageAddWebState extends State<ImageAddWeb> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Engelsiz Yaşam', style: TextStyle(color: Colors.white)),
+        title: Text('Resim veya Video', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
@@ -304,7 +304,7 @@ class _ImageAddWebState extends State<ImageAddWeb> {
           ),
           const SizedBox(height: 16.0),
           MyButton(
-            text: 'Kaydet',
+            text: 'Devam Et',
             onTap: _uploadFiles,
           ),
           const SizedBox(height: 16.0),

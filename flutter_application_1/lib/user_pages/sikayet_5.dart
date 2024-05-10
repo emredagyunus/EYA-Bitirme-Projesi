@@ -9,7 +9,7 @@ class ComplaintProcessedPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Şikayet İşleme Alındı',
+          'Şikayet Oluştur',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -27,7 +27,7 @@ class ComplaintProcessedPage extends StatelessWidget {
             Image.asset('lib/images/eya/logo.png'),
             SizedBox(height: 20),
             Text(
-              'Şikayetiniz İşleme Alınmıştır',
+              'Şikayetin İşleme Alındı!',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
