@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:EYA/user_pages/all_complaint_page.dart';
@@ -10,15 +11,13 @@ import 'package:unicons/unicons.dart';
 
 class RootPage extends StatefulWidget {
   final int? initialIndex;
-  const RootPage({Key? key, this.initialIndex}) : super(key: key);
-
+  const RootPage({super.key, this.initialIndex});
   @override
   State<RootPage> createState() => _RootPageState();
 }
 
 class _RootPageState extends State<RootPage> {
   int _bottomNavIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -42,7 +41,6 @@ class _RootPageState extends State<RootPage> {
     UniconsLine.sort_amount_down,
     UniconsLine.user_circle,
   ];
-
   //List of the pages titles
   List<String> titleList = [
     'Home',
@@ -53,72 +51,44 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < 600;
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false, // Set hasScrollBody to false
-            child: Column(
-              children: [
-                Expanded(
-                  child: IndexedStack(
-                    index: _bottomNavIndex,
-                    children: _widgetOptions(),
-                  ),
-                ),
-                if (isMobile)
-                  AnimatedBottomNavigationBar(
-                    splashColor: Colors.deepPurple,
-                    activeColor: Colors.deepPurple,
-                    inactiveColor: Colors.black,
-                    icons: iconList,
-                    activeIndex: _bottomNavIndex,
-                    gapLocation: GapLocation.center,
-                    notchSmoothness: NotchSmoothness.softEdge,
-                    onTap: (index) {
-                      setState(() {
-                        _bottomNavIndex = index;
-                      });
-                    },
-                  ),
-                // Footer expanded to fill remaining space
-                Container(
-                  color: Colors.deepPurple.shade300,
-                  padding: EdgeInsets.all(16),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'footer alani doldurulucak',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      body: IndexedStack(
+        index: _bottomNavIndex,
+        children: _widgetOptions(),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked, // Change FloatingActionButton location to endDocked
-      floatingActionButton: MediaQuery.of(context).viewInsets.bottom > 0
-          ? SizedBox.shrink()
-          : FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
+      floatingActionButton: SizedBox(
+        width: 40,
+        height: 40,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                PageTransition(
                     child: SikayetIlkPage(),
-                    type: PageTransitionType.bottomToTop,
-                  ),
-                );
-              },
-              backgroundColor: Colors.deepPurple,
-              child: Icon(UniconsLine.plus, color: Colors.white),
-            ),
-      bottomNavigationBar: isMobile ? null : SizedBox(height: 50), // Hide bottom navigation bar on web
+                    type: PageTransitionType.bottomToTop));
+          },
+          backgroundColor: Colors.deepPurple,
+          child: Icon(
+            UniconsLine.plus,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+          splashColor: Colors.deepPurple,
+          activeColor: Colors.deepPurple,
+          inactiveColor: Colors.black,
+          icons: iconList,
+          activeIndex: _bottomNavIndex,
+          gapLocation: GapLocation.center,
+          notchSmoothness: NotchSmoothness.softEdge,
+          onTap: (index) {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          }),
     );
   }
 }

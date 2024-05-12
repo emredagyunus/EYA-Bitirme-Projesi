@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:EYA/user_pages/mail_changing_page.dart';
 import 'package:EYA/user_pages/password_changing_page.dart';
