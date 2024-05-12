@@ -1,3 +1,5 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
@@ -45,15 +47,8 @@ class _iletisimPageState extends State<iletisimPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'İletişim',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

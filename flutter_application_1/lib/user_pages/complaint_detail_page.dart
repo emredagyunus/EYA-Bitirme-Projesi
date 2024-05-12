@@ -1,3 +1,5 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/models/complaint.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -136,15 +138,8 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Şikayet Detayı',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(

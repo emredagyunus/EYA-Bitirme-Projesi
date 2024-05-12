@@ -1,3 +1,4 @@
+import 'package:EYA/companents/customAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -227,80 +228,11 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       drawer: MyDrawer(),
-      appBar: AppBar(
-        title: 
-        Text(
-          'E Y A',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.bell,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-          if (MediaQuery.of(context).size.width > 600) // Check if it's a wide screen (web)
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Handle button action
-                  },
-                  child: Text(
-                    'Button 1',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Handle button action
-                  },
-                  child: Text(
-                    'Button 2',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-               // Add a spacer to push the next buttons to the right
-                TextButton(
-                  onPressed: () {
-                    // Handle button action
-                  },
-                  child: Text(
-                    'Button 3',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Handle button action
-                  },
-                  child: Text(
-                    'Button 4',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Handle button action
-                  },
-                  child: Text(
-                    'Button 5',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-        ],
-      ),
+      appBar: customAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 10),
             MyImageBox(),

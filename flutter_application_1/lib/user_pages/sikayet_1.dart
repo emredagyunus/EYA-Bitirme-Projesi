@@ -1,3 +1,5 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/user_pages/sikayet_2_web.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -113,15 +115,8 @@ class SikayetIlkPage extends StatelessWidget {
         );
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Şikayet Oluştur',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.deepPurple,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
+        appBar: customAppBar(context),
+        drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

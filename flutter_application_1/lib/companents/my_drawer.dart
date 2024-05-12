@@ -1,3 +1,5 @@
+import 'package:EYA/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_drawer_tile.dart';
 import 'package:EYA/user_pages/aboutus_page.dart';
@@ -38,13 +40,23 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTile(
             text: "Ana Sayfa",
             icon: UniconsLine.home_alt,
-            onTap: () => Navigator.push(
+            onTap: () {
+              if(kIsWeb){
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyApp(),
+                ));
+              }else{
+                Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => RootPage(
                     initialIndex: 0,
                   ),
-                )),
+                ));
+              }
+            }
           ),
           MyDrawerTile(
               text: "Hakkımızda",

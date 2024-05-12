@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/companents/number_circle_widget.dart';
 import 'package:EYA/user_pages/sikayet_3.dart';
 import 'package:flutter/material.dart';
@@ -167,12 +169,8 @@ class _ImageAddWebState extends State<ImageAddWeb> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Resim veya Video', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.deepPurple,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: Column(
         children: [
           NumberCircleContainer(

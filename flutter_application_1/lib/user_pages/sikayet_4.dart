@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
@@ -197,15 +199,8 @@ class _KurumEkleState extends State<KurumEkle> {
         );
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Kurum',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.deepPurple,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
+        appBar: customAppBar(context),
+        drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: Column(
           children: [
             NumberCircleContainer(

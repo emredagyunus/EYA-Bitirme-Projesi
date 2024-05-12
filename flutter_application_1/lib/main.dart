@@ -1,5 +1,7 @@
+import 'package:EYA/user_pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/firebase_options.dart';
 import 'package:EYA/user_pages/onboarding_screen.dart';
@@ -16,9 +18,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        //theme provider
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
+      
       child: const MyApp(),
     ),
   );
@@ -36,9 +38,12 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           //user is logged in
           if (snapshot.hasData) {
-            return RootPage();
+           if(MediaQuery.of(context).size.width > 600){
+             return HomePage();
+           }else{
+             return RootPage();
+           }
           }
-          //user is NOT logged in
           else {
             return OnboardingScreen();
           }
@@ -48,3 +53,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+

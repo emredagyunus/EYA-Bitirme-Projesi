@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -177,15 +179,8 @@ class _ImageAddState extends State<ImageAdd> {
         );
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Resim veya Video',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.deepPurple,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
+        appBar:  customAppBar(context),
+        drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: Column(
           children: [
             NumberCircleContainer(

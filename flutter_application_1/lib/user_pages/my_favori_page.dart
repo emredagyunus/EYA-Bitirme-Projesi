@@ -1,3 +1,4 @@
+import 'package:EYA/companents/customAppBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,15 +46,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Favoriler',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-      ),
+      appBar: customAppBar(context),
       drawer: MyDrawer(),
       body: StreamBuilder<QuerySnapshot>(
         stream: favoritesRef.snapshots(),

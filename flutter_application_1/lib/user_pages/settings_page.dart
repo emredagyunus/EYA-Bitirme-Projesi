@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:EYA/user_pages/mail_changing_page.dart';
 import 'package:EYA/user_pages/password_changing_page.dart';
@@ -33,6 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
         centerTitle: true,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: Column(
         children: [
           Container(

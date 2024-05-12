@@ -1,3 +1,5 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA/admin_pages/admin_duyuru_detail_page.dart';
@@ -7,15 +9,8 @@ class DuyuruPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Duyuru',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('duyuru')

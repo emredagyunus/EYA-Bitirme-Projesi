@@ -1,3 +1,5 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -51,15 +53,8 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Makale',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(

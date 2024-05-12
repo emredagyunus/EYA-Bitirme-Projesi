@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/admin_pages/admin_home_page.dart';
 import 'package:EYA/companents/my_button.dart';
@@ -39,6 +43,19 @@ class _LoginPageState extends State<LoginPage> {
           emailController.text,
           passwordController.text,
         );
+        if(kIsWeb){
+
+        }else{
+          String? deviceToken = await FirebaseMessaging.instance.getToken();
+
+        if (deviceToken != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth
+                  .instance.currentUser!.uid) 
+              .update({'deviceToken': deviceToken});
+        }
+        }
       }
     }
 
@@ -89,9 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Hoş Geldiniz...",
                     style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   const SizedBox(height: 25),
@@ -169,8 +186,8 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         "Üye değil misin?",
                         style: TextStyle(
-                            color:
-                                Colors.black,),
+                          color: Colors.black,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       GestureDetector(

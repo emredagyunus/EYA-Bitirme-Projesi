@@ -1,3 +1,6 @@
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -10,6 +13,7 @@ class FAQPage extends StatefulWidget {
 
 class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  
 
   @override
   void initState() {
@@ -20,15 +24,8 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Sıkça Sorulan Sorular',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-      ),
+      appBar: customAppBar(context),
+      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,7 +82,32 @@ class FAQSection extends StatelessWidget {
   }
 }
 
+
 class FeedbackForm extends StatelessWidget {
+
+  Future<void> saveForm() async {
+    try {
+      await FirebaseFirestore.instance.collection('sssForm').add({
+        'name': nameController.text,
+        'phone': surnameController.text,
+        'mail': emailController.text,
+        'description': descriptionController.text,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      nameController.clear();
+      surnameController.clear();
+      emailController.clear();
+      descriptionController.clear();
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -109,7 +131,7 @@ class FeedbackForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 MyTextField(
-                  controller: TextEditingController(),
+                  controller: nameController,
                   hintText: 'Ad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
@@ -117,7 +139,7 @@ class FeedbackForm extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 MyTextField(
-                  controller: TextEditingController(),
+                  controller: surnameController,
                   hintText: 'Soyad',
                   obscureText: false,
                   icon: Icon(UniconsLine.user),
@@ -125,7 +147,7 @@ class FeedbackForm extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 MyTextField(
-                  controller: TextEditingController(),
+                  controller: emailController,
                   hintText: 'E-Posta',
                   obscureText: false,
                   icon: Icon(UniconsLine.envelope),
@@ -133,14 +155,14 @@ class FeedbackForm extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 MyTextField(
-                  controller: TextEditingController(),
+                  controller: descriptionController,
                   hintText: 'Mesaj',
                   obscureText: false,
                   maxLines: 4,
                   icon: Icon(UniconsLine.bars),
                 ),
                 SizedBox(height: 50),
-                MyButton(text: "Gönder")
+                MyButton(text: "Gönder",onTap: (){},)
               ],
             ),
           ),

@@ -1,4 +1,6 @@
 // ignore_for_file: deprecated_member_use
+import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -241,15 +243,8 @@ class _MyLocationPageState extends State<MyLocationPage> {
         );
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Konum',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.deepPurple,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
+        appBar: customAppBar(context),
+        drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(0),
           child: Column(
