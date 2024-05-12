@@ -7,6 +7,7 @@ import 'package:EYA/user_pages/sikayet_4.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:unicons/unicons.dart';
 
 class MyLocationPage extends StatefulWidget {
   final String title;
@@ -91,8 +92,8 @@ class _MyLocationPageState extends State<MyLocationPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Uyarı'),
-            content: Text('Lütfen tüm şikayet kutularını doldurun.'),
+            title: Text('Uyarı', textAlign: TextAlign.center,),
+            content: Text('Lütfen tüm şikayet kutularını doldur!'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -218,21 +219,21 @@ class _MyLocationPageState extends State<MyLocationPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Emin misiniz?'),
+              title: Text('Emin misiniz?', textAlign: TextAlign.center,),
               content: Text(
-                  'Geri gitmek istediğinizden emin misiniz islemleriniz iptal edilecektir?'),
+                  'Önceki sayfaya dönmek istediğinizden emin misiniz?'),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text('Hayır'),
-                ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('Hayır'),
                 ),
               ],
             );
@@ -295,30 +296,30 @@ class _MyLocationPageState extends State<MyLocationPage> {
               SizedBox(height: 20),
               MyTextField(
                 controller: _ilController,
-                hintText: "Il",
+                hintText: "İl",
                 obscureText: false,
-                icon: Icon(Icons.location_city),
+                icon: Icon(UniconsLine.location_point),
               ),
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _ilceController,
-                hintText: "Ilce",
+                hintText: "İlçe",
                 obscureText: false,
-                icon: Icon(Icons.location_city),
+                icon: Icon(UniconsLine.location_point),
               ),
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _mahalleController,
                 hintText: "Mahalle",
                 obscureText: false,
-                icon: Icon(Icons.location_city),
+                icon: Icon(UniconsLine.location_point),
               ),
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _sokakController,
                 hintText: "Sokak",
                 obscureText: false,
-                icon: Icon(Icons.location_city),
+                icon: Icon(UniconsLine.location_point),
               ),
               SizedBox(height: 32.0),
               MyButton(
@@ -327,7 +328,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               ),
               const SizedBox(height: 15),
               MyButton(
-                text: 'Gönder',
+                text: 'Devam Et',
                 onTap: submitComplaints,
               ),
             ],

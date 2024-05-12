@@ -157,19 +157,19 @@ class _ImageAddState extends State<ImageAdd> {
             return AlertDialog(
               title: Text('Emin misiniz?'),
               content:
-                  Text('Şikayeti iptal etmek istediğinizden emin misiniz?'),
+                  Text('Önceki sayfaya dönmek istediğinizden emin misiniz?'),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text('Hayır'),
-                ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
                   child: Text('Evet'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('Hayır'),
                 ),
               ],
             );
@@ -179,7 +179,7 @@ class _ImageAddState extends State<ImageAdd> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Engelsiz Yaşam',
+            'Resim veya Video',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
@@ -331,7 +331,7 @@ class _ImageAddState extends State<ImageAdd> {
             ),
             const SizedBox(height: 16.0),
             MyButton(
-              text: 'Kaydet',
+              text: 'Devam Et',
               onTap: _uploadFiles,
             ),
             const SizedBox(height: 16.0),
