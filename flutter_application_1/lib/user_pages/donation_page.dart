@@ -38,7 +38,7 @@ class DonationPage extends StatelessWidget {
       "image": "lib/images/eya/haytap.jpg",
       "title": "HAYTAP",
       "description":
-          "Türkiye'nin hayvan hakları konusunda kurulmuş ilk federasyonu olan HAYTAP'a yapacağınız bağışlar, ülkenin dört bir yanındaki muhtaç hayvanlara yardım olarak ulaşacaktır. Bağış sayfasına gitmek için tıkla!",
+          "HAYTAP'a yapacağınız bağışlar, Türkiye'nin dört bir yanındaki muhtaç hayvanlara yardım olarak ulaşacaktır. Bağış sayfasına gitmek için tıklayın!",
       "url": "https://fonzip.com/haytap/bagis",
     },
     {
