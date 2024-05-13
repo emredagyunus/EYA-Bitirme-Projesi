@@ -2,7 +2,6 @@ import 'package:EYA/main.dart';
 import 'package:EYA/user_pages/all_complaint_page.dart';
 import 'package:EYA/user_pages/my_favori_page.dart';
 import 'package:EYA/user_pages/myprof%C4%B1le_page.dart';
-import 'package:EYA/user_pages/root_page.dart';
 import 'package:EYA/user_pages/sikayet_1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

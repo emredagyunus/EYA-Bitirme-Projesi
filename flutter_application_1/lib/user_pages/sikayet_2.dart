@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/my_drawer.dart';

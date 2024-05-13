@@ -1,3 +1,4 @@
+import 'package:EYA/user_pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/user_pages/root_page.dart';
@@ -14,7 +15,11 @@ class AuthGate extends StatelessWidget {
         builder: (context, snapshot) {
           //user is logged in
           if(snapshot.hasData){
-            return const RootPage();
+           if(MediaQuery.of(context).size.width > 600){
+             return HomePage();
+           }else{
+             return RootPage();
+           }
           }
 
           //user is NOT logged in

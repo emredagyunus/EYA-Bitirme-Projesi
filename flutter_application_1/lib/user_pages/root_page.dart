@@ -1,6 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:EYA/user_pages/all_complaint_page.dart';
 import 'package:EYA/user_pages/home_page.dart';
 import 'package:EYA/user_pages/my_favori_page.dart';

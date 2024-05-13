@@ -11,6 +11,7 @@ class NotificationHelper extends StatefulWidget {
 class _NotificationHelperState extends State<NotificationHelper> {
   final FlutterLocalNotificationsPlugin _notificationPlugin =
       FlutterLocalNotificationsPlugin();
+  // ignore: unused_field
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override

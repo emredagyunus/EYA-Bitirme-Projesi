@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:EYA/companents/customAppBar.dart';
-import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_drawer.dart';
-import 'package:EYA/companents/number_circle_widget.dart';
-import 'package:EYA/user_pages/sikayet_3.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:EYA/user_pages/sikayet_3.dart';
+import 'package:EYA/companents/my_button.dart';
+import 'package:EYA/companents/number_circle_widget.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_player/video_player.dart';
 
@@ -33,24 +36,9 @@ class ImageAddWeb extends StatefulWidget {
 }
 
 class _ImageAddWebState extends State<ImageAddWeb> {
-  List<File?> images = [];
-  List<File?> videos = [];
+  List<Uint8List?> images = [];
+  List<Uint8List?> videos = [];
   bool _uploading = false;
-  late VideoPlayerController videoController;
-
-  @override
-  void initState() {
-    super.initState();
-    if (videos.isNotEmpty) {
-      final videoFile = videos[0];
-      if (videoFile != null) {
-        videoController = VideoPlayerController.file(videoFile);
-        videoController.initialize().then((_) {
-          setState(() {});
-        });
-      }
-    }
-  }
 
   Future<void> _pickImage() async {
     FilePickerResult? result =
@@ -58,7 +46,7 @@ class _ImageAddWebState extends State<ImageAddWeb> {
 
     if (result != null) {
       setState(() {
-        images.add(File(result.files.first.path!));
+        images.add(result!.files.first.bytes);
       });
     }
   }
@@ -67,12 +55,9 @@ class _ImageAddWebState extends State<ImageAddWeb> {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(type: FileType.video);
 
-    if (result != null && result.files.isNotEmpty) {
+    if (result != null) {
       setState(() {
-        final file = File(result.files.first.path!);
-        if (file != null) {
-          videos.add(file);
-        }
+        videos.add(result!.files.first.bytes);
       });
     }
   }
@@ -81,41 +66,11 @@ class _ImageAddWebState extends State<ImageAddWeb> {
     setState(() {
       _uploading = true;
     });
-
-    try {
-      final List<String> imageURLs = await _uploadImages();
-      final List<String> videoURLs = await _uploadVideos();
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyLocationPage(
-            title: widget.title,
-            description: widget.description,
-            userID: widget.userID,
-            imageURLs: imageURLs,
-            videoURLs: videoURLs,
-            userName: widget.userName,
-            userSurname: widget.userSurname,
-          ),),
-      );
-    } catch (e, stackTrace) {
-      print('Error uploading files: $e');
-      print('Stack trace: $stackTrace');
-    } finally {
-      setState(() {
-        _uploading = false;
-      });
-    }
-  }
-
-  Future<List<String>> _uploadImages() async {
-    final List<String> imageURLs = [];
+    List<String> imageURLs = [];
+    List<String> videoURLs = [];
 
     for (int i = 0; i < images.length; i++) {
-      final File? file = images[i];
-      if (file == null) continue;
-
+      final Uint8List? file = images[i];
       final String uuid = Uuid().v4();
       final String fileName = 'image_$uuid.png';
 
@@ -124,46 +79,51 @@ class _ImageAddWebState extends State<ImageAddWeb> {
           .ref()
           .child('sikayet/$fileName');
 
-      await storageRef.putFile(file).whenComplete(() {
-        setState(() {});
-      });
+      await storageRef.putData(
+        file!,
+        firebase_storage.SettableMetadata(contentType: 'image/png'),
+      );
 
       final String downloadURL = await storageRef.getDownloadURL();
       imageURLs.add(downloadURL);
     }
 
-    return imageURLs;
-  }
-
-  Future<List<String>> _uploadVideos() async {
-    final List<String> videoURLs = [];
-
     for (int i = 0; i < videos.length; i++) {
-      try {
-        final File? file = videos[i];
-        if (file == null) continue;
+      final Uint8List? file = videos[i];
+      final String uuid = Uuid().v4();
+      final String fileName = 'video_$uuid.mp4';
 
-        final String uuid = Uuid().v4();
-        final String fileName = 'video_$uuid.mp4';
+      final firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('sikayet/videos/$fileName');
 
-        final firebase_storage.Reference storageRef = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('sikayet/videos/$fileName');
+      await storageRef.putData(
+        file!,
+        firebase_storage.SettableMetadata(contentType: 'video/mp4'),
+      );
 
-        await storageRef.putFile(file).whenComplete(() {
-          setState(() {});
-        });
-
-        final String downloadURL = await storageRef.getDownloadURL();
-        videoURLs.add(downloadURL);
-      } catch (e, stackTrace) {
-        print('Error uploading video at index $i: $e');
-        print('Stack trace: $stackTrace');
-      }
+      final String downloadURL = await storageRef.getDownloadURL();
+      videoURLs.add(downloadURL);
     }
 
-    return videoURLs;
+    setState(() {
+      _uploading = false;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MyLocationPage(
+          title: widget.title,
+          description: widget.description,
+          userID: widget.userID,
+          userName: widget.userName,
+          userSurname: widget.userSurname,
+          imageURLs: imageURLs,
+          videoURLs: videoURLs,
+        ),
+      ),
+    );
   }
 
   @override
@@ -177,143 +137,203 @@ class _ImageAddWebState extends State<ImageAddWeb> {
             backgroundColor2: Colors.deepPurple,
             lineColor2: Colors.white,
           ),
-          const SizedBox(height: 16.0),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Resim veya Video Ekle',
-              style: TextStyle(
-                color: Colors.deepPurple,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
-            child: Center(
-              child: GridView.builder(
-                shrinkWrap: true,
-                itemCount: images.length + videos.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 4.0,
-                  crossAxisSpacing: 4.0,
-                  childAspectRatio: 1.0,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < images.length + videos.length) {
-                    Widget itemWidget;
-                    double aspectRatio = 1.0;
-
-                    if (index < images.length) {
-                      itemWidget = Image.file(
-                        images[index]!,
-                        fit: BoxFit.cover,
-                      );
-                    } else {
-                      final videoIndex = index - images.length;
-                      final videoFile = videos[videoIndex]!;
-                      final videoController = VideoPlayerController.file(videoFile);
-
-                      itemWidget = FutureBuilder(
-                        future: videoController.initialize(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            videoController.play();
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  videoController.value.isPlaying
-                                      ? videoController.pause()
-                                      : videoController.play();
-                                });
-                              },
-                              child: AspectRatio(
-                                aspectRatio: videoController.value.aspectRatio,
-                                child: VideoPlayer(videoController),
-                              ),
-                            );
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        },
-                      );
-
-                      aspectRatio = videoController.value.aspectRatio;
-                    }
-
-                    return Stack(
-                      children: [
-                        itemWidget,
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (index < images.length) {
-                                  images.removeAt(index);
-                                } else {
-                                  final videoIndex = index - images.length;
-                                  videos.removeAt(videoIndex);
-                                }
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              padding: EdgeInsets.all(6),
-                              child: Icon(
-                                Icons.close,
-                                size: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (_uploading)
-                          Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                      ],
-                    );
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                },
-              ),
+            child: GridView.count(
+              shrinkWrap: true,
+              padding: EdgeInsets.all(8.0),
+              crossAxisCount: 3,
+              children: List.generate(images.length + videos.length, (index) {
+                if (index < images.length) {
+                  return _buildImageBox(index);
+                } else {
+                  int videoIndex = index - images.length;
+                  return _buildVideoBox(videoIndex);
+                }
+              }),
             ),
           ),
-          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               MyButton(
+                onTap: _pickImage,
                 text: 'Resim Ekle',
-                onTap: () => _pickImage(),
               ),
               MyButton(
+                onTap: _pickVideo,
                 text: 'Video Ekle',
-                onTap: () => _pickVideo(),
               ),
             ],
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 10),
           MyButton(
-            text: 'Devam Et',
             onTap: _uploadFiles,
+            text: 'Kaydet',
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 50),
         ],
       ),
     );
   }
 
+  Widget _buildImageBox(int index) {
+    return Stack(
+      children: [
+        Image.memory(
+          images[index]!,
+          fit: BoxFit.cover,
+        ),
+        Positioned(
+          top: 4,
+          right: 4,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                images.removeAt(index);
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              padding: EdgeInsets.all(6),
+              child: Icon(
+                Icons.close,
+                size: 12,
+              ),
+            ),
+          ),
+        ),
+        if (_uploading)
+          Center(
+            child: CircularProgressIndicator(),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildVideoBox(int index) {
+    return Stack(
+      children: [
+        VideoPlayerWidget(
+          videoBytes: videos[index]!,
+        ),
+        Positioned(
+          top: 4,
+          right: 4,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                videos.removeAt(index);
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              padding: EdgeInsets.all(6),
+              child: Icon(
+                Icons.close,
+                size: 12,
+              ),
+            ),
+          ),
+        ),
+        if (_uploading)
+          Center(
+            child: CircularProgressIndicator(),
+          ),
+      ],
+    );
+  }
+}
+
+class VideoPlayerWidget extends StatefulWidget {
+  final Uint8List videoBytes;
+
+  const VideoPlayerWidget({Key? key, required this.videoBytes})
+      : super(key: key);
+
+  @override
+  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
+}
+
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+  late VideoPlayerController _controller;
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsWeb) {
+      _controller = VideoPlayerController.network(
+        Uri.parse('data:video/mp4;base64,' +
+                base64Encode(widget.videoBytes).replaceAll('\n', ''))
+            .toString(),
+      );
+    } else {
+      final Directory appDocDir = Directory.systemTemp;
+      final String appDocPath = appDocDir.path;
+      final File videoFile = File('$appDocPath/temp_video.mp4');
+      videoFile.writeAsBytesSync(widget.videoBytes);
+      _controller = VideoPlayerController.file(videoFile);
+    }
+
+    _controller.initialize().then((_) {
+      setState(() {});
+    });
+
+    _controller.addListener(() {
+      if (_controller.value.isPlaying != _isPlaying) {
+        setState(() {
+          _isPlaying = _controller.value.isPlaying;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isPaused =
+        !_controller.value.isPlaying && _controller.value.isInitialized;
+    return Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
+        ),
+        GestureDetector(
+          onTap: () {
+            if (_isPlaying) {
+              _controller.pause();
+            } else {
+              _controller.play();
+            }
+            setState(() {
+              _isPlaying = !_isPlaying;
+            });
+          },
+          child: Visibility(
+            visible: isPaused,
+            child: Center(
+              child: Icon(
+                _isPlaying ? Icons.pause : Icons.play_arrow,
+                size: 50,
+                color: Colors.deepPurple,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   void dispose() {
-    videoController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
+

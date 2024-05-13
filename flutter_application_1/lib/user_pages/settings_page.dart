@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:EYA/companents/my_drawer.dart';
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:EYA/user_pages/mail_changing_page.dart';
