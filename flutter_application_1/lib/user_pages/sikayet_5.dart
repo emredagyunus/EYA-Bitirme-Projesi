@@ -1,5 +1,7 @@
 import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/my_drawer.dart';
+import 'package:EYA/main.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/number_circle_widget.dart';
@@ -32,12 +34,21 @@ class ComplaintProcessedPage extends StatelessWidget {
             SizedBox(height: 30),
             MyButton(
               onTap: () {
+                if(kIsWeb){
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RootPage(),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyApp(),
+                ));
+              }else{
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RootPage(
+                    initialIndex: 0,
                   ),
-                );
+                ));
+              }
               },
               text: "Anasayfa",
             ),
