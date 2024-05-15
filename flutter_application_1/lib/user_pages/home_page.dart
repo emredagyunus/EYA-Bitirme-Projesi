@@ -1,4 +1,5 @@
 import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/home_page_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA/admin_pages/admin_blog_detail_page.dart';
@@ -234,7 +235,10 @@ class _HomePageState extends State<HomePage>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 10),
-            MyImageBox(),
+            Container(
+              height: 200,
+              child: ImageSlider(),
+            ),
             SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -260,12 +264,9 @@ class _HomePageState extends State<HomePage>
                         hintText: 'Şikayet Ara',
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
+                        icon: Icon(UniconsLine.search),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(UniconsLine.search),
-                    onPressed: () {},
                   ),
                   IconButton(
                     icon: Icon(UniconsLine.microphone),

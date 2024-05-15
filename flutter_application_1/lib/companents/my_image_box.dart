@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class MyImageBox extends StatelessWidget {
-  const MyImageBox({super.key});
+  final ImageProvider image;
+
+  const MyImageBox({Key? key, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.35,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("lib/images/eya/logo.png"),
+            image: image,
             fit: BoxFit.cover,
           ),
           border: Border.all(color: Theme.of(context).colorScheme.secondary),

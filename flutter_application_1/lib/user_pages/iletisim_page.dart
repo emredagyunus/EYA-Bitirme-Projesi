@@ -57,7 +57,7 @@ class _iletisimPageState extends State<iletisimPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const MyImageBox(),
+                const MyImageBox(image: AssetImage("lib/images/eya/logo.png"),),
               ],
             ),
             SizedBox(height: 16),

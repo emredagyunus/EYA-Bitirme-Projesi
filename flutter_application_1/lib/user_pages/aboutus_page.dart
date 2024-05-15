@@ -14,7 +14,7 @@ class AboutUsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              MyImageBox(),
+              MyImageBox(image: AssetImage("lib/images/eya/logo.png"),),
               /*SizedBox(height: 20),
               Text(
                 'Hakkımızda',
