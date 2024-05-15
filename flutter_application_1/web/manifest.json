@@ -1,11 +1,11 @@
 {
-    "name": "flutter_application_1",
-    "short_name": "flutter_application_1",
+    "name": "EYA",
+    "short_name": "EYA",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Engelsiz Yaşam Platformu",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

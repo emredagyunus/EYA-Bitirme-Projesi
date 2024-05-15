@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage>
           children: [
             SizedBox(height: 10),
             Container(
-              height: 200,
+              height: 250,
               child: ImageSlider(),
             ),
             SizedBox(height: 20),
