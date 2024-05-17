@@ -69,7 +69,30 @@ class _FavoritesPageState extends State<FavoritesPage> {
             );
           }
 
-          return ListView.builder(
+          final bool isWideScreen = MediaQuery.of(context).size.width > 1250;
+          final bool tablet = MediaQuery.of(context).size.width > 600;
+
+          return GridView.builder(
+            padding: EdgeInsets.all(8),
+            gridDelegate: isWideScreen
+                ? SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 6,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 0.75,
+                  )
+                : tablet
+                    ? SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 0.8,
+                      )
+                    : SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 9,
+                      ),
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               DocumentSnapshot complaintDoc = snapshot.data!.docs[index];
@@ -109,36 +132,79 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ),
                   );
                 },
-                child: Card(
-                  margin: EdgeInsets.all(8),
-                  child: ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: complaintData['imageURLs'].isNotEmpty
-                          ? Image.network(
-                              complaintData['imageURLs'][0],
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset("lib/images/eya/logo.png"),
-                    ),
-                    title: Text(complaintData['title']),
-                    subtitle: Text(
-                      complaintData['description'].length > 50
-                          ? '${complaintData['description'].substring(0, 50)}...'
-                          : complaintData['description'],
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.deepPurple,
+                child: Stack(
+                  children: [
+                    Card(
+                      margin: EdgeInsets.all(1),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                            AspectRatio(
+                              aspectRatio: isWideScreen
+                                  ? 4 / 3
+                                  : tablet
+                                      ? 4 / 3
+                                      : 7 / 2.9,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(12)),
+                                child: complaintData['imageURLs'].isNotEmpty
+                                    ? Image.network(
+                                        complaintData['imageURLs'][0],
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        "lib/images/eya/logo.png"),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    complaintData['title'].trim(),
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    complaintData['description'].length > 50
+                                        ? '${complaintData['description'].substring(0, 50).trim()}...'
+                                        : complaintData['description']
+                                            .trim(),
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      onPressed: () {
-                        removeFromFavorites(complaintData['id']);
-                      },
                     ),
-                  ),
+                    Positioned(
+                      bottom: 15,
+                      right: 15,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Colors.deepPurple,
+                        ),
+                        onPressed: () {
+                          removeFromFavorites(complaintData['id']);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
