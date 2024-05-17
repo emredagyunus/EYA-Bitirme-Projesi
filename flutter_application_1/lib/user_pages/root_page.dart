@@ -18,121 +18,78 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier(0);
-
+  int _bottomNavIndex = 0;
   @override
   void initState() {
     super.initState();
-    _currentIndexNotifier.value = widget.initialIndex ?? 0;
+    _bottomNavIndex = widget.initialIndex ?? 0;
   }
+
+  //List of the pages
+  List<Widget> _widgetOptions() {
+    return [
+      const HomePage(),
+      FavoritesPage(),
+      AllComplaint(),
+      MyProfilePage(),
+    ];
+  }
+
+  //List of the pages icons
+  List<IconData> iconList = [
+    UniconsLine.estate,
+    UniconsLine.heart_alt,
+    UniconsLine.sort_amount_down,
+    UniconsLine.user_circle,
+  ];
+  //List of the pages titles
+  List<String> titleList = [
+    'Home',
+    'Favorite',
+    'Sikayet',
+    'Profile',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _IndexedStack(
-        currentIndex: _currentIndexNotifier.value,
-        children: [
-          const HomePage(),
-          FavoritesPage(),
-          AllComplaint(),
-          MyProfilePage(),
-        ],
+      body: IndexedStack(
+        index: _bottomNavIndex,
+        children: _widgetOptions(),
       ),
-      floatingActionButton: _FloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: _AnimatedBottomNavigationBar(
-        currentIndexNotifier: _currentIndexNotifier,
-        icons: _bottomNavigationBarIcons,
-        titles: _bottomNavigationBarTitles,
-      ),
-    );
-  }
-}
-
-// _indexed_stack.dart
-class _IndexedStack extends StatelessWidget {
-  final int currentIndex;
-  final List<Widget> children;
-
-  const _IndexedStack({required this.currentIndex, required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return IndexedStack(
-      index: currentIndex,
-      children: children,
-    );
-  }
-}
-
-// _floating_action_button.dart
-class _FloatingActionButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            PageTransition(
-              child: SikayetIlkPage(),
-              type: PageTransitionType.bottomToTop,
-            ),
-          );
-        },
-        backgroundColor: Colors.deepPurple,
-        child: Icon(
-          UniconsLine.plus,
-          color: Colors.white,
+      floatingActionButton: SizedBox(
+        width: 40,
+        height: 40,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                PageTransition(
+                    child: SikayetIlkPage(),
+                    type: PageTransitionType.bottomToTop));
+          },
+          backgroundColor: Colors.deepPurple,
+          child: Icon(
+            UniconsLine.plus,
+            color: Colors.white,
+          ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+          splashColor: Colors.deepPurple,
+          activeColor: Colors.deepPurple,
+          inactiveColor: Colors.black,
+          icons: iconList,
+          activeIndex: _bottomNavIndex,
+          gapLocation: GapLocation.center,
+          notchSmoothness: NotchSmoothness.softEdge,
+          onTap: (index) {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          }),
     );
   }
 }
-
-// _animated_bottom_navigation_bar.dart
-class _AnimatedBottomNavigationBar extends StatelessWidget {
-  final ValueNotifier<int> currentIndexNotifier;
-  final List<IconData> icons;
-  final List<String> titles;
-
-  const _AnimatedBottomNavigationBar({
-    required this.currentIndexNotifier,
-    required this.icons,
-    required this.titles,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBottomNavigationBar(
-      splashColor: Colors.deepPurple,
-      activeColor: Colors.deepPurple,
-      inactiveColor: Colors.black,
-      icons: icons,
-      activeIndex: currentIndexNotifier.value,
-      gapLocation: GapLocation.center,
-      notchSmoothness: NotchSmoothness.softEdge,
-      onTap: (index) {
-        currentIndexNotifier.value = index;
-      },
-    );
-  }
-}
-
-// constants.dart
-const List<IconData> _bottomNavigationBarIcons = [
-  UniconsLine.estate,
-  UniconsLine.heart_alt,
-  UniconsLine.sort_amount_down,
-  UniconsLine.user_circle,
-];
-
-const List<String> _bottomNavigationBarTitles = [
-  'Home',
-  'Favorite',
-  'Sikayet',
-  'Profile',
-];

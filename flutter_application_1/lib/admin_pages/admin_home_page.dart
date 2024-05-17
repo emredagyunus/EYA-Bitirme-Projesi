@@ -114,6 +114,12 @@ class AdminHomePage extends StatelessWidget {
                               .collection('sikayet')
                               .doc(complaint.id)
                               .update({'isVisible': newValue});
+                          FirebaseFirestore.instance
+                              .collection('favorites')
+                              .doc(complaint.userID)
+                              .collection("complaints")
+                              .doc(complaint.id)
+                              .update({'isVisible': newValue});
                         },
                       ),
                       IconButton(
@@ -137,6 +143,12 @@ class AdminHomePage extends StatelessWidget {
                                     onPressed: () {
                                       FirebaseFirestore.instance
                                           .collection('sikayet')
+                                          .doc(complaint.id)
+                                          .delete();
+                                      FirebaseFirestore.instance
+                                          .collection('favorites')
+                                          .doc(complaint.userID)
+                                          .collection("complaints")
                                           .doc(complaint.id)
                                           .delete();
                                       Navigator.pop(context);

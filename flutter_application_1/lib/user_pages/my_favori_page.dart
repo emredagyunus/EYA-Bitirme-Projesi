@@ -49,7 +49,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       appBar: customAppBar(context),
       drawer: MyDrawer(),
       body: StreamBuilder<QuerySnapshot>(
-        stream: favoritesRef.snapshots(),
+        stream: favoritesRef.where('isVisible', isEqualTo: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(

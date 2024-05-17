@@ -104,6 +104,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           'mahalle': widget.complaint.mahalle,
           'sokak': widget.complaint.sokak,
           'favoritesCount': FieldValue.increment(1),
+          'isVisible':widget.complaint.isVisible,
         });
         setState(() {
           isFavorite = true;
