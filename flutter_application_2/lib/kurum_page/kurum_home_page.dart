@@ -1,6 +1,9 @@
+
+import 'package:EYA_KURUM/kurum_page/notification_controller.dart';
 import 'package:EYA_KURUM/services/auth/auth_gate.dart';
 import 'package:EYA_KURUM/services/auth/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -62,6 +65,12 @@ class KurumHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+   void fetchFirestoreData() async {
+
+    QuerySnapshot data = await FirebaseFirestore.instance.collection('sikayet').get();
+    await NotificationHelper.handleFirestoreData(data);
   }
 
   Widget buildComplaintList(BuildContext context,
@@ -149,10 +158,18 @@ class KurumHomePage extends StatelessWidget {
                               .collection('sikayet')
                               .doc(complaint.id)
                               .update({'cozuldumu': newValue});
+                          WidgetsFlutterBinding.ensureInitialized();
+                          Firebase.initializeApp();
+                          NotificationHelper.initializeNotification();
+                          NotificationHelper.setupFirebaseMessaging();    
+                          fetchFirestoreData();   
+
                         },
+                         
                       ),
                       IconButton(
                         onPressed: () {
+                                             
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -161,6 +178,7 @@ class KurumHomePage extends StatelessWidget {
                               ),
                             ),
                           );
+
                         },
                         icon: Icon(Icons.add),
                       ),

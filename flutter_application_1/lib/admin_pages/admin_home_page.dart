@@ -1,3 +1,5 @@
+import 'package:EYA/admin_pages/notification_controller.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA/companents/admin_drawer.dart';
@@ -36,11 +38,22 @@ class AdminHomePage extends StatelessWidget {
     );
   }
 
+  void fetchFirestoreData(String id) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> data =
+          await FirebaseFirestore.instance.collection('sikayet').doc(id).get();
+      await NotificationHelper.handleFirestoreData(data);
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
   Widget buildComplaintList(BuildContext context, {required bool isVisible}) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('sikayet')
           .where('isVisible', isEqualTo: isVisible)
+          .orderBy('timestamp', descending: true)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -109,17 +122,32 @@ class AdminHomePage extends StatelessWidget {
                       Switch(
                         value: complaint.isVisible,
                         activeColor: Colors.deepPurple,
-                        onChanged: (newValue) {
+                        onChanged: (newValue) async {
                           FirebaseFirestore.instance
                               .collection('sikayet')
                               .doc(complaint.id)
                               .update({'isVisible': newValue});
-                          FirebaseFirestore.instance
-                              .collection('favorites')
-                              .doc(complaint.userID)
-                              .collection("complaints")
-                              .doc(complaint.id)
-                              .update({'isVisible': newValue});
+                          DocumentSnapshot complaintDoc =
+                              await FirebaseFirestore.instance
+                                  .collection('favorites')
+                                  .doc(complaint.userID)
+                                  .collection("complaints")
+                                  .doc(complaint.id)
+                                  .get();
+                          if (complaintDoc.exists) {
+                            await FirebaseFirestore.instance
+                                .collection('favorites')
+                                .doc(complaint.userID)
+                                .collection("complaints")
+                                .doc(complaint.id)
+                                .update({'isVisible': newValue});
+                            print('Belge güncellendi.');
+                          }                          
+                            WidgetsFlutterBinding.ensureInitialized();
+                            Firebase.initializeApp();
+                            NotificationHelper.initializeNotification();
+                            NotificationHelper.setupFirebaseMessaging();
+                            fetchFirestoreData(complaint.id);                         
                         },
                       ),
                       IconButton(

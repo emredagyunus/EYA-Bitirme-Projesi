@@ -28,6 +28,8 @@ dependencies:
   flutter_image_slideshow: ^0.1.6
   carousel_slider: ^4.2.1
   video_player: ^2.8.6
+  flutter_local_notifications: ^17.1.2
+  firebase_messaging: ^14.9.2
 
 dev_dependencies:
   flutter_test:
