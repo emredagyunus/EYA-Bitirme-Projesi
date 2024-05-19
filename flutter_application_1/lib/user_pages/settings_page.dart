@@ -1,6 +1,7 @@
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:EYA/user_pages/mail_changing_page.dart';
 import 'package:EYA/user_pages/password_changing_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,42 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isNotificationsEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkNotificationPermission();
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    NotificationSettings settings = await FirebaseMessaging.instance.getNotificationSettings();
+    setState(() {
+      isNotificationsEnabled = settings.authorizationStatus == AuthorizationStatus.authorized;
+    });
+  }
+
+  Future<void> _requestNotificationPermission() async {
+    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    setState(() {
+      isNotificationsEnabled = settings.authorizationStatus == AuthorizationStatus.authorized;
+    });
+
+    if (settings.authorizationStatus == AuthorizationStatus.denied) {
+      // Kullanıcı bildirimi reddettiğinde yapılacak işlemler
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Bildirim izni reddedildi')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   context,
                   "Karanlık Mod",
                   CupertinoSwitch(
-                    value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
+                    value: Provider.of<ThemeProvider>(context, listen: true).isDarkMode,
                     onChanged: (value) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
                   ),
                 ),
@@ -102,9 +139,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   CupertinoSwitch(
                     value: isNotificationsEnabled,
                     onChanged: (value) {
-                      setState(() {
-                        isNotificationsEnabled = value;
-                      });
+                      if (value) {
+                        _requestNotificationPermission();
+                      } else {
+                        // Bildirim izinlerini kapatma işlemleri (bu manuel olarak yapılmalıdır)
+                        setState(() {
+                          isNotificationsEnabled = false;
+                        });
+                      }
                     },
                   ),
                 ),
@@ -124,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
             context,
             "Karanlık Mod",
             CupertinoSwitch(
-              value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
+              value: Provider.of<ThemeProvider>(context, listen: true).isDarkMode,
               onChanged: (value) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
             ),
           ),
@@ -172,9 +214,13 @@ class _SettingsPageState extends State<SettingsPage> {
             CupertinoSwitch(
               value: isNotificationsEnabled,
               onChanged: (value) {
-                setState(() {
-                  isNotificationsEnabled = value;
-                });
+                if (value) {
+                  _requestNotificationPermission();
+                } else {
+                  setState(() {
+                    isNotificationsEnabled = false;
+                  });
+                }
               },
             ),
           ),
