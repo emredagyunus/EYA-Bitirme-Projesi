@@ -48,11 +48,33 @@ class MyComplaint extends StatelessWidget {
               .map((doc) => ComplaintModel.fromFirestore(doc))
               .toList();
 
-          return ListView.builder(
+          final bool isWideScreen = MediaQuery.of(context).size.width > 1250;
+          final bool tablet = MediaQuery.of(context).size.width > 600;
+
+          return GridView.builder(
+            padding: EdgeInsets.all(8),
+            gridDelegate: isWideScreen
+                ? SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 6,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 0.75,
+                  )
+                : tablet
+                    ? SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 0.8,
+                      )
+                    : SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 9,
+                      ),
             itemCount: complaints.length,
             itemBuilder: (context, index) {
               ComplaintModel complaint = complaints[index];
-
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -64,78 +86,59 @@ class MyComplaint extends StatelessWidget {
                     ),
                   );
                 },
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    if (constraints.maxWidth > 600) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 500, vertical: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Card(
-                            child: ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: complaint.imageURLs.isNotEmpty
-                                    ? Image.network(
-                                        complaint.imageURLs[0],
-                                        width: MediaQuery.of(context).size.width * 0.25,
-                                        height: MediaQuery.of(context).size.height * 0.4,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset("lib/images/eya/logo.png"),
-                              ),
-                              title: Text(
-                                complaint.title,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                complaint.description.length > 50
-                                    ? '${complaint.description.substring(0, 62)}...'
-                                    : complaint.description,
-                              ),
-                            ),
+                child: Card(
+                  margin: EdgeInsets.all(1),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        AspectRatio(
+                          aspectRatio: isWideScreen
+                              ? 4 / 3
+                              : tablet
+                                  ? 4 / 3
+                                  : 7 / 2.9,
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(12)),
+                            child: complaint.imageURLs.isNotEmpty
+                                ? Image.network(
+                                    complaint.imageURLs[0],
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset("lib/images/eya/logo.png"),
                           ),
                         ),
-                      );
-                    } else {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.deepPurple),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Card(
-                            child: ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: complaint.imageURLs.isNotEmpty
-                                    ? Image.network(
-                                        complaint.imageURLs[0],
-                                        width: MediaQuery.of(context).size.width * 0.25,
-                                        height: MediaQuery.of(context).size.height * 0.4,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset("lib/images/eya/logo.png"),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                complaint.title.trim(),
+                                style: TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.bold),
                               ),
-                              title: Text(
-                                complaint.title,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
+                              SizedBox(height: 8),
+                              Text(
                                 complaint.description.length > 50
-                                    ? '${complaint.description.substring(0, 62)}...'
-                                    : complaint.description,
+                                    ? '${complaint.description.substring(0, 50).trim()}...'
+                                    : complaint.description.trim(),
+                                style: TextStyle(fontSize: 13),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      );
-                    }
-                  },
+                      ],
+                    ),
+                  ),
                 ),
               );
             },

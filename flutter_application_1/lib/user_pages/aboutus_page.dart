@@ -10,6 +10,7 @@ class AboutUsPage extends StatelessWidget {
     final isWideScreen = screenSize.width > 600;
 
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(
           'Hakkımızda',
@@ -38,7 +39,7 @@ class AboutUsPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: MyImageBox(image: AssetImage("lib/images/eya/logo.png"),),
         ),
         Expanded(
@@ -46,7 +47,7 @@ class AboutUsPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 20),
                 Text(

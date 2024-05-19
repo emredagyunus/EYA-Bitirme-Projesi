@@ -21,7 +21,7 @@ class MyTextField extends StatelessWidget {
     this.maxLines,
     this.textAlign,
     this.suffixIcon,
-    this.width, // Genişlik özelliği eklendi
+    this.width, 
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class MyTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: SizedBox(
-        width: width ?? double.infinity, // Genişlik kontrolü eklendi
+        width: width ?? double.infinity, 
         child: TextField(
           controller: controller,
           obscureText: obscureText,

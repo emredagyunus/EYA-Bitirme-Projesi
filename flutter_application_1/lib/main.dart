@@ -1,6 +1,7 @@
 import 'package:EYA/user_pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/firebase_options.dart';
 import 'package:EYA/user_pages/onboarding_screen.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
               return RootPage();
             }
           }
-          if (MediaQuery.of(context).size.width > 600) {
+          if (kIsWeb) {
             return LoginPage(onTap: () {  },);
           }
           return OnboardingScreen(); 
