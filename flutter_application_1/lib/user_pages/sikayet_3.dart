@@ -26,7 +26,8 @@ class MyLocationPage extends StatefulWidget {
     required this.userID,
     required this.userName,
     required this.imageURLs,
-    required this.videoURLs, required this.userSurname,
+    required this.videoURLs,
+    required this.userSurname,
   });
 
   @override
@@ -60,7 +61,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               title: widget.title,
               description: widget.description,
               userID: widget.userID,
-              userName:widget.userName,
+              userName: widget.userName,
               imageURLs: widget.imageURLs,
               videoURLs: widget.videoURLs,
               il: il,
@@ -94,7 +95,10 @@ class _MyLocationPageState extends State<MyLocationPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Uyarı', textAlign: TextAlign.center,),
+            title: Text(
+              'Uyarı',
+              textAlign: TextAlign.center,
+            ),
             content: Text('Lütfen tüm şikayet kutularını doldur!'),
             actions: [
               TextButton(
@@ -125,8 +129,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Uyarı'),
-            content:
-                Text('Konum izni verilmedi. Ayarlara gitmek ister misiniz?'),
+            content: Text('Konum izni verilmedi. Ayarlara gitmek ister misiniz?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -151,9 +154,9 @@ class _MyLocationPageState extends State<MyLocationPage> {
   void _getCurrentLocation() async {
     try {
       _currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high);
       _getAddressFromLatLng();
-       _onFindLocation();
+      _onFindLocation();
     } catch (e) {
       print(e);
     }
@@ -163,7 +166,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
     try {
       if (_currentPosition == null) {
         _currentPosition = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high);
+          desiredAccuracy: LocationAccuracy.high);
       }
 
       if (_currentPosition != null) {
@@ -173,18 +176,13 @@ class _MyLocationPageState extends State<MyLocationPage> {
         );
         Placemark place = placemarks[0];
         setState(() {
-          _address =
-              "${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.subLocality}, ${place.thoroughfare}";
+          _address = "${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.subLocality}, ${place.thoroughfare}";
         });
 
-        _ilController.text =
-            _address.split(", ").length > 0 ? _address.split(", ")[0] : "";
-        _ilceController.text =
-            _address.split(", ").length > 1 ? _address.split(", ")[1] : "";
-        _mahalleController.text =
-            _address.split(", ").length > 2 ? _address.split(", ")[2] : "";
-        _sokakController.text =
-            _address.split(", ").length > 3 ? _address.split(", ")[3] : "";
+        _ilController.text = _address.split(", ").length > 0 ? _address.split(", ")[0] : "";
+        _ilceController.text = _address.split(", ").length > 1 ? _address.split(", ")[1] : "";
+        _mahalleController.text = _address.split(", ").length > 2 ? _address.split(", ")[2] : "";
+        _sokakController.text = _address.split(", ").length > 3 ? _address.split(", ")[3] : "";
       }
     } catch (e) {
       print(e);
@@ -197,7 +195,6 @@ class _MyLocationPageState extends State<MyLocationPage> {
     });
     _onFindLocation();
   }
-  
 
   // ignore: unused_element
   void _onFindLocation() {
@@ -205,8 +202,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
     if (_currentPosition != null && mapController != null) {
       mapController!.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-          target:
-              LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+          target: LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
           zoom: 15,
         ),
       ));
@@ -221,9 +217,11 @@ class _MyLocationPageState extends State<MyLocationPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Emin misiniz?', textAlign: TextAlign.center,),
-              content: Text(
-                  'Önceki sayfaya dönmek istediğinizden emin misiniz?'),
+              title: Text(
+                'Emin misiniz?',
+                textAlign: TextAlign.center,
+              ),
+              content: Text('Önceki sayfaya dönmek istediğinizden emin misiniz?'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -246,7 +244,10 @@ class _MyLocationPageState extends State<MyLocationPage> {
         appBar: customAppBar(context),
         drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width > 600 ? 500.0 : 0,
+            vertical: MediaQuery.of(context).size.width > 600 ? 5.0 : 0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -331,14 +332,5 @@ class _MyLocationPageState extends State<MyLocationPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _ilController.dispose();
-    _ilceController.dispose();
-    _mahalleController.dispose();
-    _sokakController.dispose();
-    super.dispose();
   }
 }

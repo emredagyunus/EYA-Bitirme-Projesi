@@ -128,50 +128,60 @@ class _ImageAddWebState extends State<ImageAddWeb> {
 
   @override
   Widget build(BuildContext context) {
+    // Determine screen size
+    bool isLargeScreen = MediaQuery.of(context).size.width > 600;
+
+    // Define padding values
+    double horizontalPadding = isLargeScreen ? 500.0 : 0.0;
+    double verticalPadding = isLargeScreen ? 5.0 : 0.0;
+
     return Scaffold(
       appBar: customAppBar(context),
-      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
-      body: Column(
-        children: [
-          NumberCircleContainer(
-            backgroundColor2: Colors.deepPurple,
-            lineColor2: Colors.white,
-          ),
-          Expanded(
-            child: GridView.count(
-              shrinkWrap: true,
-              padding: EdgeInsets.all(8.0),
-              crossAxisCount: 3,
-              children: List.generate(images.length + videos.length, (index) {
-                if (index < images.length) {
-                  return _buildImageBox(index);
-                } else {
-                  int videoIndex = index - images.length;
-                  return _buildVideoBox(videoIndex);
-                }
-              }),
+      drawer: isLargeScreen ? MyDrawer() : null,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+        child: Column(
+          children: [
+            NumberCircleContainer(
+              backgroundColor2: Colors.deepPurple,
+              lineColor2: Colors.white,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MyButton(
-                onTap: _pickImage,
-                text: 'Resim Ekle',
+            Expanded(
+              child: GridView.count(
+                shrinkWrap: true,
+                padding: EdgeInsets.all(8.0),
+                crossAxisCount: 3,
+                children: List.generate(images.length + videos.length, (index) {
+                  if (index < images.length) {
+                    return _buildImageBox(index);
+                  } else {
+                    int videoIndex = index - images.length;
+                    return _buildVideoBox(videoIndex);
+                  }
+                }),
               ),
-              MyButton(
-                onTap: _pickVideo,
-                text: 'Video Ekle',
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          MyButton(
-            onTap: _uploadFiles,
-            text: 'Kaydet',
-          ),
-          const SizedBox(height: 50),
-        ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MyButton(
+                  onTap: _pickImage,
+                  text: 'Resim Ekle',
+                ),
+                MyButton(
+                  onTap: _pickVideo,
+                  text: 'Video Ekle',
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            MyButton(
+              onTap: _uploadFiles,
+              text: 'Kaydet',
+            ),
+            const SizedBox(height: 50),
+          ],
+        ),
       ),
     );
   }
@@ -255,8 +265,7 @@ class VideoPlayerWidget extends StatefulWidget {
 
   const VideoPlayerWidget({Key? key, required this.videoBytes})
       : super(key: key);
-
-  @override
+@override
   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
 }
 
@@ -336,4 +345,3 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     super.dispose();
   }
 }
-

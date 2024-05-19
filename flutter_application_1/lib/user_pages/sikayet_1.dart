@@ -20,13 +20,11 @@ class SikayetIlkPage extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
     String? userID = user?.uid;
 
-   
-      DocumentSnapshot documentSnapshot =
-          await _firestore.collection('users').doc(userID).get();
-      String name = documentSnapshot.get('name');
-      String surname = documentSnapshot.get('surname');
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('users').doc(userID).get();
+    String name = documentSnapshot.get('name');
+    String surname = documentSnapshot.get('surname');
 
-    
     if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
       showDialog(
         context: context,
@@ -50,34 +48,34 @@ class SikayetIlkPage extends StatelessWidget {
       );
     } else {
       if (kIsWeb) {
-  // Web platformundaysa
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => ImageAddWeb(
-        title: titleController.text,
-        description: descriptionController.text,
-        userID: userID!,
-        userName: name,
-        userSurname: surname,
-      ),
-    ),
-  );
-} else {
-  // Mobil platformdaysa
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => ImageAdd(
-        title: titleController.text,
-        description: descriptionController.text,
-        userID: userID!,
-        userName: name,
-        userSurname: surname,
-      ),
-    ),
-  );
-}
+        // Web platformundaysa
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ImageAddWeb(
+              title: titleController.text,
+              description: descriptionController.text,
+              userID: userID!,
+              userName: name,
+              userSurname: surname,
+            ),
+          ),
+        );
+      } else {
+        // Mobil platformdaysa
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ImageAdd(
+              title: titleController.text,
+              description: descriptionController.text,
+              userID: userID!,
+              userName: name,
+              userSurname: surname,
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -118,6 +116,10 @@ class SikayetIlkPage extends StatelessWidget {
         appBar: customAppBar(context),
         drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width > 600 ? 500 : 0,
+            vertical: 5,
+          ), // Küçük ekranlarda padding yok, büyük ekranlarda 500 birimlik yatay padding
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -137,7 +139,6 @@ class SikayetIlkPage extends StatelessWidget {
                 obscureText: false,
                 icon: Icon(UniconsLine.subject),
                 maxLines: 1,
-                
               ),
               SizedBox(height: 10.0),
               Text(

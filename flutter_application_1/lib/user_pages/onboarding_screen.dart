@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:EYA/companents/constants.dart';
 import 'package:EYA/services/auth/auth_gate.dart';
+import 'package:flutter/material.dart'; 
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

@@ -1,16 +1,23 @@
-import 'package:EYA/companents/customAppBar.dart';
-import 'package:EYA/companents/my_drawer.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA/admin_pages/admin_blog_detail_page.dart';
 import 'package:EYA/models/Blog.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: customAppBar(context),
-      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
+      appBar: AppBar(
+        title: Text(
+          'Blog',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
+        centerTitle: true,
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('blog')
@@ -57,29 +64,33 @@ class BlogPage extends StatelessWidget {
                     ),
                   );
                 },
-                child: Card(
-                  margin: EdgeInsets.all(8),
-                  child: ListTile(
-                    leading: ClipRRect(
+                child: Padding(
+                  padding: screenSize.width > 600 // Ekran genişliği 600'den büyükse
+                      ? const EdgeInsets.symmetric(horizontal: 500, vertical: 5)
+                      : const EdgeInsets.symmetric(vertical: 5),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.deepPurple),
                       borderRadius: BorderRadius.circular(16),
-                      child: currentBlog.imageURLs.isNotEmpty
-                          ? Image.network(
-                              currentBlog.imageURLs[0],
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset("lib/images/eya/logo.png"),
                     ),
-                    title: Text(
-                      currentBlog.title.length > 50
-                          ? '${currentBlog.title.substring(0, 50)}...'
-                          : currentBlog.title,
-                    ),
-                    subtitle: Text(
-                      currentBlog.description.length > 50
-                          ? '${currentBlog.description.substring(0, 50)}...'
-                          : currentBlog.description,
+                    child: ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: currentBlog.imageURLs.isNotEmpty
+                            ? Image.network(
+                                currentBlog.imageURLs[0],
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset("lib/images/eya/logo.png"),
+                      ),
+                      title: Text(currentBlog.title),
+                      subtitle: Text(
+                        currentBlog.description.length > 50
+                            ? '${currentBlog.description.substring(0, 62)}...'
+                            : currentBlog.description,
+                      ),
                     ),
                   ),
                 ),

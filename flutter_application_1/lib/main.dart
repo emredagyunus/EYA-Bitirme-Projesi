@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:EYA/firebase_options.dart';
 import 'package:EYA/user_pages/onboarding_screen.dart';
 import 'package:EYA/user_pages/root_page.dart';
+import 'package:EYA/user_pages/login_page.dart'; 
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
-
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +17,6 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
-      
       child: const MyApp(),
     ),
   );
@@ -32,27 +29,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
+      home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          //user is logged in
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(); 
+          }
           if (snapshot.hasData) {
-           if(MediaQuery.of(context).size.width > 600){
-             return HomePage();
-           }else{
-             return RootPage();
-           }
+            if (MediaQuery.of(context).size.width > 600) {
+              return HomePage();
+            } else {
+              return RootPage();
+            }
           }
-          else {
-            return OnboardingScreen();
+          if (MediaQuery.of(context).size.width > 600) {
+            return LoginPage(onTap: () {  },);
           }
+          return OnboardingScreen(); 
         },
       ),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
 }
-
-
-
-

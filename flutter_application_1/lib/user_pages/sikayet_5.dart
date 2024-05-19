@@ -14,45 +14,59 @@ class ComplaintProcessedPage extends StatelessWidget {
       appBar: customAppBar(context),
       drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            NumberCircleContainer(
-              backgroundColor5: Colors.deepPurple,
-              lineColor5: Colors.white,
-            ),
-            Image.asset('lib/images/eya/logo.png'),
-            SizedBox(height: 20),
-            Text(
-              'Şikayetin İşleme Alındı!',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Onaylandıktan sonra yayınlanacaktır.',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 30),
-            MyButton(
-              onTap: () {
-                if(kIsWeb){
-                Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyApp(),
-                ));
-              }else{
-                Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RootPage(
-                    initialIndex: 0,
-                  ),
-                ));
-              }
-              },
-              text: "Anasayfa",
-            ),
-          ],
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width > 600 ? 500.0 : 0,
+          vertical: MediaQuery.of(context).size.width > 600 ? 5.0 : 0,
+        ),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              NumberCircleContainer(
+                backgroundColor5: Colors.deepPurple,
+                lineColor5: Colors.white,
+              ),
+              SizedBox(height: 20),  
+              Padding(
+                padding: const EdgeInsets.only(top:1.0), 
+                child: Image.asset('lib/images/eya/parmak.png', height: 150),  
+              ),
+              SizedBox(height: 20),   
+              Text(
+                'Şikayetin İşleme Alındı!',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Onaylandıktan sonra yayınlanacaktır.',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 30),
+              MyButton(
+                onTap: () {
+                  if(kIsWeb){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyApp(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RootPage(
+                          initialIndex: 0,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                text: "Anasayfa",
+              ),
+              SizedBox(height: 1),  
+            ],
+          ),
         ),
       ),
     );

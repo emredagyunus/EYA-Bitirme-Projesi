@@ -1,16 +1,23 @@
-import 'package:EYA/companents/customAppBar.dart';
-import 'package:EYA/companents/my_drawer.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA/admin_pages/admin_duyuru_detail_page.dart';
 import 'package:EYA/models/duyuru.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DuyuruPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: customAppBar(context),
-      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
+      appBar: AppBar(
+        title: Text(
+          'Duyuru',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
+        centerTitle: true,
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('duyuru')
@@ -42,7 +49,10 @@ class DuyuruPage extends StatelessWidget {
           return ListView.builder(
             itemCount: duyuru.length,
             itemBuilder: (context, index) {
-              Duyuru currentduyuru = duyuru[index];
+              Duyuru currentDuyuru = duyuru[index];
+              String limitedDescription = currentDuyuru.description.length > 50
+                  ? '${currentDuyuru.description.substring(0, 50)}...'
+                  : currentDuyuru.description;
 
               return GestureDetector(
                 onTap: () {
@@ -50,30 +60,34 @@ class DuyuruPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DuyuruDetailPage(
-                        duyuru: currentduyuru,
+                        duyuru: currentDuyuru,
                       ),
                     ),
                   );
                 },
-                child: Card(
-                  margin: EdgeInsets.all(8),
-                  child: ListTile(
-                    leading: ClipRRect(
+                child: Padding(
+                  padding: screenSize.width > 600 // Ekran genişliği 600'den büyükse
+                      ? EdgeInsets.symmetric(horizontal: 500, vertical: 5)
+                      : EdgeInsets.symmetric(vertical: 5),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.deepPurple), // Kenarlık rengi deeppurple olarak ayarlandı
                       borderRadius: BorderRadius.circular(16),
-                      child: currentduyuru.imageURLs.isNotEmpty
-                          ? Image.network(
-                              currentduyuru.imageURLs[0],
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset("lib/images/eya/logo.png"),
                     ),
-                    title: Text(currentduyuru.title),
-                    subtitle: Text(
-                      currentduyuru.description.length > 50
-                          ? '${currentduyuru.description.substring(0, 62)}...'
-                          : currentduyuru.description,
+                    child: ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: currentDuyuru.imageURLs.isNotEmpty
+                            ? Image.network(
+                                currentDuyuru.imageURLs[0],
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset("lib/images/eya/logo.png"),
+                      ),
+                      title: Text(currentDuyuru.title),
+                      subtitle: Text(limitedDescription),
                     ),
                   ),
                 ),

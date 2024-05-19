@@ -1,10 +1,8 @@
-import 'package:EYA/companents/customAppBar.dart';
-import 'package:EYA/companents/my_drawer.dart';
+import 'package:EYA/models/complaint.dart';
+import 'package:EYA/user_pages/complaint_detail_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:EYA/models/complaint.dart';
-import 'package:EYA/user_pages/complaint_detail_page.dart';
 
 class MyComplaint extends StatelessWidget {
   @override
@@ -12,8 +10,15 @@ class MyComplaint extends StatelessWidget {
     String? currentUserUid = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
-      appBar: customAppBar(context),
-      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
+      appBar: AppBar(
+        title: Text(
+          'Şikayetlerim',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
+        centerTitle: true,
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('sikayet')
@@ -39,9 +44,9 @@ class MyComplaint extends StatelessWidget {
             );
           }
 
-          List<ComplaintModel> complaints = snapshot.data!.docs.map((doc) {
-            return ComplaintModel.fromFirestore(doc);
-          }).toList();
+          List<ComplaintModel> complaints = snapshot.data!.docs
+              .map((doc) => ComplaintModel.fromFirestore(doc))
+              .toList();
 
           return ListView.builder(
             itemCount: complaints.length,
@@ -59,30 +64,78 @@ class MyComplaint extends StatelessWidget {
                     ),
                   );
                 },
-                child: Card(
-                  margin: EdgeInsets.all(12),
-                  child: ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: complaint.imageURLs.isNotEmpty
-                          ? Image.network(
-                              complaint.imageURLs[0],
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset("lib/images/eya/logo.png"),
-                    ),
-                    title: Text(
-                      complaint.title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      complaint.description.length > 50
-                          ? '${complaint.description.substring(0, 62)}...'
-                          : complaint.description,
-                    ),
-                  ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth > 600) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 500, vertical: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.deepPurple),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Card(
+                            child: ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: complaint.imageURLs.isNotEmpty
+                                    ? Image.network(
+                                        complaint.imageURLs[0],
+                                        width: MediaQuery.of(context).size.width * 0.25,
+                                        height: MediaQuery.of(context).size.height * 0.4,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset("lib/images/eya/logo.png"),
+                              ),
+                              title: Text(
+                                complaint.title,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                complaint.description.length > 50
+                                    ? '${complaint.description.substring(0, 62)}...'
+                                    : complaint.description,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.deepPurple),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Card(
+                            child: ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: complaint.imageURLs.isNotEmpty
+                                    ? Image.network(
+                                        complaint.imageURLs[0],
+                                        width: MediaQuery.of(context).size.width * 0.25,
+                                        height: MediaQuery.of(context).size.height * 0.4,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset("lib/images/eya/logo.png"),
+                              ),
+                              title: Text(
+                                complaint.title,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                complaint.description.length > 50
+                                    ? '${complaint.description.substring(0, 62)}...'
+                                    : complaint.description,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               );
             },

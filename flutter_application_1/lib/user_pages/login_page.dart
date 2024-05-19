@@ -1,19 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:EYA/admin_pages/admin_home_page.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
-import 'package:EYA/user_pages/forgot_password_page.dart';
 import 'package:EYA/services/auth/auth_services.dart';
+import 'package:EYA/user_pages/forgot_password_page.dart';
+import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({Key? key, required this.onTap}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -21,10 +17,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
   bool _obscureText = true;
+
   // login method
   void login() async {
     //get instance of auth services
@@ -34,31 +29,18 @@ class _LoginPageState extends State<LoginPage> {
       if (emailController.text == 'eya@admin.com' &&
           passwordController.text == 'admin12345') {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdminHomePage(),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => AdminHomePage(),
+          ),
+        );
       } else {
         await _authService.signInWithEmailPassword(
           emailController.text,
           passwordController.text,
         );
-        if(kIsWeb){
-
-        }else{
-          String? deviceToken = await FirebaseMessaging.instance.getToken();
-
-        if (deviceToken != null) {
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth
-                  .instance.currentUser!.uid) 
-              .update({'deviceToken': deviceToken});
-        }
-        }
       }
     }
-
     // display any errors
     catch (e) {
       showDialog(
@@ -83,12 +65,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final imageWidthMultiplier = MediaQuery.of(context).size.width *
+        (MediaQuery.of(context).size.width > 600 ? 0.25 : 0.7);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -96,8 +81,8 @@ class _LoginPageState extends State<LoginPage> {
                   //logo
                   Image(
                     image: const AssetImage("lib/images/eya/logo.png"),
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.width * 0.7,
+                    width: imageWidthMultiplier,
+                    height: imageWidthMultiplier,
                   ),
 
                   const SizedBox(height: 25),
@@ -106,52 +91,63 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Hoş Geldiniz...",
                     style: TextStyle(
-                      color: Colors.deepPurple,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                   ),
 
                   const SizedBox(height: 25),
                   //email textfield
+                  SizedBox(
+                    height: 25,
+                    width: MediaQuery.of(context).size.width > 600 ? 100 : null,
+                  ),
                   MyTextField(
                     controller: emailController,
-                    hintText: "E-Posta",
+                    hintText: "E-posta",
                     obscureText: false,
                     icon: const Icon(
                       UniconsLine.envelope,
                     ),
-                    maxLines: 1,
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 25),
                   //password textfield
+                  SizedBox(
+                    height: 25,
+                    width: MediaQuery.of(context).size.width > 600 ? 100 : null,
+                  ),
                   MyTextField(
-                      controller: passwordController,
-                      hintText: "Şifre",
-                      obscureText: _obscureText,
-                      maxLines: 1,
-                      icon: const Icon(
-                        UniconsLine.lock_alt,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(_obscureText
-                            ? UniconsLine.eye
-                            : UniconsLine.eye_slash),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      )),
+                    controller: passwordController,
+                    hintText: "Şifre",
+                    obscureText: _obscureText,
+                    icon: const Icon(
+                      UniconsLine.lock_alt,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureText
+                          ? UniconsLine.eye
+                          : UniconsLine.eye_slash),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
+                  ),
 
                   const SizedBox(height: 10),
                   //sign in button
-                  MyButton(
-                    onTap: login,
-                    text: 'Giriş Yap',
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width > 600 ? 720 : null,
+                    child: MyButton(
+                      onTap: login,
+                      text: 'Giriş Yap',
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -195,7 +191,8 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Hemen kaydol!",
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.inversePrimary,
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

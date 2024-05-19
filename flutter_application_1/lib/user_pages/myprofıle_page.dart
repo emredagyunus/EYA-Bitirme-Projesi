@@ -48,83 +48,91 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isWideScreen = MediaQuery.of(context).size.width > 600;
     return Scaffold(
       drawer: MyDrawer(),
       appBar: customAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 20),
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey.shade200,
-              child: Icon(
-                UniconsLine.user_circle,
-                color: Colors.deepPurple,
-                size: 75,
-              ),
+        child: Center(
+          child: Container(
+            width: isWideScreen ? 500 : double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 50.0 : 20.0, vertical: isWideScreen ? 50.0 : 20.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.deepPurple),
             ),
-            const SizedBox(height: 20),
-            itemProfile('Ad', ad, UniconsLine.user),
-            const SizedBox(height: 10),
-            itemProfile('Soyad', soyad, UniconsLine.user),
-            const SizedBox(height: 10),
-            itemProfile('Telefon', telefon, UniconsLine.phone),
-            const SizedBox(height: 10),
-            itemProfile('E-Posta', mail, UniconsLine.envelope),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return EditProfilePage();
-                          },
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.deepPurple,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            UniconsLine.pen,
-                            color: Colors.deepPurple,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Profilini Düzenle',
-                            style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 20),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.grey.shade200,
+                  child: Icon(
+                    UniconsLine.user_circle,
+                    color: Colors.deepPurple,
+                    size: 75,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                itemProfile('Ad', ad, UniconsLine.user),
+                const SizedBox(height: 10),
+                itemProfile('Soyad', soyad, UniconsLine.user),
+                const SizedBox(height: 10),
+                itemProfile('Telefon', telefon, UniconsLine.phone),
+                const SizedBox(height: 10),
+                itemProfile('E-Posta', mail, UniconsLine.envelope),
+                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return EditProfilePage();
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.deepPurple,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                UniconsLine.pen,
+                                color: Colors.deepPurple,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Profilini Düzenle',
+                                style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

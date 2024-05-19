@@ -1,73 +1,125 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:EYA/companents/customAppBar.dart';
-import 'package:EYA/companents/my_drawer.dart';
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class DonationPage extends StatelessWidget {
-  DonationPage({super.key});
+  DonationPage({Key? key});
 
   final List<Map<String, String>> campaignData = [
     {
-      "image": "lib/images/eya/kizilay.jpg",
-      "title": "Türk Kızılay",
-      "description":
-          "Ülkemizde ve dünyada ihtiyaç sahiplerine yönelik insani yardım faaliyetlerine destek olabilirsin! Bağış sayfasına gitmek için tıkla!",
-      "url": "https://bagis.kizilay.org.tr/tr",
-    },
-    {
-      "image": "lib/images/eya/te.jpg",
-      "title": "Türk Eğitim Vakfı",
-      "description":
-          "Ülkemizin başarılı gençleri okumak istiyor, okutmak ister misin? Bağış sayfasına gitmek için tıkla!",
-      "url": "https://www.tev.org.tr/bagis/tr",
-    },
-    {
       "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay",
+      "title": "Yeşilay Bağış Kampanyası",
       "description":
-          "İyi ve sağlıklı yaşam farkındalığı kazandırarak geleceğimizi bağımlılıklardan korumak amacıyla sen de destek olabilirsin! Bağış sayfasına gitmek için tıkla!",
-      "url": "https://www.yesilay.org.tr/tr/bagis-yap",
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "url": "https://www.yesilay.org.tr/",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
-      "title": "Türkiye Eğitim Gönüllüleri Vakfı",
+      "title": "Tegv Bağış Kampanyası",
       "description":
-          "Bağış Yap; Bir Çocuk Değişsin, Türkiye Gelişsin! Bağış sayfasına gitmek için tıkla!",
-      "url": "https://tegv.org/bagis-yap",
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "url": "https://www.tegv.org/",
     },
     {
-      "image": "lib/images/eya/haytap.jpg",
-      "title": "HAYTAP",
+      "image": "lib/images/eya/yesilay.jpg",
+      "title": "Yeşilay Bağış Kampanyası",
       "description":
-          "HAYTAP'a yapacağınız bağışlar, Türkiye'nin dört bir yanındaki muhtaç hayvanlara yardım olarak ulaşacaktır. Bağış sayfasına gitmek için tıklayın!",
-      "url": "https://fonzip.com/haytap/bagis",
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "url": "https://www.yesilay.org.tr/",
     },
     {
-      "image": "lib/images/eya/tocev.jpg",
-      "title": "TOÇEV",
+      "image": "lib/images/eya/tegv.jpg",
+      "title": "Tegv Bağış Kampanyası",
       "description":
-          "Daha çok çocuğumuzun bugünü güzel yaşaması ve güzel bir gelecek düşlemesi için destekte bulunarak, daha umutlu bir yarın hayalimize sen de ortak olabilirsin! Bağış sayfasına gitmek için tıkla!",
-      "url": "https://www.tocev.org.tr/bagis/",
-    }
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "url": "https://www.tegv.org/",
+    },
+    {
+      "image": "lib/images/eya/yesilay.jpg",
+      "title": "Yeşilay Bağış Kampanyası",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "url": "https://www.yesilay.org.tr/",
+    },
+    {
+      "image": "lib/images/eya/tegv.jpg",
+      "title": "Tegv Bağış Kampanyası",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "url": "https://www.tegv.org/",
+    },
+    {
+      "image": "lib/images/eya/yesilay.jpg",
+      "title": "Yeşilay Bağış Kampanyası",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "url": "https://www.yesilay.org.tr/",
+    },
+    {
+      "image": "lib/images/eya/tegv.jpg",
+      "title": "Tegv Bağış Kampanyası",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "url": "https://www.tegv.org/",
+    },
+     {
+      "image": "lib/images/eya/yesilay.jpg",
+      "title": "Yeşilay Bağış Kampanyası",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "url": "https://www.yesilay.org.tr/",
+    },
+    {
+      "image": "lib/images/eya/tegv.jpg",
+      "title": "Tegv Bağış Kampanyası",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "url": "https://www.tegv.org/",
+    },
+
+    // Diğer kampanya verileri...
   ];
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isMobile = screenSize.width < 600;
+    final crossAxisCount = isMobile ? 2 : 5; 
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 254, 254),
-      appBar: customAppBar(context),
-      drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'lib/images/eya/logo.png',
+              scale: 15,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              'Bağış Kampanyaları',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 9 / 16,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount, 
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 25,
+            childAspectRatio: 1.5 / 2.5, 
           ),
           itemCount: campaignData.length,
           itemBuilder: (context, int i) {
@@ -76,48 +128,73 @@ class DonationPage extends StatelessWidget {
               onTap: () {
                 _launchURL(campaign["url"]!);
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 187, 175, 189),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color.fromARGB(255, 253, 240, 240),
-                      blurRadius: 5,
-                      offset: Offset(3, 3),
-                    )
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      campaign["image"]!, 
-                      height: 100, 
-                      width: double.infinity, 
-                      fit: BoxFit.cover, 
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      textAlign: TextAlign.center,
-                      campaign["title"]!,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.deepPurple), 
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        blurRadius: 5,
+                        offset: Offset(3, 3),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Image.asset(
+                          campaign["image"]!,
+                          height: isMobile ? 100.0 : 150.0, 
+                          width: 280,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        campaign["description"]!,
-                        style: const TextStyle(
-                          color: Colors.white,
+                      SizedBox(height: 17),
+                      Text(
+                        campaign["title"]!,
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 15), 
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          campaign["description"]!,
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 13,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(height: 10), 
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _launchURL(campaign["url"]!);
+                          },
+                          child: Text("Bağış Yap", style: TextStyle(color: Colors.white)),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurple),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -129,13 +206,9 @@ class DonationPage extends StatelessWidget {
 }
 
 void _launchURL(String url) async {
-  try {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  } catch (e) {
-    print('Error launching URL: $e');
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
