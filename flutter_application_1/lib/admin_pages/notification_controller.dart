@@ -34,8 +34,20 @@ class NotificationHelper {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // Kullanıcı bildirime tıkladığında yapılacak işlemler
-      // Örneğin, ilgili sayfaya yönlendirme yapılabilir.
+      RemoteNotification? notification = message.notification;
+      if (notification != null) {
+        showNotification(notification);
+      }
+    });
+
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? remoteMessage)
+    {  
+      if(remoteMessage != null){
+      final notification = remoteMessage.notification;
+         if (notification != null) {
+      showNotification(notification);
+          }
+       }
     });
   }
 

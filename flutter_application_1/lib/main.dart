@@ -7,15 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:EYA/firebase_options.dart';
 import 'package:EYA/user_pages/onboarding_screen.dart';
 import 'package:EYA/user_pages/root_page.dart';
-import 'package:EYA/user_pages/login_page.dart'; 
+import 'package:EYA/user_pages/login_page.dart';
 import 'package:EYA/themes/theme_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-   await _initializeFirebaseMessaging();
+  await _initializeFirebaseMessaging();
+
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
   runApp(
     MultiProvider(
       providers: [
@@ -46,7 +53,7 @@ Future<void> _initializeFirebaseMessaging() async {
 
   // Android için izin iste (Android'de varsayılan olarak izin verilmiştir)
   if (defaultTargetPlatform == TargetPlatform.android) {
-    messaging.subscribeToTopic('all');  // Örnek: Herkese bildirim gönderme
+    messaging.subscribeToTopic('all'); // Örnek: Herkese bildirim gönderme
   }
 }
 
@@ -61,7 +68,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(); 
+            return const CircularProgressIndicator();
           }
           if (snapshot.hasData) {
             if (MediaQuery.of(context).size.width > 600) {
@@ -71,9 +78,11 @@ class MyApp extends StatelessWidget {
             }
           }
           if (kIsWeb) {
-            return LoginPage(onTap: () {  },);
+            return LoginPage(
+              onTap: () {},
+            );
           }
-          return OnboardingScreen(); 
+          return OnboardingScreen();
         },
       ),
       theme: Provider.of<ThemeProvider>(context).themeData,

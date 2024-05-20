@@ -1,15 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class NotificationHelper {
-  static final FlutterLocalNotificationsPlugin _notificationPlugin = FlutterLocalNotificationsPlugin();
-  static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  static final FlutterLocalNotificationsPlugin _notificationPlugin =
+      FlutterLocalNotificationsPlugin();
+  static final FirebaseMessaging _firebaseMessaging =
+      FirebaseMessaging.instance;
 
   static Future<void> initializeNotification() async {
-    const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
-    const LinuxInitializationSettings linuxSettings = LinuxInitializationSettings(defaultActionName: 'Open notification');
+    const AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings();
+    const LinuxInitializationSettings linuxSettings =
+        LinuxInitializationSettings(defaultActionName: 'Open notification');
     const InitializationSettings initSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
@@ -27,13 +34,27 @@ class NotificationHelper {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // Kullanıcı bildirime tıkladığında yapılacak işlemler
-      // Örneğin, ilgili sayfaya yönlendirme yapılabilir.
+      RemoteNotification? notification = message.notification;
+      if (notification != null) {
+        showNotification(notification);
+      }
+    });
+
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? remoteMessage) {
+      if (remoteMessage != null) {
+        final notification = remoteMessage.notification;
+        if (notification != null) {
+          showNotification(notification);
+        }
+      }
     });
   }
 
   static Future<void> showNotification(RemoteNotification notification) async {
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
       'default_channel',
       'Genel Bildirimler',
       importance: Importance.max,
@@ -50,79 +71,89 @@ class NotificationHelper {
     );
   }
 
-  static Future<void> sendNotification(String token, String title, String body) async {
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-      'default_channel',
-      'Genel Bildirimler',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      icon: 'lib/images/eya/logo.png',
-    );
-    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
-      presentSound: true,
-      presentBanner: true,
-      presentAlert: true,
+  static Future<void> sendNotification(
+      String token, String title, String body) async {
+    final String serverKey =
+        'AAAAjVa2_8w:APA91bFgnE4GzeE-JerKw3SE3WOs5V2mx0YD0pMHTwplk7NNb1axhmdBvlqopX7OqfT2WySL2ig-_nEIBpP_wBni-Yuwtpqo3T2jneR4WkWMjnrA1UiIqRRVd6_jh3uUiil78hkw0OUd';
+    final String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'key=$serverKey',
+    };
+
+    final payload = {
+      'to': token,
+      'notification': {
+        'title': title,
+        'body': body,
+      },
+      'data': {
+        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+        'id': '1',
+        'status': 'done'
+      },
+      'android': {
+        'priority': 'high',
+        'notification': {'sound': 'default'}
+      }
+    };
+
+    final response = await http.post(
+      Uri.parse(fcmUrl),
+      headers: headers,
+      body: json.encode(payload),
     );
 
-    const LinuxNotificationDetails linuxDetails = LinuxNotificationDetails();
-
-    const NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-      linux: linuxDetails,
-    );
-
-    // Bildirimi gönder
-   try {
-      await _notificationPlugin.show(
-        token.hashCode,
-        title,
-        body,
-        notificationDetails,
-      );
-    } catch (e) {
-      print('Bildirim gönderilirken hata oluştu: $e');
+    if (response.statusCode == 200) {
+      print('Notification sent successfully');
+    } else {
+      print('Failed to send notification: ${response.body}');
     }
   }
 
-  static Future<void> handleFirestoreData(QuerySnapshot data) async {
-    for (var document in data.docs) {
-      String id = document['id'] ?? '';
-      String title = document['title'] ?? '';
-      String body = document['description'] ?? '';
-      String deviceToken = document['deviceToken'] ?? '';
+  static Future<void> handleFirestoreData(
+      DocumentSnapshot<Map<String, dynamic>> document) async {
+    try {
+      String id = document.id;
+      Map<String, dynamic> data = document.data() ?? {};
 
-      bool isVisible = document['isVisible'] ?? false;
-      bool islemDurumu = document['islemDurumu'] ?? false;
-      bool cozuldumu = document['cozuldumu'] ?? false;    
-      try {
-        if (isVisible && !document['isVisibleSent']) {
-          await sendNotification(deviceToken, 'Şikayet Onaylandı', 'Şikayetiniz Engelsiz Yaşam Platformu tarafından onaylanmış ve hesabınızda paylaşılmıştır.');
-          await FirebaseFirestore.instance.collection('sikayet').doc(id).update({'isVisibleSent': true});
+      String title = data['title'] ?? '';
+      String body = data['description'] ?? '';
+      String userId = data['userID'] ?? '';
+
+      bool isVisible = data['isVisible'] ?? false;
+      bool islemDurumu = data['islemDurumu'] ?? false;
+      bool cozuldumu = data['cozuldumu'] ?? false;
+      print(isVisible);
+
+      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      if (userDoc.exists && userDoc.data() != null) {
+        String deviceToken = userDoc.data()!['deviceToken'] ?? '';
+        print('Device Token: $deviceToken');
+
+        if (isVisible) {
+          await sendNotification(deviceToken, 'Şikayet Onaylandı',
+              'Şikayetiniz Engelsiz Yaşam Platformu tarafından onaylanmış ve hesabınızda paylaşılmıştır.');
+          print("calisti ");
         }
-        if (islemDurumu && !document['islemDurumuSent']) {
-          await sendNotification(deviceToken, 'İşleme Alındı', 'Şikayetiniz Engelsiz Yaşam Platformu aracılığıyla ilgili kurum tarafından işlem sürecine alınmıştır.');
-          await FirebaseFirestore.instance.collection('sikayet').doc(id).update({'islemDurumuSent': true});
+        if (islemDurumu) {
+          await sendNotification(deviceToken, 'İşleme Alındı',
+              'Şikayetiniz Engelsiz Yaşam Platformu aracılığıyla ilgili kurum tarafından işlem sürecine alınmıştır.');
         }
-        if (cozuldumu && !document['cozuldumuSent']) {
-          await sendNotification(deviceToken, 'Şikayet Çözüldü', 'Şikayetiniz ilgili kurum tarafından çözüldü.');
-          await FirebaseFirestore.instance.collection('sikayet').doc(id).update({'cozuldumuSent': true});
+        if (cozuldumu) {
+          await sendNotification(deviceToken, 'Şikayet Çözüldü',
+              'Şikayetiniz ilgili kurum tarafından çözüldü.');
         }
-      } catch (e) {
-        print('Firestore verisi işlenirken hata oluştu: $e');
+      } else {
+        print('User document or deviceToken not found');
       }
+    } catch (e) {
+      print('hata: $e');
     }
   }
 }
-
-// AndroidManifest.xml dosyasından değişiklik yapıldı!!!
-// ios için  Info.plist dosyasındaü
-//<key>UIBackgroundModes</key>
-//<array>
-//  <string>fetch</string>
-// <string>remote-notification</string>
-//</array>
-//<key>FirebaseAppDelegateProxyEnabled</key>
-//<false/>
-// eklemesi yap

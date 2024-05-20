@@ -1,3 +1,4 @@
+import 'package:EYA/companents/card.dart';
 import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/home_page_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ import 'package:EYA/user_pages/blog_page.dart';
 import 'package:EYA/user_pages/complaint_detail_page.dart';
 import 'package:EYA/user_pages/duyuru_page.dart';
 import 'package:EYA/user_pages/root_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:unicons/unicons.dart';
 
 class HomePage extends StatefulWidget {
@@ -133,9 +135,7 @@ class _HomePageState extends State<HomePage>
                           style: TextStyle(fontSize: 13),
                         ),
                       ],
-                      
                     ),
-                    
                   ),
                 ],
               ),
@@ -494,7 +494,8 @@ class _HomePageState extends State<HomePage>
                       },
                     )
                   : SizedBox(
-                      height: _calculateHeight(MediaQuery.of(context).size.width),
+                      height:
+                          _calculateHeight(MediaQuery.of(context).size.width),
                       child: Column(
                         children: [
                           TabBar(
@@ -757,6 +758,15 @@ class _HomePageState extends State<HomePage>
                         ],
                       ),
                     ),
+                    const SizedBox(height: 20,),
+              Container(
+                height: MediaQuery.of(context).size.width<600
+                ?470
+                :MediaQuery.of(context).size.width<900
+                ?210
+                :500,
+                child: Dashboard(),
+              ),
               kIsWeb ? MyTenButtonsWidget() : SizedBox(height: 0),
               SizedBox(height: 10),
             ],

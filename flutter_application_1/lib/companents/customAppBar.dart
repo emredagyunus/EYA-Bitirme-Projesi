@@ -17,13 +17,7 @@ PreferredSizeWidget customAppBar(BuildContext context){
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.bell,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
+         
           if (MediaQuery.of(context).size.width > 600)
             Row(
               children: [

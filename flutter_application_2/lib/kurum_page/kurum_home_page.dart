@@ -1,4 +1,3 @@
-
 import 'package:EYA_KURUM/kurum_page/notification_controller.dart';
 import 'package:EYA_KURUM/services/auth/auth_gate.dart';
 import 'package:EYA_KURUM/services/auth/auth_services.dart';
@@ -13,9 +12,9 @@ import 'package:EYA_KURUM/models/complaint.dart';
 
 // ignore: must_be_immutable
 class KurumHomePage extends StatelessWidget {
-  late  String kurumId;
+  late String kurumId;
 
-    void logout() {
+  void logout() {
     final authService = AuthService();
     authService.signOut();
   }
@@ -35,21 +34,20 @@ class KurumHomePage extends StatelessWidget {
           automaticallyImplyLeading: false,
           centerTitle: true,
           actions: [
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
-            onPressed: (){
-              logout();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AuthGate(),
-                    ));
-            }
-          ),
-        ],
+            IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  logout();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AuthGate(),
+                      ));
+                }),
+          ],
           bottom: TabBar(
             tabs: [
               Tab(text: 'Onaylanmamış Şikayetler'),
@@ -67,10 +65,14 @@ class KurumHomePage extends StatelessWidget {
     );
   }
 
-   void fetchFirestoreData() async {
-
-    QuerySnapshot data = await FirebaseFirestore.instance.collection('sikayet').get();
-    await NotificationHelper.handleFirestoreData(data);
+  void fetchFirestoreData(String id) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> data =
+          await FirebaseFirestore.instance.collection('sikayet').doc(id).get();
+      await NotificationHelper.handleFirestoreData(data);
+    } catch (e) {
+      print('Hata: $e');
+    }
   }
 
   Widget buildComplaintList(BuildContext context,
@@ -161,15 +163,12 @@ class KurumHomePage extends StatelessWidget {
                           WidgetsFlutterBinding.ensureInitialized();
                           Firebase.initializeApp();
                           NotificationHelper.initializeNotification();
-                          NotificationHelper.setupFirebaseMessaging();    
-                          fetchFirestoreData();   
-
+                          NotificationHelper.setupFirebaseMessaging();
+                          fetchFirestoreData(complaint.id);
                         },
-                         
                       ),
                       IconButton(
                         onPressed: () {
-                                             
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -178,11 +177,9 @@ class KurumHomePage extends StatelessWidget {
                               ),
                             ),
                           );
-
                         },
                         icon: Icon(Icons.add),
                       ),
-                      
                     ],
                   ),
                 ),
