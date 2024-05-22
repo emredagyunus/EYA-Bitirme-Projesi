@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,6 +9,7 @@ import 'dart:convert';
 class NotificationHelper {
   static final FlutterLocalNotificationsPlugin _notificationPlugin =
       FlutterLocalNotificationsPlugin();
+  // ignore: unused_field
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
 

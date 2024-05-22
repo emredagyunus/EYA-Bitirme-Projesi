@@ -18,45 +18,47 @@ class DuyuruDetailPage extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (duyuru.imageURLs.isNotEmpty)
-              Image.network(
-                duyuru.imageURLs.first,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200,
-              ),
-            if (duyuru.imageURLs.isEmpty)
-              Image.asset(
-                'lib/images/eya/logo.png',
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200,
-              ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  duyuru.title,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (duyuru.imageURLs.isNotEmpty)
+                Image.network(
+                  duyuru.imageURLs.first,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
                 ),
-                Text(
-                  '${duyuru.timestamp.toDate().day}/${duyuru.timestamp.toDate().month}/${duyuru.timestamp.toDate().year}',
-                  style: TextStyle(fontSize: 16),
+              if (duyuru.imageURLs.isEmpty)
+                Image.asset(
+                  'lib/images/eya/logo.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
                 ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Text(
-              duyuru.description,
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    duyuru.title,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${duyuru.timestamp.toDate().day}/${duyuru.timestamp.toDate().month}/${duyuru.timestamp.toDate().year}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Text(
+                duyuru.description,
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
         ),
       ),
     );
