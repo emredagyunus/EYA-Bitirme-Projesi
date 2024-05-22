@@ -89,14 +89,6 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 _buildSettingItem(
                   context,
-                  "Karanlık Mod",
-                  CupertinoSwitch(
-                    value: Provider.of<ThemeProvider>(context, listen: true).isDarkMode,
-                    onChanged: (value) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-                  ),
-                ),
-                _buildSettingItem(
-                  context,
                   "E-Postanı Değiştir",
                   GestureDetector(
                     onTap: () {
@@ -162,14 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildSettingItem(
-            context,
-            "Karanlık Mod",
-            CupertinoSwitch(
-              value: Provider.of<ThemeProvider>(context, listen: true).isDarkMode,
-              onChanged: (value) => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-            ),
-          ),
+         
           _buildSettingItem(
             context,
             "E-Postanı Değiştir",

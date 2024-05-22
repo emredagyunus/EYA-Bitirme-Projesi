@@ -1,3 +1,4 @@
+import 'package:EYA/services/auth/login_or_register.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -23,62 +24,72 @@ class _RegisterState extends State<RegisterPage> {
       TextEditingController();
 
   //register method
-  void register() async {
-    final _authService = AuthService();
+void register() async {
+  final _authService = AuthService();
 
-    // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
-    if (nameController.text.isEmpty ||
-        surnameController.text.isEmpty ||
-        phoneController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        passwordController.text.isEmpty ||
-        confirmPasswordController.text.isEmpty) {
+  // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
+  if (nameController.text.isEmpty ||
+      surnameController.text.isEmpty ||
+      phoneController.text.isEmpty ||
+      emailController.text.isEmpty ||
+      passwordController.text.isEmpty ||
+      confirmPasswordController.text.isEmpty) {
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Lütfen gerekli tüm bilgileri gir!"),
         ),
       );
-      return; // Bilgiler eksik olduğu için fonksiyonu sonlandır
     }
+    return; // Bilgiler eksik olduğu için fonksiyonu sonlandır
+  }
 
-    // Telefon numarasının geçerli olup olmadığını kontrol et
-    if (!isValidPhoneNumber(phoneController.text)) {
+  // Telefon numarasının geçerli olup olmadığını kontrol et
+  if (!isValidPhoneNumber(phoneController.text)) {
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Lütfen geçerli bir telefon numarası gir!"),
         ),
       );
-      return; // Geçerli bir telefon numarası girilmediği için fonksiyonu sonlandır
     }
+    return; // Geçerli bir telefon numarası girilmediği için fonksiyonu sonlandır
+  }
 
-    // E-posta adresinin geçerli olup olmadığını kontrol et
-    if (!isValidEmail(emailController.text)) {
+  // E-posta adresinin geçerli olup olmadığını kontrol et
+  if (!isValidEmail(emailController.text)) {
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Lütfen geçerli bir e-posta adresi gir!"),
         ),
       );
-      return; // Geçerli bir e-posta adresi girilmediği için fonksiyonu sonlandır
     }
+    return; // Geçerli bir e-posta adresi girilmediği için fonksiyonu sonlandır
+  }
 
-    //check password -> creat user
-    if (passwordController.text == confirmPasswordController.text) {
-      // try creating user
-      try {
-        await _authService.signUpWithEmailPassword(
-            emailController.text,
-            passwordController.text,
-            nameController.text,
-            surnameController.text,
-            phoneController.text);
+  //check password -> create user
+  if (passwordController.text == confirmPasswordController.text) {
+    // try creating user
+    try {
+      await _authService.signUpWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+          nameController.text,
+          surnameController.text,
+          phoneController.text);
 
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginOrRegister()),
+        );
       }
-
-      //display any errors
-      catch (e) {
+    } catch (e) {
+      if (mounted) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -87,8 +98,10 @@ class _RegisterState extends State<RegisterPage> {
         );
       }
     }
-    //if password don't match -> show error
-    else {
+  }
+  //if password don't match -> show error
+  else {
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
@@ -97,6 +110,7 @@ class _RegisterState extends State<RegisterPage> {
       );
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +164,7 @@ class _RegisterState extends State<RegisterPage> {
                     obscureText: false,
                     icon: Icon(UniconsLine.phone),
                     maxLines: 1,
+                    inputType: TextInputType.number,
                   ),
                   const SizedBox(height: 10),
                   //email textfield

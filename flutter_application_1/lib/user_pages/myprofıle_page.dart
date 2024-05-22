@@ -21,7 +21,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
   String soyad = '';
   String telefon = '';
   String mail = '';
-  String sifre = '';
 
   @override
   void initState() {
@@ -36,12 +35,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
           await _firestore.collection('users').doc(user!.uid).get();
       if (snapshot.exists) {
         Map<String, dynamic> userData = snapshot.data() as Map<String, dynamic>;
-        setState(() {
-          ad = userData['name'];
-          soyad = userData['surname'];
-          telefon = userData['phone'];
-          mail = user!.email!;
-        });
+        if (mounted) {
+          setState(() {
+            ad = userData['name'];
+            soyad = userData['surname'];
+            telefon = userData['phone'];
+            mail = user!.email!;
+          });
+        }
       }
     }
   }
@@ -57,7 +58,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
         child: Center(
           child: Container(
             width: isWideScreen ? 500 : double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 50.0 : 20.0, vertical: isWideScreen ? 50.0 : 20.0),
+            padding: EdgeInsets.symmetric(
+                horizontal: isWideScreen ? 50.0 : 20.0,
+                vertical: isWideScreen ? 50.0 : 20.0),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.deepPurple),
             ),
@@ -84,9 +87,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 const SizedBox(height: 20),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {

@@ -43,18 +43,16 @@ class _LoginPageState extends State<LoginPage> {
           emailController.text,
           passwordController.text,
         );
-         if(kIsWeb){
-
-        }else{
+        if (kIsWeb) {
+        } else {
           String? deviceToken = await FirebaseMessaging.instance.getToken();
 
-        if (deviceToken != null) {
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth
-                  .instance.currentUser!.uid) 
-              .update({'deviceToken': deviceToken});
-        }
+          if (deviceToken != null) {
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .update({'deviceToken': deviceToken});
+          }
         }
       }
     }
@@ -124,17 +122,14 @@ class _LoginPageState extends State<LoginPage> {
                     controller: emailController,
                     hintText: "E-posta",
                     obscureText: false,
+                    maxLines: 1,
                     icon: const Icon(
                       UniconsLine.envelope,
                     ),
                   ),
 
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 10),
                   //password textfield
-                  SizedBox(
-                    height: 25,
-                    width: MediaQuery.of(context).size.width > 600 ? 100 : null,
-                  ),
                   MyTextField(
                     controller: passwordController,
                     hintText: "Şifre",
@@ -208,8 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Hemen kaydol!",
                           style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary,
+                            color: Theme.of(context).colorScheme.inversePrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

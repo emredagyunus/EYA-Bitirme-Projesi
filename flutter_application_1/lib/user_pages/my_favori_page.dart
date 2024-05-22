@@ -98,36 +98,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
               DocumentSnapshot complaintDoc = snapshot.data!.docs[index];
               Map<String, dynamic> complaintData =
                   complaintDoc.data() as Map<String, dynamic>;
-
+              List<ComplaintModel> complaints = snapshot.data!.docs.map((doc) {
+                return ComplaintModel.fromFirestore(doc);
+              }).toList();
+               ComplaintModel complaint = complaints[index];
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ComplaintDetailPage(
-                        complaint: ComplaintModel(
-                          id: complaintData['id'],
-                          userID: complaintData['userId'],
-                          userName: complaintData['userName'],
-                          imageURLs:
-                              List<String>.from(complaintData['imageURLs']),
-                          videoURLs:
-                              List<String>.from(complaintData['videoURLs']),
-                          title: complaintData['title'],
-                          timestamp: complaintData['timestamp'],
-                          description: complaintData['description'],
-                          il: complaintData['il'],
-                          ilce: complaintData['ilce'],
-                          mahalle: complaintData['mahalle'],
-                          sokak: complaintData['sokak'],
-                          favoritesCount: complaintData['favoritesCount'],
-                          isVisible: complaintData['isVisible'],
-                          islemDurumu: complaintData['islemDurumu'],
-                          cozuldumu: complaintData['cozuldumu'],
-                          kurum: complaintData['kurum'],
-                          cevap: complaintData['cevap'],
-                          userSurname: complaintData['surname'],
-                        ),
+                        complaint: complaint
                       ),
                     ),
                   );
@@ -161,8 +142,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                         height: double.infinity,
                                         fit: BoxFit.cover,
                                       )
-                                    : Image.asset(
-                                        "lib/images/eya/logo.png"),
+                                    : Image.asset("lib/images/eya/logo.png"),
                               ),
                             ),
                             Padding(
@@ -180,8 +160,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   Text(
                                     complaintData['description'].length > 50
                                         ? '${complaintData['description'].substring(0, 50).trim()}...'
-                                        : complaintData['description']
-                                            .trim(),
+                                        : complaintData['description'].trim(),
                                     style: TextStyle(fontSize: 13),
                                   ),
                                 ],

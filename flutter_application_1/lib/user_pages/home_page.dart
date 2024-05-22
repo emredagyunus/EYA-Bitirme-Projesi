@@ -19,7 +19,9 @@ import 'package:EYA/user_pages/complaint_detail_page.dart';
 import 'package:EYA/user_pages/duyuru_page.dart';
 import 'package:EYA/user_pages/root_page.dart';
 import 'package:flutter/widgets.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:unicons/unicons.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -31,19 +33,62 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final ScrollController _scrollController = ScrollController();
   TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    _speech = stt.SpeechToText();
+  }
+
+  void _startListening() async {
+    print('Dinlemeye başlama işlemi başlatıldı');
+    bool available = await _speech.initialize(
+      onStatus: (status) => print('Durum: $status'),
+      onError: (errorNotification) => print('Hata: $errorNotification'),
+    );
+
+    if (available) {
+      print('Konuşma tanıma başlatıldı');
+      setState(() => _isListening = true);
+      _speech.listen(
+        onResult: (result) {
+          print('Sonuç: ${result.recognizedWords}');
+          setState(() {
+            _searchController.text = result.recognizedWords;
+            _isSearching = _searchController.text.isNotEmpty;
+          });
+        },
+      );
+    } else {
+      print('Konuşma tanıma başlatılamadı');
+    }
+  }
+
+  Future<bool> requestMicrophonePermission() async {
+    var status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      status = await Permission.microphone.request();
+    }
+    return status.isGranted;
+  }
+
+  void _stopListening() {
+    setState(() => _isListening = false);
+    _speech.stop();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     _searchController.dispose();
+    _scrollController.dispose();
+    _speech.stop();
     super.dispose();
   }
 
@@ -401,16 +446,17 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       drawer: MyDrawer(),
       appBar: customAppBar(context),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 10),
@@ -448,8 +494,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     IconButton(
-                      icon: Icon(UniconsLine.microphone),
-                      onPressed: () {},
+                      icon: Icon(_isListening
+                          ? UniconsLine.microphone_slash
+                          : UniconsLine.microphone),
+                      onPressed:
+                          _isListening ? _stopListening : _startListening,
                     ),
                   ],
                 ),
@@ -753,18 +802,20 @@ class _HomePageState extends State<HomePage>
                                   },
                                 ),
                               ],
+                              physics: ClampingScrollPhysics(),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20,),
+              SizedBox(height: 20),
               Container(
-                height: MediaQuery.of(context).size.width<600
-                ?470
-                :MediaQuery.of(context).size.width<900
-                ?210
-                :500,
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.width < 600
+                    ? 470
+                    : MediaQuery.of(context).size.width < 900
+                        ? 210
+                        : 500,
                 child: Dashboard(),
               ),
               kIsWeb ? MyTenButtonsWidget() : SizedBox(height: 0),

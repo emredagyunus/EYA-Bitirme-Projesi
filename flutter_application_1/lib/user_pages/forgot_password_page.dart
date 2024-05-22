@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
-import 'package:EYA/user_pages/login_page.dart';
 import 'package:EYA/services/auth/login_or_register.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:unicons/unicons.dart';
@@ -21,7 +20,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           .sendPasswordResetEmail(email: emailController.text.trim());
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return LoginPage(onTap: null);
+          return LoginOrRegister();
         },
       ));
     } on FirebaseAuthException catch (e) {

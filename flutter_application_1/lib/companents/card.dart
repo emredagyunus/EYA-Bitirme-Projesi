@@ -5,14 +5,17 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: Container(
-              color: Colors.deepPurple,
-              padding: EdgeInsets.all(8),
+          return Container(
+            color: Colors.deepPurple,
+            padding: EdgeInsets.all(8),
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: constraints.maxWidth > 600
                   ? GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       crossAxisCount: 4,
                       children: [
@@ -23,6 +26,7 @@ class Dashboard extends StatelessWidget {
                       ],
                     )
                   : GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       children: [

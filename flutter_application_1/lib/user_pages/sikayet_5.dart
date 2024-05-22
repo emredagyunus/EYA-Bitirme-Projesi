@@ -41,7 +41,7 @@ class ComplaintProcessedPage extends StatelessWidget {
                 'Onaylandıktan sonra yayınlanacaktır.',
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 300),
               MyButton(
                 onTap: () {
                   if(kIsWeb){
