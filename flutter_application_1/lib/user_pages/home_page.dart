@@ -1,9 +1,7 @@
 import 'package:EYA/companents/card.dart';
 import 'package:EYA/companents/customAppBar.dart';
+import 'package:EYA/companents/footer.dart';
 import 'package:EYA/companents/home_page_slider.dart';
-import 'package:EYA/user_pages/aboutus_page.dart';
-import 'package:EYA/user_pages/iletisim_page.dart';
-import 'package:EYA/user_pages/sss_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -692,8 +690,9 @@ class _HomePageState extends State<HomePage>
                                 ),
                                 StreamBuilder(
                                   stream: FirebaseFirestore.instance
-                                      .collection('blog')
+                                      .collection('sikayet')
                                       .where('isVisible', isEqualTo: true)
+                                      .orderBy('timestamp', descending: true)
                                       .snapshots(),
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -821,7 +820,15 @@ class _HomePageState extends State<HomePage>
                         : 500,
                 child: Dashboard(),
               ),
-              kIsWeb ? MyTenButtonsWidget() : SizedBox(height: 0),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width < 600
+                    ? 570
+                    : MediaQuery.of(context).size.width < 900
+                        ? 410
+                        : 500,
+                child: kIsWeb ? MyCustomWidget() : SizedBox(height: 0),
+              ),
               SizedBox(height: 10),
             ],
           ),
@@ -838,219 +845,5 @@ class _HomePageState extends State<HomePage>
     } else {
       return 505;
     }
-  }
-}
-
-class MyTenButtonsWidget extends StatelessWidget {
-  const MyTenButtonsWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      color: Colors.grey[200],
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AboutUsPage()),
-                  );
-                },
-                child: Text('HAKKIMIZDA'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => iletisimPage()),
-                  );
-                },
-                child: Text('İLETİŞİM'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BlogPage()),
-                  );
-                },
-                child: Text('BLOGLAR'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FAQPage()),
-                  );
-                },
-                child: Text('SIKÇA SORULAN SORULAR'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text('KURUMLAR'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum1'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum2'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum3'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum4'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum5'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              Text(' '),
-              TextButton(
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Placeholder()),
-                  );
-                },
-                child: Text('kurum6'),
-                style: ButtonStyle(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 }

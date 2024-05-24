@@ -34,7 +34,8 @@ class KurumEkle extends StatefulWidget {
     required this.ilce,
     required this.mahalle,
     required this.sokak,
-    this.onTap, required this.userSurname,
+    this.onTap, 
+    required this.userSurname,
   });
 
   @override
@@ -71,7 +72,6 @@ class _KurumEkleState extends State<KurumEkle> {
         'cevap': '',
         'userName': widget.userName,
         'userSurname': widget.userSurname,
-        
       });
 
       // ignore: unused_local_variable
@@ -171,6 +171,24 @@ class _KurumEkleState extends State<KurumEkle> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double textFieldWidth;
+    double listViewWidth;
+
+    if (screenWidth <= 600) {
+      // Mobile
+      textFieldWidth = screenWidth * 0.9;
+      listViewWidth = screenWidth * 0.9;
+    } else if (screenWidth <= 1200) {
+      // Tablet
+      textFieldWidth = screenWidth * 0.7;
+      listViewWidth = screenWidth * 0.7;
+    } else {
+      // Monitor
+      textFieldWidth = screenWidth * 0.5;
+      listViewWidth = screenWidth * 0.5;
+    }
+
     return WillPopScope(
       onWillPop: () async {
         return await showDialog(
@@ -212,29 +230,34 @@ class _KurumEkleState extends State<KurumEkle> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                 onTap: _onTextFieldTapped,
-                child: AbsorbPointer(
-                  absorbing: false,
-                  child: TextField(
-                    controller: _kurumController,
-                    onTap: _onTextFieldTapped,
-                    onChanged: _onTextChanged,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.secondary,
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 12.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary),
+                child: Center(
+                  child: AbsorbPointer(
+                    absorbing: false,
+                    child: Container(
+                      width: textFieldWidth,
+                      child: TextField(
+                        controller: _kurumController,
+                        onTap: _onTextFieldTapped,
+                        onChanged: _onTextChanged,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.secondary,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 12.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.tertiary),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
+                          labelText: "Kurum Seç",
+                          prefixIcon: Icon(UniconsLine.university),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                      hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
-                      labelText: "Kurum Seç",
-                      prefixIcon: Icon(UniconsLine.university),
                     ),
                   ),
                 ),
@@ -244,22 +267,21 @@ class _KurumEkleState extends State<KurumEkle> {
             Expanded(
               child: _isListVisible
                   ? SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 200,
-                            child: ListView.builder(
-                              itemCount: _filteredNames.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(_filteredNames[index]),
-                                  onTap: () =>
-                                      _onNameTapped(_filteredNames[index]),
-                                );
-                              },
-                            ),
+                      child: Center(
+                        child: Container(
+                          width: listViewWidth,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _filteredNames.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(_filteredNames[index]),
+                                onTap: () =>
+                                    _onNameTapped(_filteredNames[index]),
+                              );
+                            },
                           ),
-                        ],
+                        ),
                       ),
                     )
                   : SizedBox(),
