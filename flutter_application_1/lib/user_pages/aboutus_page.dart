@@ -1,4 +1,6 @@
+import 'package:EYA/companents/footer.dart';
 import 'package:EYA/companents/my_drawer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_image_box.dart';
 
@@ -26,7 +28,11 @@ class AboutUsPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: isWideScreen ? _buildWideScreenLayout() : _buildMobileLayout(),
+        child: Column(
+          children: [
+            isWideScreen ? _buildWideScreenLayout() : _buildMobileLayout(),
+          ],
+        ),
       ),
     );
   }
@@ -115,7 +121,7 @@ class AboutUsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 100),
+              
             ],
           ),
         ),

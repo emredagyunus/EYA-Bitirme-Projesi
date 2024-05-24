@@ -9,49 +9,57 @@ class DonationPage extends StatelessWidget {
     {
       "image": "lib/images/eya/yesilay.jpg",
       "title": "Yeşilay Bağış Kampanyası",
-      "description": "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
       "url": "https://www.yesilay.org.tr/",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
       "title": "Tegv Bağış Kampanyası",
-      "description": "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
       "url": "https://www.tegv.org/",
     },
     {
       "image": "lib/images/eya/yesilay.jpg",
       "title": "Yeşilay Bağış Kampanyası",
-      "description": "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
       "url": "https://www.yesilay.org.tr/",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
       "title": "Tegv Bağış Kampanyası",
-      "description": "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
       "url": "https://www.tegv.org/",
     },
     {
       "image": "lib/images/eya/yesilay.jpg",
       "title": "Yeşilay Bağış Kampanyası",
-      "description": "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
       "url": "https://www.yesilay.org.tr/",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
       "title": "Tegv Bağış Kampanyası",
-      "description": "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
       "url": "https://www.tegv.org/",
     },
     {
       "image": "lib/images/eya/yesilay.jpg",
       "title": "Yeşilay Bağış Kampanyası",
-      "description": "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
+      "description":
+          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
       "url": "https://www.yesilay.org.tr/",
     },
     {
       "image": "lib/images/eya/tegv.jpg",
       "title": "Tegv Bağış Kampanyası",
-      "description": "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
+      "description":
+          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
       "url": "https://www.tegv.org/",
     },
   ];
@@ -92,16 +100,26 @@ class DonationPage extends StatelessWidget {
         child: GridView.builder(
           padding: EdgeInsets.all(8),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: screenSize.width > 1250 ? 6 : screenSize.width > 600 ? 4 : 2,
+            crossAxisCount: screenSize.width > 1250
+                ? 6
+                : screenSize.width > 600
+                    ? 4
+                    : 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 9,
-            childAspectRatio: screenSize.width > 1250 ? 0.75 : screenSize.width > 600 ? 0.8 : 0.75,
+            childAspectRatio: screenSize.width > 1250
+                ? 0.75
+                : screenSize.width > 600
+                    ? 0.8
+                    : 0.75,
           ),
           itemCount: campaignData.length,
           itemBuilder: (context, index) {
             final campaign = campaignData[index];
             final description = campaign["description"]!;
-            final limitedDescription = description.length > 50 ? '${description.substring(0, 50)}...' : description;
+            final limitedDescription = description.length > 50
+                ? '${description.substring(0, 50)}...'
+                : description;
 
             return GestureDetector(
               onTap: () {
@@ -114,14 +132,18 @@ class DonationPage extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.deepPurple,  
+                        color: Colors.deepPurple,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         AspectRatio(
-                          aspectRatio: screenSize.width > 1250 ? 4 / 3 : screenSize.width > 600 ? 4 / 3 : 7 / 2.9,
+                          aspectRatio: screenSize.width > 1250
+                              ? 4 / 3
+                              : screenSize.width > 600
+                                  ? 4 / 3
+                                  : 7 / 2.9,
                           child: ClipRRect(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(12),
@@ -164,13 +186,14 @@ class DonationPage extends StatelessWidget {
                                       _launchURL(campaign["url"]!);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,  
+                                      backgroundColor: Colors.blue,
                                     ),
-                                     child: Text(
+                                    child: Text(
                                       'Bağış Yap',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: screenSize.width > 1250 ? 13 : 14,
+                                        fontSize:
+                                            screenSize.width > 1250 ? 13 : 14,
                                       ),
                                     ),
                                   ),

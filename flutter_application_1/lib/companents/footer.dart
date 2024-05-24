@@ -1,3 +1,4 @@
+import 'package:EYA/companents/constants.dart';
 import 'package:EYA/user_pages/sss_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +22,7 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.1),
+      backgroundColor: Colors.grey.shade300,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

@@ -453,387 +453,394 @@ class _HomePageState extends State<HomePage>
       backgroundColor: Theme.of(context).colorScheme.secondary,
       drawer: MyDrawer(),
       appBar: customAppBar(context),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              Container(
-                height: 250,
-                child: ImageSlider(),
-              ),
-              SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                width: MediaQuery.of(context).size.width * .9,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(20),
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width > 1200
+              ? MediaQuery.of(context).size.width * 0.7
+              : null,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 10),
+                Container(
+                  height: 250,
+                  child: ImageSlider(),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _searchController,
-                        onChanged: (text) {
-                          setState(() {
-                            _isSearching = text.isNotEmpty;
-                          });
-                        },
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          hintText: 'Şikayet Ara',
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          icon: Icon(UniconsLine.search),
+                SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  width: MediaQuery.of(context).size.width * .9,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          onChanged: (text) {
+                            setState(() {
+                              _isSearching = text.isNotEmpty;
+                            });
+                          },
+                          showCursor: false,
+                          decoration: InputDecoration(
+                            hintText: 'Şikayet Ara',
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            icon: Icon(UniconsLine.search),
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(_isListening
-                          ? UniconsLine.microphone_slash
-                          : UniconsLine.microphone),
-                      onPressed:
-                          _isListening ? _stopListening : _startListening,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              _isSearching
-                  ? StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('sikayet')
-                          .where('isVisible', isEqualTo: true)
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text('Bir hata oluştu.'),
-                          );
-                        }
-
-                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                          return Center(
-                            child: Text('Hiç şikayet bulunamadı.'),
-                          );
-                        }
-
-                        List<ComplaintModel> complaints =
-                            snapshot.data!.docs.map((doc) {
-                          return ComplaintModel.fromFirestore(doc);
-                        }).toList();
-
-                        return _searchController.text.isEmpty
-                            ? buildComplaintsList(complaints, context)
-                            : buildComplaintsSearchList(
-                                complaints, _searchController.text);
-                      },
-                    )
-                  : SizedBox(
-                      height:
-                          _calculateHeight(MediaQuery.of(context).size.width),
-                      child: Column(
-                        children: [
-                          TabBar(
-                            controller: _tabController,
-                            indicatorColor: Colors.deepPurple,
-                            isScrollable: true,
-                            labelPadding: EdgeInsets.symmetric(horizontal: 10),
-                            tabAlignment: TabAlignment.start,
-                            tabs: [
-                              Tab(text: 'En Yeni Şikayetler'),
-                              Tab(text: 'En Popüler Şikayetler'),
-                              Tab(text: 'Blog'),
-                              Tab(text: 'Duyuru'),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Expanded(
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('sikayet')
-                                      .where('isVisible', isEqualTo: true)
-                                      .snapshots(),
-                                  builder: (context,
-                                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-
-                                    if (snapshot.hasError) {
-                                      return Center(
-                                        child: Text('Bir hata oluştu.'),
-                                      );
-                                    }
-
-                                    if (!snapshot.hasData ||
-                                        snapshot.data!.docs.isEmpty) {
-                                      return Center(
-                                        child: Text('Hiç şikayet bulunamadı.'),
-                                      );
-                                    }
-
-                                    List<ComplaintModel> complaints =
-                                        snapshot.data!.docs.map((doc) {
-                                      return ComplaintModel.fromFirestore(doc);
-                                    }).toList();
-
-                                    return Column(
-                                      children: [
-                                        Expanded(
-                                          child: buildComplaintsList(
-                                              complaints, context),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Center(
-                                          child: MyButton(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      RootPage(
-                                                    initialIndex: 2,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            text: "Tüm Şikayetleri Gör",
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('sikayet')
-                                      .where('isVisible', isEqualTo: true)
-                                      .where('favoritesCount', isGreaterThan: 0)
-                                      .orderBy('favoritesCount',
-                                          descending: true)
-                                      .limit(5)
-                                      .snapshots(),
-                                  builder: (context,
-                                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-
-                                    if (snapshot.hasError) {
-                                      return Center(
-                                        child: Text('Bir hata oluştu.'),
-                                      );
-                                    }
-
-                                    if (!snapshot.hasData ||
-                                        snapshot.data!.docs.isEmpty) {
-                                      return Center(
-                                        child: Text('Hiç şikayet bulunamadı.'),
-                                      );
-                                    }
-
-                                    List<ComplaintModel> complaints =
-                                        snapshot.data!.docs.map((doc) {
-                                      return ComplaintModel.fromFirestore(doc);
-                                    }).toList();
-
-                                    return Column(
-                                      children: [
-                                        Expanded(
-                                          child: buildComplaintsList(
-                                              complaints, context),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Center(
-                                          child: MyButton(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AllFavoritesPage(),
-                                                ),
-                                              );
-                                            },
-                                            text: "En Popüler Şikayetleri Gör",
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('sikayet')
-                                      .where('isVisible', isEqualTo: true)
-                                      .orderBy('timestamp', descending: true)
-                                      .snapshots(),
-                                  builder: (context,
-                                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-
-                                    if (snapshot.hasError) {
-                                      return Center(
-                                        child: Text('Bir hata oluştu.'),
-                                      );
-                                    }
-
-                                    if (!snapshot.hasData ||
-                                        snapshot.data!.docs.isEmpty) {
-                                      return Center(
-                                        child: Text('Hiç blog bulunamadı.'),
-                                      );
-                                    }
-
-                                    List<Blog> blogs =
-                                        snapshot.data!.docs.map((doc) {
-                                      return Blog.fromFirestore(doc);
-                                    }).toList();
-
-                                    return Column(
-                                      children: [
-                                        Expanded(
-                                          child: buildBlogList(blogs),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Center(
-                                          child: MyButton(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BlogPage(),
-                                                ),
-                                              );
-                                            },
-                                            text: "Tüm Blog Yazılarını Gör",
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('duyuru')
-                                      .where('isVisible', isEqualTo: true)
-                                      .snapshots(),
-                                  builder: (context,
-                                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-
-                                    if (snapshot.hasError) {
-                                      return Center(
-                                        child: Text('Bir hata oluştu.'),
-                                      );
-                                    }
-
-                                    if (!snapshot.hasData ||
-                                        snapshot.data!.docs.isEmpty) {
-                                      return Center(
-                                        child: Text('Hiç duyuru bulunamadı.'),
-                                      );
-                                    }
-
-                                    List<Duyuru> duyurular =
-                                        snapshot.data!.docs.map((doc) {
-                                      return Duyuru.fromFirestore(doc);
-                                    }).toList();
-
-                                    return Column(
-                                      children: [
-                                        Expanded(
-                                          child: buildDuyuruList(duyurular),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Center(
-                                          child: MyButton(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DuyuruPage(),
-                                                ),
-                                              );
-                                            },
-                                            text: "Tüm Duyuruları Gör",
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ],
-                              physics: ClampingScrollPhysics(),
-                            ),
-                          ),
-                        ],
+                      IconButton(
+                        icon: Icon(_isListening
+                            ? UniconsLine.microphone_slash
+                            : UniconsLine.microphone),
+                        onPressed:
+                            _isListening ? _stopListening : _startListening,
                       ),
-                    ),
-              SizedBox(height: 20),
-              Container(
-                alignment: Alignment.center,
-                height: MediaQuery.of(context).size.width < 600
-                    ? 470
-                    : MediaQuery.of(context).size.width < 900
-                        ? 210
-                        : 500,
-                child: Dashboard(),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width < 600
-                    ? 570
-                    : MediaQuery.of(context).size.width < 900
-                        ? 410
-                        : 500,
-                child: kIsWeb ? MyCustomWidget() : SizedBox(height: 0),
-              ),
-              SizedBox(height: 10),
-            ],
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                _isSearching
+                    ? StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('sikayet')
+                            .where('isVisible', isEqualTo: true)
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+        
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text('Bir hata oluştu.'),
+                            );
+                          }
+        
+                          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                            return Center(
+                              child: Text('Hiç şikayet bulunamadı.'),
+                            );
+                          }
+        
+                          List<ComplaintModel> complaints =
+                              snapshot.data!.docs.map((doc) {
+                            return ComplaintModel.fromFirestore(doc);
+                          }).toList();
+        
+                          return _searchController.text.isEmpty
+                              ? buildComplaintsList(complaints, context)
+                              : buildComplaintsSearchList(
+                                  complaints, _searchController.text);
+                        },
+                      )
+                    : SizedBox(
+                        height:
+                            _calculateHeight(MediaQuery.of(context).size.width),
+                        child: Column(
+                          children: [
+                            TabBar(
+                              controller: _tabController,
+                              indicatorColor: Colors.deepPurple,
+                              isScrollable: true,
+                              labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                              tabAlignment: TabAlignment.start,
+                              tabs: [
+                                Tab(text: 'En Yeni Şikayetler'),
+                                Tab(text: 'En Popüler Şikayetler'),
+                                Tab(text: 'Blog'),
+                                Tab(text: 'Duyuru'),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Expanded(
+                              child: TabBarView(
+                                controller: _tabController,
+                                children: [
+                                  StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('sikayet')
+                                        .where('isVisible', isEqualTo: true)
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+        
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text('Bir hata oluştu.'),
+                                        );
+                                      }
+        
+                                      if (!snapshot.hasData ||
+                                          snapshot.data!.docs.isEmpty) {
+                                        return Center(
+                                          child: Text('Hiç şikayet bulunamadı.'),
+                                        );
+                                      }
+        
+                                      List<ComplaintModel> complaints =
+                                          snapshot.data!.docs.map((doc) {
+                                        return ComplaintModel.fromFirestore(doc);
+                                      }).toList();
+        
+                                      return Column(
+                                        children: [
+                                          Expanded(
+                                            child: buildComplaintsList(
+                                                complaints, context),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Center(
+                                            child: MyButton(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        RootPage(
+                                                      initialIndex: 2,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              text: "Tüm Şikayetleri Gör",
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                  StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('sikayet')
+                                        .where('isVisible', isEqualTo: true)
+                                        .where('favoritesCount', isGreaterThan: 0)
+                                        .orderBy('favoritesCount',
+                                            descending: true)
+                                        .limit(5)
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+        
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text('Bir hata oluştu.'),
+                                        );
+                                      }
+        
+                                      if (!snapshot.hasData ||
+                                          snapshot.data!.docs.isEmpty) {
+                                        return Center(
+                                          child: Text('Hiç şikayet bulunamadı.'),
+                                        );
+                                      }
+        
+                                      List<ComplaintModel> complaints =
+                                          snapshot.data!.docs.map((doc) {
+                                        return ComplaintModel.fromFirestore(doc);
+                                      }).toList();
+        
+                                      return Column(
+                                        children: [
+                                          Expanded(
+                                            child: buildComplaintsList(
+                                                complaints, context),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Center(
+                                            child: MyButton(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AllFavoritesPage(),
+                                                  ),
+                                                );
+                                              },
+                                              text: "En Popüler Şikayetleri Gör",
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                  StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('sikayet')
+                                        .where('isVisible', isEqualTo: true)
+                                        .orderBy('timestamp', descending: true)
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+        
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text('Bir hata oluştu.'),
+                                        );
+                                      }
+        
+                                      if (!snapshot.hasData ||
+                                          snapshot.data!.docs.isEmpty) {
+                                        return Center(
+                                          child: Text('Hiç blog bulunamadı.'),
+                                        );
+                                      }
+        
+                                      List<Blog> blogs =
+                                          snapshot.data!.docs.map((doc) {
+                                        return Blog.fromFirestore(doc);
+                                      }).toList();
+        
+                                      return Column(
+                                        children: [
+                                          Expanded(
+                                            child: buildBlogList(blogs),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Center(
+                                            child: MyButton(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BlogPage(),
+                                                  ),
+                                                );
+                                              },
+                                              text: "Tüm Blog Yazılarını Gör",
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                  StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('duyuru')
+                                        .where('isVisible', isEqualTo: true)
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+        
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text('Bir hata oluştu.'),
+                                        );
+                                      }
+        
+                                      if (!snapshot.hasData ||
+                                          snapshot.data!.docs.isEmpty) {
+                                        return Center(
+                                          child: Text('Hiç duyuru bulunamadı.'),
+                                        );
+                                      }
+        
+                                      List<Duyuru> duyurular =
+                                          snapshot.data!.docs.map((doc) {
+                                        return Duyuru.fromFirestore(doc);
+                                      }).toList();
+        
+                                      return Column(
+                                        children: [
+                                          Expanded(
+                                            child: buildDuyuruList(duyurular),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Center(
+                                            child: MyButton(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DuyuruPage(),
+                                                  ),
+                                                );
+                                              },
+                                              text: "Tüm Duyuruları Gör",
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
+                                physics: ClampingScrollPhysics(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.width < 600
+                      ? 470
+                      : MediaQuery.of(context).size.width < 900
+                          ? 210
+                          : 500,
+                  child: Dashboard(),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width < 600
+                      ? 570
+                      : MediaQuery.of(context).size.width < 900
+                          ? 410
+                          : 500,
+                  child: kIsWeb ? MyCustomWidget() : SizedBox(height: 0),
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
       ),
+    ),
     );
   }
 
