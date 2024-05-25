@@ -62,7 +62,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 horizontal: isWideScreen ? 50.0 : 20.0,
                 vertical: isWideScreen ? 50.0 : 20.0),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.deepPurple),
+              border: Border.all(color: Colors.white),
             ),
             child: Column(
               children: <Widget>[
@@ -72,7 +72,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   backgroundColor: Colors.grey.shade200,
                   child: Icon(
                     UniconsLine.user_circle,
-                    color: Colors.deepPurple,
+                    color: Colors.black,
                     size: 75,
                   ),
                 ),
@@ -107,7 +107,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(
-                              color: Colors.deepPurple,
+                              color: Colors.black,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -116,13 +116,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             children: [
                               Icon(
                                 UniconsLine.pen,
-                                color: Colors.deepPurple,
+                                color: Colors.black,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 'Profilini Düzenle',
                                 style: TextStyle(
-                                  color: Colors.deepPurple,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -149,12 +149,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
           boxShadow: [
             BoxShadow(
                 offset: Offset(0, 5),
-                color: Colors.deepPurple,
+                color: Colors.black26,
                 spreadRadius: 2,
                 blurRadius: 10)
           ]),
       child: ListTile(
-        title: Text(title),
+        title: Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         subtitle: Text(subtitle),
         leading: Icon(iconData),
         tileColor: Colors.white,

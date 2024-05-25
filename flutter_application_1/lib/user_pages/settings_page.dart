@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -23,14 +24,17 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _checkNotificationPermission() async {
-    NotificationSettings settings = await FirebaseMessaging.instance.getNotificationSettings();
+    NotificationSettings settings =
+        await FirebaseMessaging.instance.getNotificationSettings();
     setState(() {
-      isNotificationsEnabled = settings.authorizationStatus == AuthorizationStatus.authorized;
+      isNotificationsEnabled =
+          settings.authorizationStatus == AuthorizationStatus.authorized;
     });
   }
 
   Future<void> _requestNotificationPermission() async {
-    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+    NotificationSettings settings =
+        await FirebaseMessaging.instance.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -41,7 +45,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
 
     setState(() {
-      isNotificationsEnabled = settings.authorizationStatus == AuthorizationStatus.authorized;
+      isNotificationsEnabled =
+          settings.authorizationStatus == AuthorizationStatus.authorized;
     });
 
     if (settings.authorizationStatus == AuthorizationStatus.denied) {
@@ -94,15 +99,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MailChangingPage()),
+                        MaterialPageRoute(
+                            builder: (context) => MailChangingPage()),
                       );
                     },
-                    child: Text(
-                      ">",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
+                    child: Icon(
+                      UniconsLine.angle_right_b,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -113,21 +116,19 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PasswordChangingPage()),
+                        MaterialPageRoute(
+                            builder: (context) => PasswordChangingPage()),
                       );
                     },
-                    child: Text(
-                      ">",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
+                    child: Icon(
+                      UniconsLine.angle_right_b,
+                      color: Colors.black,
                     ),
                   ),
                 ),
                 _buildSettingItem(
                   context,
-                  "Bildirimleri Aç/Kapat",
+                  "Bildirimleri Göster",
                   CupertinoSwitch(
                     value: isNotificationsEnabled,
                     onChanged: (value) {
@@ -140,6 +141,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         });
                       }
                     },
+                    activeColor: Colors.deepPurple,
                   ),
                 ),
               ],
@@ -154,7 +156,6 @@ class _SettingsPageState extends State<SettingsPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-         
           _buildSettingItem(
             context,
             "E-Postanı Değiştir",
@@ -165,12 +166,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   MaterialPageRoute(builder: (context) => MailChangingPage()),
                 );
               },
-              child: Text(
-                ">",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
+              child: Icon(
+                UniconsLine.angle_right_b,
+                color: Colors.black,
               ),
             ),
           ),
@@ -181,21 +179,19 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PasswordChangingPage()),
+                  MaterialPageRoute(
+                      builder: (context) => PasswordChangingPage()),
                 );
               },
-              child: Text(
-                ">",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
+              child: Icon(
+                UniconsLine.angle_right_b,
+                color: Colors.black,
               ),
             ),
           ),
           _buildSettingItem(
             context,
-            "Bildirimleri Aç/Kapat",
+            "Bildirimleri Göster",
             CupertinoSwitch(
               value: isNotificationsEnabled,
               onChanged: (value) {
@@ -207,6 +203,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   });
                 }
               },
+              activeColor: Colors.deepPurple,
+              /*trackColor: Colors.black,
+              thumbColor: Colors.blue,*/
             ),
           ),
         ],
@@ -214,12 +213,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildSettingItem(BuildContext context, String title, Widget trailing) {
+  Widget _buildSettingItem(
+      BuildContext context, String title, Widget trailing) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
+        //color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.deepPurple),
+        border: Border.all(color: Colors.black),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       padding: const EdgeInsets.all(25),
@@ -230,7 +230,7 @@ class _SettingsPageState extends State<SettingsPage> {
             title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.inversePrimary,
+              color: Colors.black,
             ),
           ),
           Align(

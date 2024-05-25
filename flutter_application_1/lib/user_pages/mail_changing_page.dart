@@ -131,12 +131,18 @@ class _ChangeEmailPageState extends State<MailChangingPage> {
                 Container(
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
                     borderRadius: BorderRadius.circular(8.0),
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   child: Text(
                     user?.email ?? '',
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -146,7 +152,7 @@ class _ChangeEmailPageState extends State<MailChangingPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Yeni E-Posta', 
+                  'Yeni E-Posta',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.0,

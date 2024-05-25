@@ -30,10 +30,10 @@ PreferredSizeWidget customAppBar(BuildContext context) {
               },
               child: Row(
                 children: [
-                  Icon(Icons.home, color: Colors.white),
+                  Icon(UniconsLine.estate, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
-                    'Anasayfa',
+                    'Ana Sayfa',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -69,7 +69,7 @@ PreferredSizeWidget customAppBar(BuildContext context) {
                   Icon(UniconsLine.sort_amount_down, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
-                    'Tum sikayetler',
+                    'Tüm Şikayetler',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -122,8 +122,10 @@ PreferredSizeWidget customAppBar(BuildContext context) {
                   Icon(UniconsLine.plus, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
-                    'Sikayet yaz',
-                    style: TextStyle(color: Colors.white),
+                    'Şikayet Yaz',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
