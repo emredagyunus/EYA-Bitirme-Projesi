@@ -42,7 +42,7 @@ class BlogPage extends StatelessWidget {
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text('Hiç Blog Yazısı bulunamadi.'),
+              child: Text('Hiçbir blog yazısı bulunamadı!'),
             );
           }
 

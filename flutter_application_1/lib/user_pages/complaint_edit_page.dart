@@ -1,10 +1,11 @@
 import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
-import 'package:EYA/user_pages/my_complaint_page.dart';
+import 'package:EYA/user_pages/sikayet_5.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/models/complaint.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unicons/unicons.dart';
 
 class ComplaintEditPage extends StatefulWidget {
   final ComplaintModel complaint;
@@ -63,33 +64,34 @@ class _ComplaintEditPageState extends State<ComplaintEditPage> {
               const SizedBox(height: 50),
               MyTextField(
                 controller: _titleController,
-                hintText: 'Sikayet basligi',
+                maxLines: 1,
+                hintText: 'Şikayet Başlığı',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.subject),
               ),
               const SizedBox(height: 15),
               MyTextField(
                 controller: _descriptionController,
-                maxLines: 1,
-                hintText: 'Aciklama',
+                maxLines: 4,
+                hintText: 'Şikayet Detayı',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.bars),
               ),
               const SizedBox(height: 15),
               MyTextField(
                 controller: _ilController,
                 maxLines: 1,
-                hintText: 'il',
+                hintText: 'İl',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.location_point),
               ),
               const SizedBox(height: 15),
               MyTextField(
                 controller: _ilceController,
                 maxLines: 1,
-                hintText: 'ilce',
+                hintText: 'İlçe',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.location_point),
               ),
               const SizedBox(height: 15),
               MyTextField(
@@ -97,15 +99,15 @@ class _ComplaintEditPageState extends State<ComplaintEditPage> {
                 maxLines: 1,
                 hintText: 'Mahalle',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.location_point),
               ),
               const SizedBox(height: 15),
               MyTextField(
                 controller: _sokakController,
                 maxLines: 1,
-                hintText: 'sokak',
+                hintText: 'Sokak',
                 obscureText: false,
-                icon: Icon(Icons.abc),
+                icon: Icon(UniconsLine.location_point),
               ),
               const SizedBox(height: 30),
               MyButton(
@@ -133,11 +135,12 @@ class _ComplaintEditPageState extends State<ComplaintEditPage> {
         'ilce': _ilceController.text,
         'mahalle': _mahalleController.text,
         'sokak': _sokakController.text,
+        'isVisible':false,
       });
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MyComplaint(),
+            builder: (context) => ComplaintProcessedPage(),
           ));
     } catch (e) {
       print('Hata oluştu: $e');

@@ -119,7 +119,7 @@ class SikayetIlkPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width > 600 ? 500 : 0,
             vertical: 5,
-          ), // Küçük ekranlarda padding yok, büyük ekranlarda 500 birimlik yatay padding
+          ), 
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

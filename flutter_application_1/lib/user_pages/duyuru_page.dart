@@ -38,7 +38,7 @@ class DuyuruPage extends StatelessWidget {
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text('Hiç Duyuru Yok,'),
+              child: Text('Hiçbir duyuru bulunamadı!'),
             );
           }
 

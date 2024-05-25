@@ -292,6 +292,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               SizedBox(height: 20),
               MyTextField(
                 controller: _ilController,
+                maxLines: 1,
                 hintText: "İl",
                 obscureText: false,
                 icon: Icon(UniconsLine.location_point),
@@ -299,6 +300,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _ilceController,
+                maxLines: 1,
                 hintText: "İlçe",
                 obscureText: false,
                 icon: Icon(UniconsLine.location_point),
@@ -306,6 +308,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _mahalleController,
+                maxLines: 1,
                 hintText: "Mahalle",
                 obscureText: false,
                 icon: Icon(UniconsLine.location_point),
@@ -313,6 +316,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
               SizedBox(height: 16.0),
               MyTextField(
                 controller: _sokakController,
+                maxLines: 1,
                 hintText: "Sokak",
                 obscureText: false,
                 icon: Icon(UniconsLine.location_point),

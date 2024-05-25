@@ -73,6 +73,7 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
                   const SizedBox(height: 25),
                   MyTextField(
                     controller: nameController,
+                    maxLines: 1,
                     hintText: "Kurum Adı",
                     obscureText: false,
                     icon: const Icon(Icons.mail),
@@ -80,6 +81,7 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
                   const SizedBox(height: 10),
                   MyTextField(
                     controller: passwordController,
+                    maxLines: 1,
                     hintText: "Şifre",
                     obscureText: true,
                     icon: const Icon(Icons.password),
