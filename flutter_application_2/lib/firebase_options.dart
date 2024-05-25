@@ -82,12 +82,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyBgsrfrf8gf9IG3rDRH0k4JooQ3YzxKaEc',
-    appId: '1:607045222348:web:481bfedc93ba78169e6769',
+    appId: '1:607045222348:web:da872d9bb8dd638c9e6769',
     messagingSenderId: '607045222348',
     projectId: 'eyaapp-6595d',
     authDomain: 'eyaapp-6595d.firebaseapp.com',
     databaseURL: 'https://eyaapp-6595d-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'eyaapp-6595d.appspot.com',
-    measurementId: 'G-V274PVWEZ0',
+    measurementId: 'G-MM5R7K0FBE',
   );
+
 }

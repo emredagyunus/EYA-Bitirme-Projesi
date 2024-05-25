@@ -21,12 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
 
-  // login method
-  void login() async {
-    //get instance of auth services
-    final _authService = AuthService();
-    //try sign in
-    try {
+   void login() async {
+     final _authService = AuthService();
+     try {
       if (emailController.text == 'eya@admin.com' &&
           passwordController.text == 'admin12345') {
         Navigator.push(
@@ -42,8 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     }
-    // display any errors
-    catch (e) {
+     catch (e) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -53,23 +49,24 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  //forget password
-  void forgetPw() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text("User tapped forgot password."),
+   void forgetPw() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return ForgotPassword();
+        },
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final imageWidthMultiplier = MediaQuery.of(context).size.width *
-        (MediaQuery.of(context).size.width > 600 ? 0.25 : 0.7);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageWidthMultiplier = screenWidth * (screenWidth > 600 ? 0.25 : 0.7);
 
-    final isWeb = MediaQuery.of(context).size.width > 600;
+    final isWideScreen = screenWidth > 1024;
+    final isTablet = screenWidth > 600 && screenWidth <= 1024;
 
     return SafeArea(
       child: Scaffold(
@@ -81,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //logo
+                  // logo
                   Image(
                     image: const AssetImage("lib/images/eya/logo.png"),
                     width: imageWidthMultiplier,
@@ -101,11 +98,10 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 25),
 
-                   SizedBox(
-                    width: isWeb ? 400 : null,
+                  SizedBox(
+                    width: isWideScreen ? 400 : (isTablet ? 350 : null),
                     child: MyTextField(
                       controller: emailController,
-                      maxLines: 1,
                       hintText: "E-posta",
                       obscureText: false,
                       icon: const Icon(
@@ -116,11 +112,10 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 25),
 
-                   SizedBox(
-                    width: isWeb ? 400 : null,
+                  SizedBox(
+                    width: isWideScreen ? 400 : (isTablet ? 350 : null),
                     child: MyTextField(
                       controller: passwordController,
-                      maxLines: 1,
                       hintText: "Şifre",
                       obscureText: _obscureText,
                       icon: const Icon(
@@ -141,30 +136,23 @@ class _LoginPageState extends State<LoginPage> {
 
                   const SizedBox(height: 10),
 
-                   SizedBox(
-                    width: isWeb ? 400 : null,
+                  SizedBox(
+                    width: isWideScreen ? 400 : (isTablet ? 350 : null),
                     child: MyButton(
                       onTap: login,
                       text: 'Giriş Yap',
                     ),
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 705.0),
+                  const SizedBox(height: 10),
+
+                  SizedBox(
+                    width: isWideScreen ? 200 : (isTablet ? 200 : null),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ForgotPassword();
-                                },
-                              ),
-                            );
-                          },
+                          onTap: forgetPw,
                           child: Text(
                             'Şifremi Unuttum',
                             style: TextStyle(

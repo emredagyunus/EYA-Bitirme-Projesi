@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage>
                   crossAxisCount: 4,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 0.7,
                 )
               : SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -496,8 +496,7 @@ class _HomePageState extends State<HomePage>
                         },
                         showCursor: true,
                         decoration: InputDecoration(
-                          hintText:
-                              _focusNode.hasFocus ? '' : 'Şikayet Ara',
+                          hintText: _focusNode.hasFocus ? '' : 'Şikayet Ara',
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           icon: Icon(UniconsLine.search),
@@ -529,25 +528,24 @@ class _HomePageState extends State<HomePage>
                             child: CircularProgressIndicator(),
                           );
                         }
-            
+
                         if (snapshot.hasError) {
                           return Center(
                             child: Text('Bir hata oluştu.'),
                           );
                         }
-            
-                        if (!snapshot.hasData ||
-                            snapshot.data!.docs.isEmpty) {
+
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                           return Center(
                             child: Text('Hiç şikayet bulunamadı.'),
                           );
                         }
-            
+
                         List<ComplaintModel> complaints =
                             snapshot.data!.docs.map((doc) {
                           return ComplaintModel.fromFirestore(doc);
                         }).toList();
-            
+
                         return _searchController.text.isEmpty
                             ? buildComplaintsList(complaints, context)
                             : buildComplaintsSearchList(
@@ -555,19 +553,18 @@ class _HomePageState extends State<HomePage>
                       },
                     )
                   : SizedBox(
-                      height: _calculateHeight(
-                          MediaQuery.of(context).size.width),
+                      height:
+                          _calculateHeight(MediaQuery.of(context).size.width),
                       child: Column(
                         children: [
                           TabBar(
                             controller: _tabController,
                             indicatorColor: Colors.black,
                             isScrollable: true,
-                            labelPadding:
-                                EdgeInsets.symmetric(horizontal: 10),
+                            labelPadding: EdgeInsets.symmetric(horizontal: 10),
                             labelColor: Colors.black,
                             unselectedLabelColor: Colors.grey,
-                            tabAlignment: TabAlignment.start,
+                            tabAlignment: TabAlignment.center,
                             tabs: [
                               Tab(text: 'En Yeni Şikayetler'),
                               Tab(text: 'En Popüler Şikayetler'),
@@ -586,35 +583,32 @@ class _HomePageState extends State<HomePage>
                                       .where('isVisible', isEqualTo: true)
                                       .snapshots(),
                                   builder: (context,
-                                      AsyncSnapshot<QuerySnapshot>
-                                          snapshot) {
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-            
+
                                     if (snapshot.hasError) {
                                       return Center(
                                         child: Text('Bir hata oluştu.'),
                                       );
                                     }
-            
+
                                     if (!snapshot.hasData ||
                                         snapshot.data!.docs.isEmpty) {
                                       return Center(
-                                        child:
-                                            Text('Hiç şikayet bulunamadı.'),
+                                        child: Text('Hiç şikayet bulunamadı.'),
                                       );
                                     }
-            
+
                                     List<ComplaintModel> complaints =
                                         snapshot.data!.docs.map((doc) {
-                                      return ComplaintModel.fromFirestore(
-                                          doc);
+                                      return ComplaintModel.fromFirestore(doc);
                                     }).toList();
-            
+
                                     return Column(
                                       children: [
                                         Expanded(
@@ -647,42 +641,38 @@ class _HomePageState extends State<HomePage>
                                   stream: FirebaseFirestore.instance
                                       .collection('sikayet')
                                       .where('isVisible', isEqualTo: true)
-                                      .where('favoritesCount',
-                                          isGreaterThan: 0)
+                                      .where('favoritesCount', isGreaterThan: 0)
                                       .orderBy('favoritesCount',
                                           descending: true)
                                       .limit(5)
                                       .snapshots(),
                                   builder: (context,
-                                      AsyncSnapshot<QuerySnapshot>
-                                          snapshot) {
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-            
+
                                     if (snapshot.hasError) {
                                       return Center(
                                         child: Text('Bir hata oluştu.'),
                                       );
                                     }
-            
+
                                     if (!snapshot.hasData ||
                                         snapshot.data!.docs.isEmpty) {
                                       return Center(
-                                        child:
-                                            Text('Hiç şikayet bulunamadı.'),
+                                        child: Text('Hiç şikayet bulunamadı.'),
                                       );
                                     }
-            
+
                                     List<ComplaintModel> complaints =
                                         snapshot.data!.docs.map((doc) {
-                                      return ComplaintModel.fromFirestore(
-                                          doc);
+                                      return ComplaintModel.fromFirestore(doc);
                                     }).toList();
-            
+
                                     return Column(
                                       children: [
                                         Expanded(
@@ -701,8 +691,7 @@ class _HomePageState extends State<HomePage>
                                                 ),
                                               );
                                             },
-                                            text:
-                                                "En Popüler Şikayetleri Gör",
+                                            text: "En Popüler Şikayetleri Gör",
                                           ),
                                         ),
                                         SizedBox(height: 10),
@@ -712,39 +701,37 @@ class _HomePageState extends State<HomePage>
                                 ),
                                 StreamBuilder(
                                   stream: FirebaseFirestore.instance
-                                      .collection('sikayet')
+                                      .collection('blog')
                                       .where('isVisible', isEqualTo: true)
-                                      .orderBy('timestamp',
-                                          descending: true)
+                                      .orderBy('timestamp', descending: true)
                                       .snapshots(),
                                   builder: (context,
-                                      AsyncSnapshot<QuerySnapshot>
-                                          snapshot) {
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-            
+
                                     if (snapshot.hasError) {
                                       return Center(
                                         child: Text('Bir hata oluştu.'),
                                       );
                                     }
-            
+
                                     if (!snapshot.hasData ||
                                         snapshot.data!.docs.isEmpty) {
                                       return Center(
                                         child: Text('Hiç blog bulunamadı.'),
                                       );
                                     }
-            
+
                                     List<Blog> blogs =
                                         snapshot.data!.docs.map((doc) {
                                       return Blog.fromFirestore(doc);
                                     }).toList();
-            
+
                                     return Column(
                                       children: [
                                         Expanded(
@@ -776,34 +763,32 @@ class _HomePageState extends State<HomePage>
                                       .where('isVisible', isEqualTo: true)
                                       .snapshots(),
                                   builder: (context,
-                                      AsyncSnapshot<QuerySnapshot>
-                                          snapshot) {
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-            
+
                                     if (snapshot.hasError) {
                                       return Center(
                                         child: Text('Bir hata oluştu.'),
                                       );
                                     }
-            
+
                                     if (!snapshot.hasData ||
                                         snapshot.data!.docs.isEmpty) {
                                       return Center(
-                                        child:
-                                            Text('Hiç duyuru bulunamadı.'),
+                                        child: Text('Hiç duyuru bulunamadı.'),
                                       );
                                     }
-            
+
                                     List<Duyuru> duyurular =
                                         snapshot.data!.docs.map((doc) {
                                       return Duyuru.fromFirestore(doc);
                                     }).toList();
-            
+
                                     return Column(
                                       children: [
                                         Expanded(
@@ -846,16 +831,17 @@ class _HomePageState extends State<HomePage>
                         : 500,
                 child: Dashboard(),
               ),
-              kIsWeb 
-              ?Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width < 600
-                    ? 570
-                    : MediaQuery.of(context).size.width < 900
-                        ? 410
-                        : 500,
-                child: kIsWeb ? MyCustomWidget() : SizedBox(height: 0),
-              ):Container(),
+              kIsWeb
+                  ? Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width < 600
+                          ? 570
+                          : MediaQuery.of(context).size.width < 900
+                              ? 410
+                              : 500,
+                      child: kIsWeb ? MyCustomWidget() : SizedBox(height: 0),
+                    )
+                  : Container(),
               SizedBox(height: 10),
             ],
           ),

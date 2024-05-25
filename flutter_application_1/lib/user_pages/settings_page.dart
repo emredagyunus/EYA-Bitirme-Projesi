@@ -72,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          if (constraints.maxWidth > 600) {
+          if (constraints.maxWidth > 1200) {
             // Geniş ekran için düzen
             return _buildWideLayout(context);
           } else {

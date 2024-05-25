@@ -264,6 +264,7 @@ class _KurumEkleState extends State<KurumEkle> {
               ),
             ),
             const SizedBox(height: 15),
+            
             Expanded(
               child: _isListVisible
                   ? SingleChildScrollView(
@@ -286,9 +287,11 @@ class _KurumEkleState extends State<KurumEkle> {
                     )
                   : SizedBox(),
             ),
+            
             MyButton(
               onTap: _saveToFirebase,
               text: "Gönder",
+              width: MediaQuery.of(context).size.width <= 600 ? screenWidth * 0.9 : screenWidth * 0.6,
             ),
             const SizedBox(height: 25),
           ],

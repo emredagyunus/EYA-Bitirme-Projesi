@@ -245,8 +245,8 @@ class _MyLocationPageState extends State<MyLocationPage> {
         drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width > 600 ? 500.0 : 0,
-            vertical: MediaQuery.of(context).size.width > 600 ? 5.0 : 0,
+            horizontal: MediaQuery.of(context).size.width > 1200 ? 500.0 : 0,
+            vertical: MediaQuery.of(context).size.width > 1200 ? 5.0 : 0,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

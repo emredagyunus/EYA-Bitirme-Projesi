@@ -62,7 +62,7 @@ class MyComplaint extends StatelessWidget {
                   crossAxisCount: isWideScreen ? 6 : isTablet ? 4 : 2,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 9,
-                  childAspectRatio: isWideScreen ? 0.75 : isTablet ? 0.8 : 0.75,
+                  childAspectRatio: isWideScreen ? 0.75 : isTablet ? 0.55 : 0.75,
                 ),
                 itemCount: complaints.length,
                 itemBuilder: (context, index) {

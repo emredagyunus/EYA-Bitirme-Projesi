@@ -110,8 +110,8 @@ class DonationPage extends StatelessWidget {
             childAspectRatio: screenSize.width > 1250
                 ? 0.75
                 : screenSize.width > 600
-                    ? 0.8
-                    : 0.75,
+                    ? 0.55
+                    : 0.65,
           ),
           itemCount: campaignData.length,
           itemBuilder: (context, index) {

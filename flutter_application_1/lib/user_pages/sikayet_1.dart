@@ -117,7 +117,7 @@ class SikayetIlkPage extends StatelessWidget {
         drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width > 600 ? 500 : 0,
+            horizontal: MediaQuery.of(context).size.width > 1200 ? 500 : 0,
             vertical: 5,
           ), 
           child: Column(

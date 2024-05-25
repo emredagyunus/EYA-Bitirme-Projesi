@@ -1,3 +1,4 @@
+import 'package:EYA/admin_pages/admin_detail_page.dart';
 import 'package:EYA/admin_pages/notification_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ class AdminHomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ComplaintDetailPage(
+                    builder: (context) => AdminComplaintDetailPage(
                       complaint: complaint,
                     ),
                   ),
@@ -127,6 +128,7 @@ class AdminHomePage extends StatelessWidget {
                               .collection('sikayet')
                               .doc(complaint.id)
                               .update({'isVisible': newValue});
+
                           DocumentSnapshot complaintDoc =
                               await FirebaseFirestore.instance
                                   .collection('favorites')

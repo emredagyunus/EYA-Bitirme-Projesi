@@ -128,7 +128,7 @@ class _ImageAddWebState extends State<ImageAddWeb> {
 
   @override
   Widget build(BuildContext context) {
-     bool isLargeScreen = MediaQuery.of(context).size.width > 600;
+     bool isLargeScreen = MediaQuery.of(context).size.width > 1200;
 
      double horizontalPadding = isLargeScreen ? 500.0 : 0.0;
     double verticalPadding = isLargeScreen ? 5.0 : 0.0;

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
@@ -67,7 +68,9 @@ class FAQSection extends StatelessWidget {
     return Center(
       child: Container(
         width: isWideScreen ? 800 : double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 16.0 : 0, vertical: isWideScreen ? 50.0 : 0),
+        padding: EdgeInsets.symmetric(
+            horizontal: isWideScreen ? 16.0 : 0,
+            vertical: isWideScreen ? 50.0 : 0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -99,6 +102,33 @@ class FAQSection extends StatelessWidget {
 }
 
 class FeedbackForm extends StatelessWidget {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController mailController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  Future<void> saveForm() async {
+    try {
+      await FirebaseFirestore.instance.collection('iletisim').add({
+        'name': nameController.text,
+        'surname': surnameController.text,
+        'phone': phoneController.text,
+        'mail': mailController.text,
+        'description': descriptionController.text,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      nameController.clear();
+      surnameController.clear();
+      phoneController.clear();
+      mailController.clear();
+      descriptionController.clear();
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isWideScreen = MediaQuery.of(context).size.width > 600;
@@ -107,7 +137,9 @@ class FeedbackForm extends StatelessWidget {
       child: Center(
         child: Container(
           width: isWideScreen ? 500 : double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 16.0 : 0, vertical: isWideScreen ? 50.0 : 0),
+          padding: EdgeInsets.symmetric(
+              horizontal: isWideScreen ? 16.0 : 0,
+              vertical: isWideScreen ? 50.0 : 0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white),
             borderRadius: BorderRadius.circular(10.0),
@@ -122,7 +154,7 @@ class FeedbackForm extends StatelessWidget {
               ),
               SizedBox(height: 10),
               MyTextField(
-                controller: TextEditingController(),
+                controller: nameController,
                 hintText: 'Ad',
                 obscureText: false,
                 icon: Icon(UniconsLine.user),
@@ -130,7 +162,7 @@ class FeedbackForm extends StatelessWidget {
               ),
               SizedBox(height: 10),
               MyTextField(
-                controller: TextEditingController(),
+                controller: surnameController,
                 hintText: 'Soyad',
                 obscureText: false,
                 icon: Icon(UniconsLine.user),
@@ -138,7 +170,7 @@ class FeedbackForm extends StatelessWidget {
               ),
               SizedBox(height: 10),
               MyTextField(
-                controller: TextEditingController(),
+                controller: mailController,
                 hintText: 'E-Posta',
                 obscureText: false,
                 icon: Icon(UniconsLine.envelope),
@@ -146,14 +178,17 @@ class FeedbackForm extends StatelessWidget {
               ),
               SizedBox(height: 10),
               MyTextField(
-                controller: TextEditingController(),
+                controller: descriptionController,
                 hintText: 'Mesaj',
                 obscureText: false,
                 maxLines: 4,
                 icon: Icon(UniconsLine.bars),
               ),
               SizedBox(height: 50),
-              MyButton(text: "Gönder")
+              MyButton(
+                text: "Gönder",
+                onTap: saveForm,
+              ),
             ],
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:EYA/companents/my_textfield.dart';
 import 'package:EYA/services/auth/login_or_register.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:unicons/unicons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -38,15 +39,39 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isWideScreen = screenWidth > 1024;
+    final isTablet = screenWidth > 600 && screenWidth <= 1024;
+
+    double horizontalPadding = 20;
+    double verticalPadding = 20;
+    double imageWidth = 100; // Default image width for mobile
+
+    if (isTablet) {
+      horizontalPadding = 50;
+      verticalPadding = 50;
+      imageWidth = 150; // Image width for tablet
+    } else if (isWideScreen) {
+      horizontalPadding = 400;
+      verticalPadding = 0;
+      imageWidth = 300; // Image width for web/desktop
+    }
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+            vertical: verticalPadding, horizontal: horizontalPadding),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("lib/images/eya/logo.png"),
+              Center(
+                child: Image.asset(
+                  "lib/images/eya/logo.png",
+                  width: imageWidth,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: const Text(
@@ -77,14 +102,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 icon: Icon(UniconsLine.envelope),
                 maxLines: 1,
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: 10,
               ),
               MyButton(
                 onTap: passwordReset,
                 text: "Devam Et",
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(
@@ -118,5 +143,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
+  }
+}
+
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

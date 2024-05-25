@@ -143,338 +143,20 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
     return Scaffold(
       appBar: customAppBar(context),
       drawer: MediaQuery.of(context).size.width > 600 ? MyDrawer() : null,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height * 0.3,
-                aspectRatio: 16 / 9,
-                viewportFraction: 1.0,
-                initialPage: 0,
-                enableInfiniteScroll: false,
-                reverse: false,
-                autoPlay: false,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-              ),
-              items:
-                   _buildCarouselItems()
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(children: [
-                  Icon(
-                    CupertinoIcons.person_circle,
-                    color: Colors.deepPurple,
-                    size: 25.0,
-                  ),
-                  Text(
-                    " kullanıcı Adı: " +
-                        widget.complaint.userName +
-                        " " +
-                        widget.complaint.userSurname +
-                        "",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ]),
-                SizedBox(height: 5),
-                Text(
-                  'Tarih: ${widget.complaint.timestamp.toDate().day}/${widget.complaint.timestamp.toDate().month}/${widget.complaint.timestamp.toDate().year}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 14),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(height: 5),
-                Expanded(
-                  child: Text(
-                    widget.complaint.title,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 5),
-            InkWell(
-              onTap: toggleDescriptionPanel,
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.deepPurple, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.complaint.description,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'İlgili Kurum:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${widget.complaint.kurum}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                ElevatedButton.icon(
-                  onPressed: toggleLocationPanel,
-                  icon: Icon(
-                    isLocationPanelOpen
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                    size: 20,
-                  ),
-                  label: Text(
-                    'Konum Bilgileri',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.deepPurple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            if (isLocationPanelOpen) ...[
-              SizedBox(height: 5),
-              Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.deepPurple, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'İl:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          '${widget.complaint.il}',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'İlçe:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          '${widget.complaint.ilce}',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Mahalle:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          '${widget.complaint.mahalle}',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Sokak:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          '${widget.complaint.sokak}',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                InkWell(
-                  onTap: toggleAnswerPanel,
-                  child: Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.text_bubble,
-                        color: const Color.fromARGB(255, 114, 76, 175),
-                        size: 25.0,
-                      ),
-                      Text(
-                        ' Kurum Cevap',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      Icon(
-                        isAnswerPanelOpen
-                            ? Icons.keyboard_arrow_up
-                            : Icons.keyboard_arrow_down,
-                        color: Colors.deepPurple,
-                      ),
-                    ],
-                  ),
-                ),
-                if (isAnswerPanelOpen) ...[
-                  SizedBox(height: 8),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.deepPurple, width: 2),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('sikayet')
-                          .doc(widget.complaint.id)
-                          .collection('cevaplar')
-                          .orderBy('timestampkurum', descending: false)
-                          .snapshots(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                                'Bir hata oluştu: ${snapshot.error.toString()}'),
-                          );
-                        }
-
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        final List<DocumentSnapshot> documents =
-                            snapshot.data!.docs;
-
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: documents.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final DocumentSnapshot document = documents[index];
-                            final data =
-                                document.data() as Map<String, dynamic>;
-
-                            DateTime timestamp =
-                                (data['timestampkurum'] as Timestamp).toDate();
-
-                            String formattedDate =
-                                '${timestamp.day}/${timestamp.month}/${timestamp.year}';
-
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Tarih: $formattedDate',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontStyle: FontStyle.normal),
-                                ),
-                                Text(
-                                  'Kurum: ${widget.complaint.kurum}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontStyle: FontStyle.normal),
-                                ),
-                                Text(
-                                  'Cevap: ${data['cevap']}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontStyle: FontStyle.normal),
-                                ),
-                                SizedBox(height: 25),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-                SizedBox(height: 50),
-              ],
-            ),
-          ],
-        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth >= 1366) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 400, vertical: 0),
+              child: _buildComplaintDetails(),
+            );
+          } else {
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(30.0),
+              child: _buildComplaintDetails(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -489,35 +171,362 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
     );
   }
 
-  List<Widget> _buildCarouselItems() {
-  List<Widget> items = [];
-
-  // Video controllers varsa, videoları ekler
-  if (_videoControllers.isNotEmpty) {
-    items.addAll(_videoControllers.map((controller) {
-      if (controller!.value.isInitialized) {
-        return GestureDetector(
-          onTap: () {
-            if (controller.value.isPlaying) {
-              controller.pause();
-            } else {
-              controller.play();
-            }
-          },
-          child: AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
-            child: VideoPlayer(controller),
+  Widget _buildComplaintDetails() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+            height: MediaQuery.of(context).size.height * 0.3,
+            aspectRatio: 16 / 9,
+            viewportFraction: 1.0,
+            initialPage: 0,
+            enableInfiniteScroll: false,
+            reverse: false,
+            autoPlay: false,
+            autoPlayInterval: Duration(seconds: 3),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            scrollDirection: Axis.horizontal,
           ),
-        );
-      } else {
-        return Container();
-      }
-    }));
+          items: _buildCarouselItems(),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(children: [
+              Icon(
+                CupertinoIcons.person_circle,
+                color: Colors.deepPurple,
+                size: 25.0,
+              ),
+              Text(
+                " kullanıcı Adı: " +
+                    widget.complaint.userName +
+                    " " +
+                    widget.complaint.userSurname +
+                    "",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ]),
+            SizedBox(height: 5),
+            Text(
+              'Tarih: ${widget.complaint.timestamp.toDate().day}/${widget.complaint.timestamp.toDate().month}/${widget.complaint.timestamp.toDate().year}',
+              style: TextStyle(
+                fontSize: 14,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 14),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: 5),
+            Expanded(
+              child: Text(
+                widget.complaint.title,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 5),
+        InkWell(
+          onTap: toggleDescriptionPanel,
+          child: Container(            width: double.infinity,
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.deepPurple, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.complaint.description,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'İlgili Kurum:',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '${widget.complaint.kurum}',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton.icon(
+              onPressed: toggleLocationPanel,
+              icon: Icon(
+                isLocationPanelOpen
+                    ? Icons.keyboard_arrow_up
+                    : Icons.keyboard_arrow_down,
+                size: 20,
+              ),
+              label: Text(
+                'Konum Bilgileri',
+                style: TextStyle(fontSize: 12),
+              ),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (isLocationPanelOpen) ...[
+          SizedBox(height: 5),
+          Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.deepPurple, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'İl:',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      '${widget.complaint.il}',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'İlçe:',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      '${widget.complaint.ilce}',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Mahalle:',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      '${widget.complaint.mahalle}',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Sokak:',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      '${widget.complaint.sokak}',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+        SizedBox(height: 25),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16),
+            InkWell(
+              onTap: toggleAnswerPanel,
+              child: Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.text_bubble,
+                    color: const Color.fromARGB(255, 114, 76, 175),
+                    size: 25.0,
+                  ),
+                  Text(
+                    ' Kurum Cevap',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                  Icon(
+                    isAnswerPanelOpen
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    color: Colors.deepPurple,
+                  ),
+                ],
+              ),
+            ),
+            if (isAnswerPanelOpen) ...[
+              SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.deepPurple, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('sikayet')
+                      .doc(widget.complaint.id)
+                      .collection('cevaplar')
+                      .orderBy('timestampkurum', descending: false)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                            'Bir hata oluştu: ${snapshot.error.toString()}'),
+                      );
+                    }
+
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    final List<DocumentSnapshot> documents =
+                        snapshot.data!.docs;
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: documents.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final DocumentSnapshot document = documents[index];
+                        final data = document.data() as Map<String, dynamic>;
+
+                        DateTime timestamp =
+                            (data['timestampkurum'] as Timestamp).toDate();
+
+                        String formattedDate =
+                            '${timestamp.day}/${timestamp.month}/${timestamp.year}';
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Tarih: $formattedDate',
+                              style: TextStyle(
+                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            ),
+                            Text(
+                              'Kurum: ${widget.complaint.kurum}',
+                              style: TextStyle(
+                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            ),
+                            Text(
+                              'Cevap: ${data['cevap']}',
+                              style: TextStyle(
+                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            ),
+                            SizedBox(height: 25),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+            SizedBox(height: 50),
+          ],
+        ),
+      ],
+    );
   }
-  // Fotoğraflar varsa, fotoğrafları ekler
-  if (widget.complaint.imageURLs.isNotEmpty) {
-    items.addAll(widget.complaint.imageURLs.map((imageUrl) {
-      return ClipRRect(
+
+  List<Widget> _buildCarouselItems() {
+    List<Widget> items = [];
+
+    // Video controllers varsa, videoları ekler
+    if (_videoControllers.isNotEmpty) {
+      items.addAll(_videoControllers.map((controller) {
+        if (controller!.value.isInitialized) {
+          return GestureDetector(
+            onTap: () {
+              if (controller.value.isPlaying) {
+                controller.pause();
+              } else {
+                controller.play();
+              }
+            },
+            child: AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              child: VideoPlayer(controller),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      }));
+    }
+    // Fotoğraflar varsa, fotoğrafları ekler
+    if (widget.complaint.imageURLs.isNotEmpty) {
+      items.addAll(widget.complaint.imageURLs.map((imageUrl) {
+              return ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Image.network(
           imageUrl,
@@ -527,9 +536,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         ),
       );
     }));
-  }
-
-  else {
+  } else {
     items.add(
       Image.asset(
         "lib/images/eya/logo.png",
@@ -542,6 +549,5 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
 
   return items;
 }
-
-
 }
+       

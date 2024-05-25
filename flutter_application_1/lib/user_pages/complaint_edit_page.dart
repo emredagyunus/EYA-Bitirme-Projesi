@@ -54,8 +54,8 @@ class _ComplaintEditPageState extends State<ComplaintEditPage> {
       appBar: customAppBar(context),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width >= 600 ? 500 : 16,
-          vertical: MediaQuery.of(context).size.width >= 600 ? 50 : 16,
+          horizontal: MediaQuery.of(context).size.width >= 1200 ? 500 : 16,
+          vertical: MediaQuery.of(context).size.width >= 1200 ? 50 : 16,
         ),
         child: SingleChildScrollView(
           child: Column(
