@@ -141,7 +141,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ? 11
             : null, // Telefon numarası için maksimum uzunluk
         decoration: InputDecoration(
-          hintText: controller.text.isEmpty ? 'Değer girin' : controller.text,
+          //hintText: controller.text.isEmpty ? 'Değer gir' : controller.text,
           prefixIcon: Icon(icon),
           border: InputBorder.none,
           contentPadding:

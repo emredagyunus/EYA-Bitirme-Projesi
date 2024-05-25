@@ -105,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: isWeb ? 400 : null,
                     child: MyTextField(
                       controller: emailController,
+                      maxLines: 1,
                       hintText: "E-posta",
                       obscureText: false,
                       icon: const Icon(
@@ -119,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: isWeb ? 400 : null,
                     child: MyTextField(
                       controller: passwordController,
+                      maxLines: 1,
                       hintText: "Şifre",
                       obscureText: _obscureText,
                       icon: const Icon(

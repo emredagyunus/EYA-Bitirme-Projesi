@@ -64,7 +64,7 @@ class _iletisimPageState extends State<iletisimPage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.center,
                 ),

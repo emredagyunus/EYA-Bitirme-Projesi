@@ -32,7 +32,7 @@ class AllComplaint extends StatelessWidget {
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text('Hiç şikayet bulunamadı.'),
+              child: Text('Hiçbir şikayet bulunamadı!'),
             );
           }
 

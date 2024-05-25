@@ -35,6 +35,9 @@ class _FAQPageState extends State<FAQPage> with SingleTickerProviderStateMixin {
           children: [
             TabBar(
               controller: _tabController,
+              indicatorColor: Colors.black,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
               tabs: [
                 Tab(text: 'SSS'),
                 Tab(text: 'Mesaj Formu'),
@@ -106,7 +109,7 @@ class FeedbackForm extends StatelessWidget {
           width: isWideScreen ? 500 : double.infinity,
           padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 16.0 : 0, vertical: isWideScreen ? 50.0 : 0),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple),
+            border: Border.all(color: Colors.white),
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
