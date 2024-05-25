@@ -1,7 +1,7 @@
 import 'package:EYA/companents/customAppBar.dart';
 import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
-import 'package:EYA/user_pages/my_complaint_page.dart';
+import 'package:EYA/user_pages/sikayet_5.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA/models/complaint.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -133,11 +133,12 @@ class _ComplaintEditPageState extends State<ComplaintEditPage> {
         'ilce': _ilceController.text,
         'mahalle': _mahalleController.text,
         'sokak': _sokakController.text,
+        'isVisible':false,
       });
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MyComplaint(),
+            builder: (context) => ComplaintProcessedPage(),
           ));
     } catch (e) {
       print('Hata oluştu: $e');

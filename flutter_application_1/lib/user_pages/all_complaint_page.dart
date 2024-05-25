@@ -63,6 +63,7 @@ class AllComplaint extends StatelessWidget {
                         crossAxisCount: 2,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 9,
+                        childAspectRatio: 0.75,
                       ),
             itemCount: complaints.length,
             itemBuilder: (context, index) {

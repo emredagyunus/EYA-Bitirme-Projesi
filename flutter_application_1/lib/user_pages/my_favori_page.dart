@@ -92,6 +92,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 9,
+                        childAspectRatio: 0.75,
                       ),
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
