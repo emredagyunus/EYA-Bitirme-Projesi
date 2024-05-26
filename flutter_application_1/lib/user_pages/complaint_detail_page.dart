@@ -106,6 +106,10 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           'sokak': widget.complaint.sokak,
           'favoritesCount': FieldValue.increment(1),
           'isVisible': widget.complaint.isVisible,
+          'userName':widget.complaint.userName,
+          'userSuname':widget.complaint.userSurname,
+          'kurum':widget.complaint.kurum,
+          'cevap':widget.complaint.cevap,
         });
         setState(() {
           isFavorite = true;
@@ -165,7 +169,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         },
         child: Icon(
           isFavorite ? Icons.favorite : Icons.favorite_border,
-          color: isFavorite ? Colors.black : Colors.white,
+          color: isFavorite ? Colors.white : Colors.white,
         ),
         backgroundColor: Colors.deepPurple,
       ),

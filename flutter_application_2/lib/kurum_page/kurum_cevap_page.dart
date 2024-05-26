@@ -49,55 +49,92 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
     }
   }
 
-  void _sendCevap(String cevap) async {
-    try {
-      DateTime now = DateTime.now();
-      Timestamp timestamp = Timestamp.fromDate(now);
+ void _sendCevap(String cevap) async {
+  try {
+    DateTime now = DateTime.now();
+    Timestamp timestamp = Timestamp.fromDate(now);
 
-      var docRef = await _firestore
-          .collection('sikayet')
-          .doc(widget.complaintId)
-          .collection('cevaplar')
-          .add({
-        'cevap': cevap,
-        'timestampkurum': timestamp,
-        'sikayetId': widget.complaintId,
-        'cevapID':'',
-      });
-      String docId = docRef.id;
-      await _firestore
-          .collection('sikayet')
-          .doc(widget.complaintId)
-          .collection('cevaplar')
-          .doc(docId)
-          .update({
-        'cevapID': docId,
-      });
-      await _firestore.collection('sikayet').doc(widget.complaintId).update({
-        'cevap':cevap,
-      });
-      setState(() {
-        cevaplar.add(cevap);
-      });
+    var sikayetDoc = await _firestore.collection('sikayet').doc(widget.complaintId).get();
+    String userId = sikayetDoc.data()!['userId'];
 
-      _cevapController.clear();
+    var docRef = await _firestore
+        .collection('sikayet')
+        .doc(widget.complaintId)
+        .collection('cevaplar')
+        .add({
+      'cevap': cevap,
+      'timestampkurum': timestamp,
+      'sikayetId': widget.complaintId,
+      'cevapID': '',
+    });
+    String docId = docRef.id;
+    await _firestore
+        .collection('sikayet')
+        .doc(widget.complaintId)
+        .collection('cevaplar')
+        .doc(docId)
+        .update({
+      'cevapID': docId,
+    });
+    await _firestore.collection('sikayet').doc(widget.complaintId).update({
+      'cevap': cevap,
+    });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cevap başarıyla kaydedildi.')),
-      );
+    var favoriteRef = await _firestore
+        .collection('favorites')
+        .doc(userId)
+        .collection('complaints')
+        .doc(widget.complaintId)
+        .collection('cevaplar')
+        .add({
+      'cevap': cevap,
+      'timestampkurum': timestamp,
+      'sikayetId': widget.complaintId,
+      'cevapID': '',
+    });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => KurumOnayPage(),
-        ),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cevap gönderirken bir hata oluştu: $e')),
-      );
-    }
+    String favoriteDocId = favoriteRef.id;
+    await _firestore
+        .collection('favorites')
+        .doc(userId)
+        .collection('complaints')
+        .doc(widget.complaintId)
+        .collection('cevaplar')
+        .doc(favoriteDocId)
+        .update({
+      'cevapID': favoriteDocId,
+    });
+    await _firestore
+        .collection('favorites')
+        .doc(userId)
+        .collection('complaints')
+        .doc(widget.complaintId)
+        .update({
+      'cevap': cevap,
+    });
+
+    setState(() {
+      cevaplar.add(cevap);
+    });
+
+    _cevapController.clear();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Cevap başarıyla kaydedildi.')),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => KurumOnayPage(),
+      ),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Cevap gönderirken bir hata oluştu: $e')),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +193,7 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
                     );
                   }
                 },
-                text:'Gönder',
+                text: 'Gönder',
               ),
             ],
           ),
