@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:EYA_KURUM/companents/my_button.dart';
 import 'package:EYA_KURUM/companents/my_textfield.dart';
@@ -28,7 +32,21 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
         nameController.text,
         passwordController.text,
       );
+      if(kIsWeb){
+
+        }else{
+          String? deviceToken = await FirebaseMessaging.instance.getToken();
+
+        if (deviceToken != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth
+                  .instance.currentUser!.uid) 
+              .update({'deviceToken': deviceToken});
+        }
+        }
       Navigator.push(context, MaterialPageRoute(builder:(context) => KurumHomePage(),));
+
     }
 
     // display any errors

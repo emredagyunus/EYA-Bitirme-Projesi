@@ -3,6 +3,10 @@ import 'package:EYA/companents/my_button.dart';
 import 'package:EYA/companents/my_textfield.dart';
 import 'package:EYA/services/auth/auth_services.dart';
 import 'package:EYA/user_pages/forgot_password_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,6 +55,19 @@ class _LoginPageState extends State<LoginPage> {
           emailController.text,
           passwordController.text,
         );
+        if(kIsWeb){
+
+        }else{
+          String? deviceToken = await FirebaseMessaging.instance.getToken();
+
+        if (deviceToken != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth
+                  .instance.currentUser!.uid) 
+              .update({'deviceToken': deviceToken});
+        }
+        }
       }
     } catch (e) {
       String errorMessage =
