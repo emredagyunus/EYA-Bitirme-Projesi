@@ -97,136 +97,143 @@ class _PasswordChangingPageState extends State<PasswordChangingPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Şifreni Değiştir',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(UniconsLine.save),
-            onPressed: () {
-              changePassword();
-            },
-          ),
-        ],
+Widget build(BuildContext context) {
+  // Ekran genişliğini al
+  double screenWidth = MediaQuery.of(context).size.width;
+
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Şifreni Değiştir',
+        style: TextStyle(color: Colors.white),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Şifre',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: oldPasswordController,
-                  hintText: 'Şifre',
-                  obscureText: _obscureOldText,
-                  maxLines: 1,
-                  icon: Icon(UniconsLine.lock_alt),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureOldText
-                        ? UniconsLine.eye
-                        : UniconsLine.eye_slash),
-                    onPressed: () {
-                      setState(() {
-                        _obscureOldText = !_obscureOldText;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Yeni Şifre',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: newPasswordController,
-                  hintText: 'Yeni Şifre',
-                  obscureText: _obscureNewText,
-                  maxLines: 1,
-                  icon: Icon(UniconsLine.lock_alt),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureNewText
-                        ? UniconsLine.eye
-                        : UniconsLine.eye_slash),
-                    onPressed: () {
-                      setState(() {
-                        _obscureNewText = !_obscureNewText;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Yeni Şifreyi Onayla',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: confirmPasswordController,
-                  hintText: 'Yeni Şifreyi Onayla',
-                  obscureText: _obscureConfirmText,
-                  maxLines: 1,
-                  icon: Icon(UniconsLine.lock_alt),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureConfirmText
-                        ? UniconsLine.eye
-                        : UniconsLine.eye_slash),
-                    onPressed: () {
-                      setState(() {
-                        _obscureConfirmText = !_obscureConfirmText;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: const Text(
-                "Var olan şifrenden farklı\nbir şifre girerek yeni\nşifreni kaydet.",
+      backgroundColor: Colors.deepPurple,
+      iconTheme: IconThemeData(color: Colors.white),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          icon: Icon(UniconsLine.save),
+          onPressed: () {
+            changePassword();
+          },
+        ),
+      ],
+    ),
+    body: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: screenWidth > 1024 ? 300.0 : 16.0, // Yatay padding ayarı
+        vertical: screenWidth > 1024 ? 5.0 : 16.0, // Dikey padding ayarı
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Şifre',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 8),
+              MyTextField(
+                controller: oldPasswordController,
+                hintText: 'Şifre',
+                obscureText: _obscureOldText,
+                maxLines: 1,
+                icon: Icon(UniconsLine.lock_alt),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscureOldText
+                      ? UniconsLine.eye
+                      : UniconsLine.eye_slash),
+                  onPressed: () {
+                    setState(() {
+                      _obscureOldText = !_obscureOldText;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Yeni Şifre',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              MyTextField(
+                controller: newPasswordController,
+                hintText: 'Yeni Şifre',
+                obscureText: _obscureNewText,
+                maxLines: 1,
+                icon: Icon(UniconsLine.lock_alt),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscureNewText
+                      ? UniconsLine.eye
+                      : UniconsLine.eye_slash),
+                  onPressed: () {
+                    setState(() {
+                      _obscureNewText = !_obscureNewText;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Yeni Şifreyi Onayla',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              MyTextField(
+                controller: confirmPasswordController,
+                hintText: 'Yeni Şifreyi Onayla',
+                obscureText: _obscureConfirmText,
+                maxLines: 1,
+                icon: Icon(UniconsLine.lock_alt),
+                suffixIcon: IconButton(
+                  icon: Icon(_obscureConfirmText
+                      ? UniconsLine.eye
+                      : UniconsLine.eye_slash),
+                  onPressed: () {
+                    setState(() {
+                      _obscureConfirmText = !_obscureConfirmText;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: const Text(
+              "Var olan şifrenden farklı\nbir şifre girerek yeni\nşifreni kaydet.",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.grey,
+              ),
             ),
+          ),
+    
           ],
         ),
       ),

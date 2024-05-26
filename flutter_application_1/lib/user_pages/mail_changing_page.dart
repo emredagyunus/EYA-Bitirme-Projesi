@@ -92,130 +92,137 @@ class _ChangeEmailPageState extends State<MailChangingPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'E-Postanı Değiştir',
-          style: TextStyle(color: Colors.white),
+Widget build(BuildContext context) {
+  // Ekran genişliğini al
+  double screenWidth = MediaQuery.of(context).size.width;
+
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'E-Postanı Değiştir',
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.deepPurple,
+      iconTheme: IconThemeData(color: Colors.white),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          icon: Icon(UniconsLine.save),
+          onPressed: () {
+            changeEmail();
+          },
         ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(UniconsLine.save),
-            onPressed: () {
-              changeEmail();
-            },
+      ],
+    ),
+    body: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: screenWidth > 1024 ? 300.0 : 16.0,   
+        vertical: screenWidth > 1024 ? 5.0 : 16.0,  
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'E-Posta',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                child: Text(
+                  user?.email ?? '',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Yeni E-Posta',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              MyTextField(
+                controller: newEmailController,
+                hintText: 'Yeni E-Posta',
+                obscureText: false,
+                icon: Icon(UniconsLine.envelope),
+                maxLines: 1,
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Şifre',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              MyTextField(
+                  controller: passwordController,
+                  hintText: "Şifre",
+                  obscureText: _obscureText,
+                  maxLines: 1,
+                  icon: const Icon(UniconsLine.lock_alt),
+                  suffixIcon: IconButton(
+                    icon: Icon(_obscureText
+                        ? UniconsLine.eye
+                        : UniconsLine.eye_slash),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: const Text(
+              "Var olan e-posta adresinden farklı\nbir e-posta adresi girerek yeni\ne-posta adresini kaydet.",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.grey,
+              ),
+            ),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'E-Posta',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Container(
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: Text(
-                    user?.email ?? '',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Yeni E-Posta',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                  controller: newEmailController,
-                  hintText: 'Yeni E-Posta',
-                  obscureText: false,
-                  icon: Icon(UniconsLine.envelope),
-                  maxLines: 1,
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Şifre',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                MyTextField(
-                    controller: passwordController,
-                    hintText: "Şifre",
-                    obscureText: _obscureText,
-                    maxLines: 1,
-                    icon: const Icon(UniconsLine.lock_alt),
-                    suffixIcon: IconButton(
-                      icon: Icon(_obscureText
-                          ? UniconsLine.eye
-                          : UniconsLine.eye_slash),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                    )),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: const Text(
-                "Var olan e-posta adresinden farklı\nbir e-posta adresi girerek yeni\ne-posta adresini kaydet.",
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+    ),
+  );
+}
+
 
 // E-posta adresinin geçerli formatta olup olmadığını kontrol eden regex deseni
   bool isValidEmail(String email) {

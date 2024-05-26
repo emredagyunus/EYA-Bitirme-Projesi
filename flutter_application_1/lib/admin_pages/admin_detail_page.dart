@@ -115,6 +115,15 @@ class _AdminComplaintDetailPageState extends State<AdminComplaintDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+     double screenWidth = MediaQuery.of(context).size.width;
+    EdgeInsets padding;
+
+    if (screenWidth > 1024) {
+       padding = EdgeInsets.symmetric(horizontal: 300, vertical: 5);
+    } else {
+       padding = EdgeInsets.all(16.0);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -126,7 +135,7 @@ class _AdminComplaintDetailPageState extends State<AdminComplaintDetailPage> {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -384,7 +393,8 @@ class _AdminComplaintDetailPageState extends State<AdminComplaintDetailPage> {
               fit: BoxFit.cover,
             ),
           );
-        }),
+        }
+        ),
       );
     } else {
       items.add(

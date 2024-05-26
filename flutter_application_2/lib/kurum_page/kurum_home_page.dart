@@ -21,6 +21,15 @@ class KurumHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     double screenWidth = MediaQuery.of(context).size.width;
+    EdgeInsets padding;
+
+    if (screenWidth > 1024) {
+       padding = EdgeInsets.symmetric(horizontal: 200, vertical: 0);
+    } else {
+       padding = EdgeInsets.all(0);
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -55,11 +64,14 @@ class KurumHomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            buildComplaintList(context, isVisible: true, isResolved: false),
-            buildComplaintList(context, isVisible: true, isResolved: true),
-          ],
+        body: Padding(
+          padding: padding,
+          child: TabBarView(
+            children: [
+              buildComplaintList(context, isVisible: true, isResolved: false),
+              buildComplaintList(context, isVisible: true, isResolved: true),
+            ],
+          ),
         ),
       ),
     );
@@ -151,7 +163,7 @@ class KurumHomePage extends StatelessWidget {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Cozuldu mu?"),
+                      Text("Çözüldü mü?"),
                       Switch(
                         value: complaint.cozuldumu,
                         activeColor: Colors.deepPurple,
