@@ -107,7 +107,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           'favoritesCount': FieldValue.increment(1),
           'isVisible': widget.complaint.isVisible,
           'userName':widget.complaint.userName,
-          'userSuname':widget.complaint.userSurname,
+          'userSurname':widget.complaint.userSurname,
           'kurum':widget.complaint.kurum,
           'cevap':widget.complaint.cevap,
         });
