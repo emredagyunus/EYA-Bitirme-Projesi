@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -104,7 +105,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           'mahalle': widget.complaint.mahalle,
           'sokak': widget.complaint.sokak,
           'favoritesCount': FieldValue.increment(1),
-          'isVisible':widget.complaint.isVisible,
+          'isVisible': widget.complaint.isVisible,
         });
         setState(() {
           isFavorite = true;
@@ -192,39 +193,102 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           ),
           items: _buildCarouselItems(),
         ),
+        SizedBox(height: 20), // Bu satır boşluk ekler
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(children: [
-              Icon(
-                CupertinoIcons.person_circle,
-                color: Colors.deepPurple,
-                size: 25.0,
+            Container(
+              padding:
+                  EdgeInsets.all(8), // Kutucuk içindeki boşluğu ayarlamak için
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 5),
+                      color: Colors.black26,
+                      spreadRadius: 2,
+                      blurRadius: 10),
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                    8), // Kutucuk köşelerini yuvarlamak için
+                /*border: Border.all(
+                    color: Colors.black),*/ // Kutucuk kenarlığını ve rengini ayarlamak için
               ),
-              Text(
-                " kullanıcı Adı: " +
-                    widget.complaint.userName +
-                    " " +
-                    widget.complaint.userSurname +
-                    "",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Şikayetçi: ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors
+                            .black, // "Şikayetçi:" kısmının rengi burada ayarlanır
+                      ),
+                    ),
+                    TextSpan(
+                      text: widget.complaint.userName +
+                          " " +
+                          widget.complaint.userSurname,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors
+                            .black, // İsim ve soyisim kısmının rengi burada ayarlanır
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ]),
+            ),
             SizedBox(height: 5),
-            Text(
-              'Tarih: ${widget.complaint.timestamp.toDate().day}/${widget.complaint.timestamp.toDate().month}/${widget.complaint.timestamp.toDate().year}',
-              style: TextStyle(
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+            Container(
+              padding: EdgeInsets.all(
+                  8.0), // Kutucuk içindeki boşluğu ayarlamak için
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 5),
+                      color: Colors.black26,
+                      spreadRadius: 2,
+                      blurRadius: 10),
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                    8.0), // Kutucuk köşelerini yuvarlamak için
+                /*border: Border.all(
+                    color: Colors.black),*/ // Kutucuk kenarlığını ve rengini ayarlamak için
+              ),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Tarih: ',
+                      style: TextStyle(
+                        fontSize: 15,
+                        //fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                        color: Colors
+                            .black, // "Tarih:" kısmının rengi burada ayarlanır
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          '${widget.complaint.timestamp.toDate().day}/${widget.complaint.timestamp.toDate().month}/${widget.complaint.timestamp.toDate().year}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        //fontStyle: FontStyle.italic,
+                        //fontWeight: FontWeight.bold,
+                        color: Colors
+                            .black, // Tarih kısmının rengi burada ayarlanır
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 14),
+        SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -232,7 +296,8 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
             Expanded(
               child: Text(
                 widget.complaint.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                textAlign: TextAlign.left,
               ),
             ),
           ],
@@ -240,10 +305,11 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
         SizedBox(height: 5),
         InkWell(
           onTap: toggleDescriptionPanel,
-          child: Container(            width: double.infinity,
-            padding: EdgeInsets.all(10.0),
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.deepPurple, width: 2),
+              border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -251,59 +317,72 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               children: [
                 Text(
                   widget.complaint.description,
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 15),
                 ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'İlgili Kurum:',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            Container(
+              padding: EdgeInsets.all(
+                  8.0), // Kutucuk içindeki boşluğu ayarlamak için
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 5),
+                    color: Colors.black26,
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                  ),
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                    8.0), // Kutucuk köşelerini yuvarlamak için
+                /*border: Border.all(
+          color: Colors.black),*/ // Kutucuk kenarlığını ve rengini ayarlamak için
               ),
-            ),
-            Expanded(
-              child: Text(
-                '${widget.complaint.kurum}',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'İlgili Kurum: ',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '${widget.complaint.kurum}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                      //overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             ElevatedButton.icon(
               onPressed: toggleLocationPanel,
               icon: Icon(
                 isLocationPanelOpen
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down,
+                    ? UniconsLine.angle_up
+                    : UniconsLine.angle_down,
                 size: 20,
               ),
               label: Text(
                 'Konum Bilgileri',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.deepPurple,
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -316,11 +395,11 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           ],
         ),
         if (isLocationPanelOpen) ...[
-          SizedBox(height: 5),
+          SizedBox(height: 20),
           Container(
-            padding: EdgeInsets.all(6),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.deepPurple, width: 2),
+              border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -331,12 +410,12 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                     Text(
                       'İl:',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 8),
                     Text(
                       '${widget.complaint.il}',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
@@ -345,12 +424,12 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                     Text(
                       'İlçe:',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 8),
                     Text(
                       '${widget.complaint.ilce}',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
@@ -359,12 +438,12 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                     Text(
                       'Mahalle:',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 8),
                     Text(
                       '${widget.complaint.mahalle}',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
@@ -373,12 +452,12 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                     Text(
                       'Sokak:',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 8),
                     Text(
                       '${widget.complaint.sokak}',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
@@ -386,7 +465,8 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
             ),
           ),
         ],
-        SizedBox(height: 25),
+
+        SizedBox(height: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -396,23 +476,24 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               child: Row(
                 children: [
                   Icon(
-                    CupertinoIcons.text_bubble,
-                    color: const Color.fromARGB(255, 114, 76, 175),
-                    size: 25.0,
+                    UniconsLine.university,
+                    color: Colors.black,
+                    size: 20.0,
                   ),
                   Text(
-                    ' Kurum Cevap',
+                    ' Kurumun Yanıtı ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
+                      color: Colors.black,
                     ),
                   ),
                   Icon(
                     isAnswerPanelOpen
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                    color: Colors.deepPurple,
+                        ? UniconsLine.angle_up
+                        : UniconsLine.angle_down,
+                    color: Colors.black,
+                    size: 20.0,
                   ),
                 ],
               ),
@@ -422,7 +503,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
               Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.deepPurple, width: 2),
+                  border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: StreamBuilder(
@@ -432,8 +513,8 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                       .collection('cevaplar')
                       .orderBy('timestampkurum', descending: false)
                       .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<dynamic> snapshot) {
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasError) {
                       return Center(
                         child: Text(
@@ -441,8 +522,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                       );
                     }
 
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
@@ -467,20 +547,64 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Tarih: $formattedDate',
-                              style: TextStyle(
-                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            Row(
+                              children: [
+                                Text(
+                                  'Tarih: ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors
+                                        .black, // Başlık metnini kalın yapar
+                                  ),
+                                ),
+                                Text(
+                                  '$formattedDate',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Kurum: ${widget.complaint.kurum}',
-                              style: TextStyle(
-                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            Row(
+                              children: [
+                                Text(
+                                  'Kurum: ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight
+                                        .bold, // Başlık metnini kalın yapar
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  '${widget.complaint.kurum}',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Cevap: ${data['cevap']}',
-                              style: TextStyle(
-                                  fontSize: 18, fontStyle: FontStyle.normal),
+                            Row(
+                              children: [
+                                Text(
+                                  'Yanıt: ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight
+                                        .bold, // Başlık metnini kalın yapar
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  '${data['cevap']}',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 25),
                           ],
@@ -526,28 +650,27 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
     // Fotoğraflar varsa, fotoğrafları ekler
     if (widget.complaint.imageURLs.isNotEmpty) {
       items.addAll(widget.complaint.imageURLs.map((imageUrl) {
-              return ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Image.network(
-          imageUrl,
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.network(
+            imageUrl,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            fit: BoxFit.cover,
+          ),
+        );
+      }));
+    } else {
+      items.add(
+        Image.asset(
+          "lib/images/eya/logo.png",
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.3,
           fit: BoxFit.cover,
         ),
       );
-    }));
-  } else {
-    items.add(
-      Image.asset(
-        "lib/images/eya/logo.png",
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.3,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
+    }
 
-  return items;
+    return items;
+  }
 }
-}
-       

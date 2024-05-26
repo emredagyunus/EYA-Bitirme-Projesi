@@ -21,9 +21,23 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
 
-   void login() async {
-     final _authService = AuthService();
-     try {
+  void login() async {
+    final _authService = AuthService();
+
+    // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen gerekli tüm bilgileri gir!"),
+          ),
+        );
+      }
+      return;
+    }
+
+    try {
       if (emailController.text == 'eya@admin.com' &&
           passwordController.text == 'admin12345') {
         Navigator.push(
@@ -38,18 +52,34 @@ class _LoginPageState extends State<LoginPage> {
           passwordController.text,
         );
       }
-    }
-     catch (e) {
+    } catch (e) {
+      String errorMessage =
+          "Geçersiz e-posta veya şifre girdin, lütfen kontrol et!";
+      if (e.hashCode == 'invalid-email') {
+        errorMessage = "Geçersiz e-posta adresi. Lütfen kontrol edin.";
+      }
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(e.toString()),
+          title: Text(
+            "Hata",
+            textAlign: TextAlign.center,
+          ),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Tamam"),
+            ),
+          ],
         ),
       );
     }
   }
 
-   void forgetPw() {
+  void forgetPw() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -102,7 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                     width: isWideScreen ? 400 : (isTablet ? 350 : null),
                     child: MyTextField(
                       controller: emailController,
-                      hintText: "E-posta",
+                      maxLines: 1,
+                      hintText: "E-Posta",
                       obscureText: false,
                       icon: const Icon(
                         UniconsLine.envelope,
@@ -116,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: isWideScreen ? 400 : (isTablet ? 350 : null),
                     child: MyTextField(
                       controller: passwordController,
+                      maxLines: 1,
                       hintText: "Şifre",
                       obscureText: _obscureText,
                       icon: const Icon(

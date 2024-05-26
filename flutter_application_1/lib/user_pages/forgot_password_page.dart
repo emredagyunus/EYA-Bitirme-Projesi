@@ -16,6 +16,32 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController emailController = TextEditingController();
 
   Future<void> passwordReset() async {
+    // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
+    if (emailController.text.isEmpty) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen gerekli bilgiyi gir!"),
+          ),
+        );
+      }
+      return;
+    }
+
+    // E-posta adresinin geçerli olup olmadığını kontrol et
+    if (!isValidEmail(emailController.text)) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen geçerli bir e-posta adresi gir!"),
+          ),
+        );
+      }
+      return; // Geçerli bir e-posta adresi girilmediği için fonksiyonu sonlandır
+    }
+
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
@@ -143,6 +169,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
+  }
+
+// E-posta adresinin geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidEmail(String email) {
+    RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return regex.hasMatch(email);
   }
 }
 

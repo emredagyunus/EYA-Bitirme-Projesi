@@ -65,7 +65,7 @@ class ComplaintModel {
       id: doc.id,
       userID: data['userID'] ?? '',
       userName: data['userName'] ?? '',
-      userSurname: data['surname'] ?? '',
+      userSurname: data['userSurname'] ?? '',
       imageURLs: imageURLs,
       videoURLs: videoURLs,
       title: data['title'] ?? '',

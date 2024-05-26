@@ -65,7 +65,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
           if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text('Henüz favori şikayet yok.'),
+              child: Text('Henüz favori şikayetin yok!'),
             );
           }
 
