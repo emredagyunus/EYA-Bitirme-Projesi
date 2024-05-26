@@ -59,7 +59,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
-          title: Text("Password dont match!"),
+          title: Text("Şifreler eşleşmiyor!"),
         ),
       );
     }

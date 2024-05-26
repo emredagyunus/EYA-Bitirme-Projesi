@@ -132,7 +132,7 @@ class AdminBlogPage extends StatelessWidget {
                             builder: (context) => AlertDialog(
                               title: Text('Emin misiniz?'),
                               content: Text(
-                                  'Bu blog yazisini silmek istediğinize emin misiniz?'),
+                                  'Bu blog yazısını silmek istediğinize emin misiniz?'),
                               actions: [
                                 TextButton(
                                   onPressed: () {

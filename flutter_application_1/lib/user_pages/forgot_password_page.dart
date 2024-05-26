@@ -22,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Lütfen gerekli bilgiyi gir!"),
+            title: Text("Lütfen gerekli e-posta adresi bilgisini gir!"),
           ),
         );
       }

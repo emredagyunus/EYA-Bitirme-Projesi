@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       String errorMessage =
-          "Geçersiz e-posta veya şifre girdin, lütfen kontrol et!";
+          "Geçersiz bir e-posta veya şifre girdin, lütfen kontrol et!";
       if (e.hashCode == 'invalid-email') {
         errorMessage = "Geçersiz e-posta adresi. Lütfen kontrol edin.";
       }
@@ -62,18 +62,9 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(
-            "Hata",
+            errorMessage,
             textAlign: TextAlign.center,
           ),
-          content: Text(errorMessage),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Tamam"),
-            ),
-          ],
         ),
       );
     }

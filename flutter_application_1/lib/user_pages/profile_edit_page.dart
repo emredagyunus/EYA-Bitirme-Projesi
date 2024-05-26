@@ -44,11 +44,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> _updateUserData() async {
     try {
       // Telefon numarasının doğrulaması
-      if (telefonController.text.length != 11) {
+      if (!isValidPhoneNumber(telefonController.text)) {
         // Telefon numarasının 11 karakter olmadığını belirten bir uyarı mesajı
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Telefon numarası 11 karakter olmalıdır.'),
+            content: Text('Lütfen geçerli bir telefon numarası gir!'),
           ),
         );
         return; // Güncellemeyi durdur
@@ -111,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             _buildSectionTitle('Soyad'),
             _buildTextField(soyadController, UniconsLine.user),
             const SizedBox(height: 25),
-            _buildSectionTitle('Telefon'),
+            _buildSectionTitle('Telefon (05xx xxx xx xx)'),
             _buildTextField(telefonController, UniconsLine.phone),
           ],
         ),
@@ -134,12 +134,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       child: TextField(
         controller: controller,
-        keyboardType: icon == CupertinoIcons.phone
-            ? TextInputType.phone // Telefon numarası için özel bir giriş türü
-            : TextInputType.text,
-        maxLength: icon == CupertinoIcons.phone
-            ? 11
-            : null, // Telefon numarası için maksimum uzunluk
         decoration: InputDecoration(
           //hintText: controller.text.isEmpty ? 'Değer gir' : controller.text,
           prefixIcon: Icon(icon),
@@ -163,5 +157,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
         textAlign: TextAlign.center,
       ),
     );
+  }
+
+  // Telefon numarasının geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidPhoneNumber(String phoneNumber) {
+    RegExp regex = RegExp(r'^0\d{10}$');
+    return regex.hasMatch(phoneNumber);
   }
 }
