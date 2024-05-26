@@ -45,20 +45,23 @@ class ComplaintProcessedPage extends StatelessWidget {
               MyButton(
                 onTap: () {
                   if(kIsWeb){
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MyApp(),
                       ),
+                      (route) => route.isFirst,
                     );
                   } else {
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (context) => RootPage(
                           initialIndex: 0,
                         ),
+                        
                       ),
+                      (route) => route.isFirst,
                     );
                   }
                 },
