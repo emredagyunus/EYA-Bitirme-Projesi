@@ -49,94 +49,99 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
     }
   }
 
-void _sendCevap(String cevap) async {
-  try {
-    DateTime now = DateTime.now();
-    Timestamp timestamp = Timestamp.fromDate(now);
+  void _sendCevap(String cevap) async {
+    try {
+      DateTime now = DateTime.now();
+      Timestamp timestamp = Timestamp.fromDate(now);
 
-    // Get the userId from the 'sikayet' document
-    var sikayetDoc = await _firestore.collection('sikayet').doc(widget.complaintId).get();
-    if (!sikayetDoc.exists || !sikayetDoc.data()!.containsKey('userID')) {
-      throw Exception('Kullanıcı ID bulunamadı.');
-    }
-    String userId = sikayetDoc.data()!['userID'];
-
-    // Add answer to 'sikayet' collection
-    var docRef = await _firestore
-        .collection('sikayet')
-        .doc(widget.complaintId)
-        .collection('cevaplar')
-        .add({
-      'cevap': cevap,
-      'timestampkurum': timestamp,
-      'sikayetId': widget.complaintId,
-      'cevapID': '',
-    });
-    String docId = docRef.id;
-    await _firestore
-        .collection('sikayet')
-        .doc(widget.complaintId)
-        .collection('cevaplar')
-        .doc(docId)
-        .update({
-      'cevapID': docId,
-    });
-    await _firestore.collection('sikayet').doc(widget.complaintId).update({
-      'cevap': cevap,
-    });
-
-
-    var favoritesDocSnapshot = await _firestore.collection('favorites').doc(userId).get();
-    if (favoritesDocSnapshot.exists) {
-      var favoriteDocRef = _firestore
-          .collection('favorites')
-          .doc(userId)
-          .collection('complaints')
-          .doc(widget.complaintId);
-
-      var favoriteDoc = await favoriteDocRef.get();
-      if (!favoriteDoc.exists) {
-        await favoriteDocRef.set({'sikayetId': widget.complaintId});
+      // Get the userId from the 'sikayet' document
+      var sikayetDoc =
+          await _firestore.collection('sikayet').doc(widget.complaintId).get();
+      if (!sikayetDoc.exists || !sikayetDoc.data()!.containsKey('userID')) {
+        throw Exception('Kullanıcı ID bulunamadı.');
       }
+      String userId = sikayetDoc.data()!['userID'];
 
-      var favoriteAnswerRef = await favoriteDocRef.collection('cevaplar').add({
+      var docRef = await _firestore
+          .collection('sikayet')
+          .doc(widget.complaintId)
+          .collection('cevaplar')
+          .add({
         'cevap': cevap,
         'timestampkurum': timestamp,
         'sikayetId': widget.complaintId,
         'cevapID': '',
       });
-
-      String favoriteDocId = favoriteAnswerRef.id;
-      await favoriteDocRef.collection('cevaplar').doc(favoriteDocId).update({
-        'cevapID': favoriteDocId,
+      String docId = docRef.id;
+      await _firestore
+          .collection('sikayet')
+          .doc(widget.complaintId)
+          .collection('cevaplar')
+          .doc(docId)
+          .update({
+        'cevapID': docId,
       });
-      await favoriteDocRef.update({
+      await _firestore.collection('sikayet').doc(widget.complaintId).update({
         'cevap': cevap,
       });
+      await _firestore
+          .collection('sikayet')
+          .doc(widget.complaintId)
+          .update({'islemDurumu': true});
+
+      var favoritesDocSnapshot =
+          await _firestore.collection('favorites').doc(userId).get();
+      if (favoritesDocSnapshot.exists) {
+        var favoriteDocRef = _firestore
+            .collection('favorites')
+            .doc(userId)
+            .collection('complaints')
+            .doc(widget.complaintId);
+
+        var favoriteDoc = await favoriteDocRef.get();
+        if (!favoriteDoc.exists) {
+          await favoriteDocRef.set({'sikayetId': widget.complaintId});
+        }
+
+        var favoriteAnswerRef =
+            await favoriteDocRef.collection('cevaplar').add({
+          'cevap': cevap,
+          'timestampkurum': timestamp,
+          'sikayetId': widget.complaintId,
+          'cevapID': '',
+        });
+
+        String favoriteDocId = favoriteAnswerRef.id;
+        await favoriteDocRef.collection('cevaplar').doc(favoriteDocId).update({
+          'cevapID': favoriteDocId,
+        });
+        await favoriteDocRef.update({
+          'cevap': cevap,
+        });
+      }
+
+      setState(() {
+        cevaplar.add(cevap);
+      });
+
+      _cevapController.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Cevap başarıyla kaydedildi.')),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => KurumOnayPage(),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Cevap gönderirken bir hata oluştu: $e')),
+      );
     }
-
-    setState(() {
-      cevaplar.add(cevap);
-    });
-
-    _cevapController.clear();
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Cevap başarıyla kaydedildi.')),
-    );
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => KurumOnayPage(),
-      ),
-    );
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Cevap gönderirken bir hata oluştu: $e')),
-    );
   }
-}
 
   @override
   Widget build(BuildContext context) {

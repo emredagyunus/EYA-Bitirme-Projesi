@@ -64,7 +64,7 @@ class ComplaintProcessedPage extends StatelessWidget {
                 },
                 text: "Anasayfa",
               ),
-              SizedBox(height: 1),  
+              SizedBox(height: 25),  
             ],
           ),
         ),

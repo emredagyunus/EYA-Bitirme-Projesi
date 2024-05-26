@@ -133,7 +133,6 @@ class _DuyuruAddState extends State<DuyuruAdd> {
                 hintText: 'Duyuru Metni',
                 obscureText: false,
                 icon: Icon(UniconsLine.bars),
-                maxLines: 1,
               ),
               SizedBox(height: 20),
               MyButton(

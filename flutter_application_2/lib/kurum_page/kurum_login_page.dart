@@ -39,7 +39,7 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
 
         if (deviceToken != null) {
           await FirebaseFirestore.instance
-              .collection('users')
+              .collection('kurum')
               .doc(FirebaseAuth
                   .instance.currentUser!.uid) 
               .update({'deviceToken': deviceToken});
