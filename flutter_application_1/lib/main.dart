@@ -1,3 +1,4 @@
+import 'package:EYA/admin_pages/notification_controller.dart';
 import 'package:EYA/services/auth/login_or_register.dart';
 import 'package:EYA/user_pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:EYA/firebase_options.dart';
 import 'package:EYA/user_pages/onboarding_screen.dart';
 import 'package:EYA/user_pages/root_page.dart';
-import 'package:EYA/user_pages/login_page.dart';
 import 'package:EYA/themes/theme_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +20,15 @@ void main() async {
 
   await _initializeFirebaseMessaging();
 
+  await NotificationHelper.initializeNotification();
+  NotificationHelper.setupFirebaseMessaging(); 
+
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
     }
   });
+
   runApp(
     MultiProvider(
       providers: [

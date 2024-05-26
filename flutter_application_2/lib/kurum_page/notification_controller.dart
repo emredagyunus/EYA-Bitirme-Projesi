@@ -1,12 +1,16 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationHelper {
   static final FlutterLocalNotificationsPlugin _notificationPlugin =
       FlutterLocalNotificationsPlugin();
+  // ignore: unused_field
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
 
@@ -40,15 +44,14 @@ class NotificationHelper {
       }
     });
 
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? remoteMessage) {
-      if (remoteMessage != null) {
-        final notification = remoteMessage.notification;
-        if (notification != null) {
-          showNotification(notification);
-        }
-      }
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? remoteMessage)
+    {  
+      if(remoteMessage != null){
+      final notification = remoteMessage.notification;
+         if (notification != null) {
+      showNotification(notification);
+          }
+       }
     });
   }
 
@@ -69,12 +72,28 @@ class NotificationHelper {
       notification.body ?? '',
       NotificationDetails(android: androidDetails),
     );
+
+
+    await saveNotification(notification);
   }
+
+
+  static Future<void> saveNotification(RemoteNotification notification) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notifications = prefs.getStringList('notifications') ?? [];
+    Map<String, String> newNotification = {
+      'title': notification.title ?? '',
+      'body': notification.body ?? '',
+      'timestamp': DateTime.now().toIso8601String(),
+    };
+    notifications.add(json.encode(newNotification));
+    await prefs.setStringList('notifications', notifications);
+  }
+
 
   static Future<void> sendNotification(
       String token, String title, String body) async {
-    final String serverKey =
-        'AAAAjVa2_8w:APA91bFgnE4GzeE-JerKw3SE3WOs5V2mx0YD0pMHTwplk7NNb1axhmdBvlqopX7OqfT2WySL2ig-_nEIBpP_wBni-Yuwtpqo3T2jneR4WkWMjnrA1UiIqRRVd6_jh3uUiil78hkw0OUd';
+    final String serverKey = 'AAAAjVa2_8w:APA91bFgnE4GzeE-JerKw3SE3WOs5V2mx0YD0pMHTwplk7NNb1axhmdBvlqopX7OqfT2WySL2ig-_nEIBpP_wBni-Yuwtpqo3T2jneR4WkWMjnrA1UiIqRRVd6_jh3uUiil78hkw0OUd'; 
     final String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
     final headers = {
@@ -95,7 +114,9 @@ class NotificationHelper {
       },
       'android': {
         'priority': 'high',
-        'notification': {'sound': 'default'}
+        'notification': {
+          'sound': 'default'
+        }
       }
     };
 
@@ -112,7 +133,7 @@ class NotificationHelper {
     }
   }
 
-  static Future<void> handleFirestoreData(
+    static Future<void> handleFirestoreData(
       DocumentSnapshot<Map<String, dynamic>> document) async {
     try {
       String id = document.id;
@@ -127,27 +148,15 @@ class NotificationHelper {
       bool cozuldumu = data['cozuldumu'] ?? false;
       print(isVisible);
 
-      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
-          .instance
-          .collection('users')
-          .doc(userId)
-          .get();
+      DocumentSnapshot<Map<String, dynamic>> userDoc =
+          await FirebaseFirestore.instance.collection('kurum').doc(userId).get();
       if (userDoc.exists && userDoc.data() != null) {
         String deviceToken = userDoc.data()!['deviceToken'] ?? '';
         print('Device Token: $deviceToken');
 
         if (isVisible) {
           await sendNotification(deviceToken, 'Şikayet Onaylandı',
-              'Şikayetiniz Engelsiz Yaşam Platformu tarafından onaylanmış ve hesabınızda paylaşılmıştır.');
-          print("calisti ");
-        }
-        if (islemDurumu) {
-          await sendNotification(deviceToken, 'İşleme Alındı',
-              'Şikayetiniz Engelsiz Yaşam Platformu aracılığıyla ilgili kurum tarafından işlem sürecine alınmıştır.');
-        }
-        if (cozuldumu) {
-          await sendNotification(deviceToken, 'Şikayet Çözüldü',
-              'Şikayetiniz ilgili kurum tarafından çözüldü.');
+              'EYA platformu aracılığı ile kurumunuzu ilgilendiren bir şikayet paylaşılmıştır.');
         }
       } else {
         print('User document or deviceToken not found');

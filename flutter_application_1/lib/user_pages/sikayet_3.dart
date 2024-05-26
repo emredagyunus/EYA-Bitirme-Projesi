@@ -331,6 +331,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
                 text: 'Devam Et',
                 onTap: submitComplaints,
               ),
+              const SizedBox(height: 25),
             ],
           ),
         ),

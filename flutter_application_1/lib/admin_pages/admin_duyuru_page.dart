@@ -94,7 +94,7 @@ class AdminDuyuruPage extends StatelessWidget {
                 margin: EdgeInsets.all(8.0),
                 child: ListTile(
                   title: Text(duyuru.title),
-                  subtitle: Text(duyuru.description),
+                  subtitle: Text(duyuru.description.substring(0, 50).trim()),
                   leading: duyuru.imageURLs.isNotEmpty
                       ? Image.network(
                           duyuru.imageURLs.first,

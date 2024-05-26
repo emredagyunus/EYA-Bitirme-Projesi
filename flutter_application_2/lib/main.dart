@@ -1,3 +1,4 @@
+import 'package:EYA_KURUM/kurum_page/notification_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,11 +11,15 @@ import 'package:EYA_KURUM/themes/theme_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await _initializeFirebaseMessaging();
+
+  await NotificationHelper.initializeNotification();
+  NotificationHelper.setupFirebaseMessaging(); 
 
   await Permission.notification.isDenied.then((value) {
     if (value) {
@@ -35,7 +40,6 @@ void main() async {
 Future<void> _initializeFirebaseMessaging() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // iOS için izin iste
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     badge: true,
@@ -49,13 +53,10 @@ Future<void> _initializeFirebaseMessaging() async {
   } else {
     print('User declined or has not accepted permission');
   }
-
-  // Android için izin iste (Android'de varsayılan olarak izin verilmiştir)
   if (defaultTargetPlatform == TargetPlatform.android) {
-    messaging.subscribeToTopic('all'); // Örnek: Herkese bildirim gönderme
+    messaging.subscribeToTopic('all');
   }
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

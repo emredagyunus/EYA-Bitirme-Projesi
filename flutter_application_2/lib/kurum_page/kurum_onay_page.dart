@@ -48,6 +48,7 @@ class KurumOnayPage extends StatelessWidget {
               },
               text: "Anasayfa",
             ),
+            SizedBox(height: 30),
           ],
         ),
       ),

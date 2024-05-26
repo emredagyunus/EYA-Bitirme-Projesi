@@ -1,7 +1,9 @@
-import 'package:EYA/companents/my_drawer.dart';
+import 'package:EYA/companents/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
+import 'package:EYA/companents/my_drawer.dart';
 
 class NotificationsPage extends StatefulWidget {
   @override
@@ -29,14 +31,32 @@ class _NotificationsPageState extends State<NotificationsPage> {
     }
   }
 
+  Future<void> _removeNotification(int index) async {
+    setState(() {
+      _notifications.removeAt(index);
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notifications = _notifications
+        .map((e) => json.encode(e))
+        .toList();
+    await prefs.setStringList('notifications', notifications);
+  }
+
+  String _formatTimestamp(String? timestamp) {
+    if (timestamp == null) return '';
+    try {
+      DateTime dateTime = DateTime.parse(timestamp);
+      return DateFormat('dd/MM/yyyy HH:mm').format(dateTime);
+    } catch (e) {
+      return timestamp;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text('Bildirimler'),
-      ),
+      appBar: customAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
@@ -64,9 +84,20 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   _notifications[index]['body'] ?? '',
                   style: TextStyle(color: Colors.black),
                 ),
-                trailing: Text(
-                  _notifications[index]['timestamp'] ?? '',
-                  style: TextStyle(color: Colors.black),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _formatTimestamp(_notifications[index]['timestamp']),
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete, color: Colors.deepPurple),
+                      onPressed: () {
+                        _removeNotification(index);
+                      },
+                    ),
+                  ],
                 ),
               ),
             );
