@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationHelper {
   static final FlutterLocalNotificationsPlugin _notificationPlugin =
@@ -71,7 +72,24 @@ class NotificationHelper {
       notification.body ?? '',
       NotificationDetails(android: androidDetails),
     );
+
+
+    await saveNotification(notification);
   }
+
+
+  static Future<void> saveNotification(RemoteNotification notification) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> notifications = prefs.getStringList('notifications') ?? [];
+    Map<String, String> newNotification = {
+      'title': notification.title ?? '',
+      'body': notification.body ?? '',
+      'timestamp': DateTime.now().toIso8601String(),
+    };
+    notifications.add(json.encode(newNotification));
+    await prefs.setStringList('notifications', notifications);
+  }
+
 
   static Future<void> sendNotification(
       String token, String title, String body) async {
@@ -115,7 +133,7 @@ class NotificationHelper {
     }
   }
 
-  static Future<void> handleFirestoreData(
+    static Future<void> handleFirestoreData(
       DocumentSnapshot<Map<String, dynamic>> document) async {
     try {
       String id = document.id;

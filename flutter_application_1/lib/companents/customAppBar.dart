@@ -2,9 +2,11 @@ import 'package:EYA/main.dart';
 import 'package:EYA/user_pages/all_complaint_page.dart';
 import 'package:EYA/user_pages/my_favori_page.dart';
 import 'package:EYA/user_pages/myprof%C4%B1le_page.dart';
+import 'package:EYA/user_pages/notifications_page.dart';
 import 'package:EYA/user_pages/sikayet_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
@@ -18,6 +20,18 @@ PreferredSizeWidget customAppBar(BuildContext context) {
     iconTheme: IconThemeData(color: Colors.white),
     centerTitle: true,
     actions: [
+      IconButton(
+        icon: Icon(
+          CupertinoIcons.bell,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                );
+        },
+      ),
       if (MediaQuery.of(context).size.width > 600)
         Row(
           children: [
