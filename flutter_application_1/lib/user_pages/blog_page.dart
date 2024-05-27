@@ -53,10 +53,18 @@ class BlogPage extends StatelessWidget {
           return GridView.builder(
             padding: EdgeInsets.all(8),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isWideScreen ? 6 : isTablet ? 4 : 2,
+              crossAxisCount: isWideScreen
+                  ? 6
+                  : isTablet
+                      ? 4
+                      : 2,
               crossAxisSpacing: 8,
               mainAxisSpacing: 9,
-              childAspectRatio: isWideScreen ? 0.75 : isTablet ? 0.8 : 0.75,
+              childAspectRatio: isWideScreen
+                  ? 0.75
+                  : isTablet
+                      ? 0.8
+                      : 0.75,
             ),
             itemCount: blog.length,
             itemBuilder: (context, index) {
@@ -111,12 +119,12 @@ class BlogPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  currentBlog.title.length>50
-                                  ? '${currentBlog.description.substring(0, 50).trim()}...'
-                                      : currentBlog.description.trim(),
+                                  currentBlog.title.length > 50
+                                      ? '${currentBlog.title.substring(0, 50).trim()}...'
+                                      : currentBlog.title.trim(),
                                   style: TextStyle(
                                     fontSize: isWideScreen ? 13 : 14,
                                     fontWeight: FontWeight.bold,
@@ -132,23 +140,25 @@ class BlogPage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 8),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            BlogDetailPage(
-                                          blog: currentBlog,
+                                // TextButton kısmı
+                                Center(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BlogDetailPage(
+                                            blog: currentBlog,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Daha Fazlasını Gör',
+                                      style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontSize: isWideScreen ? 13 : 14,
                                       ),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Detay',
-                                    style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: isWideScreen ? 13 : 14,
                                     ),
                                   ),
                                 ),

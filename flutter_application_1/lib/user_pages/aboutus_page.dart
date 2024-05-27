@@ -99,11 +99,13 @@ class AboutUsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Text(
-                'Hakkımızda',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: Text(
+                  'Hakkımızda',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -121,7 +123,6 @@ class AboutUsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              
             ],
           ),
         ),

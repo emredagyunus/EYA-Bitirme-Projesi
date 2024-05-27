@@ -49,10 +49,18 @@ class DuyuruPage extends StatelessWidget {
           return GridView.builder(
             padding: EdgeInsets.all(8),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: screenSize.width > 1250 ? 6 : screenSize.width > 600 ? 4 : 2,
+              crossAxisCount: screenSize.width > 1250
+                  ? 6
+                  : screenSize.width > 600
+                      ? 4
+                      : 2,
               crossAxisSpacing: 8,
               mainAxisSpacing: 9,
-              childAspectRatio: screenSize.width > 1250 ? 0.75 : screenSize.width > 600 ? 0.8 : 0.75,
+              childAspectRatio: screenSize.width > 1250
+                  ? 0.75
+                  : screenSize.width > 600
+                      ? 0.8
+                      : 0.75,
             ),
             itemCount: duyuru.length,
             itemBuilder: (context, index) {
@@ -86,7 +94,11 @@ class DuyuruPage extends StatelessWidget {
                       child: Column(
                         children: [
                           AspectRatio(
-                            aspectRatio: screenSize.width > 1250 ? 4 / 3 : screenSize.width > 600 ? 4 / 3 : 7 / 2.9,
+                            aspectRatio: screenSize.width > 1250
+                                ? 4 / 3
+                                : screenSize.width > 600
+                                    ? 4 / 3
+                                    : 7 / 2.9,
                             child: ClipRRect(
                               borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(12),
@@ -106,10 +118,12 @@ class DuyuruPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  currentDuyuru.title.length > 50 ? '${currentDuyuru.title.substring(0, 50)}...' : currentDuyuru.title,
+                                  currentDuyuru.title.length > 50
+                                      ? '${currentDuyuru.title.substring(0, 50)}...'
+                                      : currentDuyuru.title,
                                   style: TextStyle(
                                     fontSize: screenSize.width > 1250 ? 13 : 14,
                                     fontWeight: FontWeight.bold,
@@ -123,22 +137,26 @@ class DuyuruPage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 8),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DuyuruDetailPage(
-                                          duyuru: currentDuyuru,
+                                Center(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DuyuruDetailPage(
+                                            duyuru: currentDuyuru,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Daha Fazlasını Gör',
+                                      style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontSize:
+                                            screenSize.width > 1250 ? 13 : 14,
                                       ),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Detay',
-                                    style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: screenSize.width > 1250 ? 13 : 14,
                                     ),
                                   ),
                                 ),
