@@ -22,6 +22,9 @@ class AdminHomePage extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
           bottom: TabBar(
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
             tabs: [
               Tab(text: 'Onaylanmamış Şikayetler'),
               Tab(text: 'Onaylanmış Şikayetler'),
@@ -72,8 +75,8 @@ class AdminHomePage extends StatelessWidget {
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return Center(
             child: Text(isVisible
-                ? 'Onaylanmış şikayet bulunamadı.'
-                : 'Onaylanmamış şikayet bulunamadı.'),
+                ? 'Onaylanmış şikayet bulunamadı!'
+                : 'Onaylanmamış şikayet bulunamadı!'),
           );
         }
 

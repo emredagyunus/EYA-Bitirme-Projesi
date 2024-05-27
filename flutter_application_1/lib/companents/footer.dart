@@ -278,7 +278,7 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                                       );
                                     },
                                     child: Text(
-                                      "Tum sikayetleri gor",
+                                      "Tüm Şikayetleri Gör",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -437,7 +437,7 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                '© 2024 Engelsiz Yasam Platformu. Her hakkı saklıdır.',
+                '© 2024 Engelsiz Yaşam Platformu - Tüm Hakları Saklıdır.',
                 style: TextStyle(
                   fontSize: 16,
                 ),

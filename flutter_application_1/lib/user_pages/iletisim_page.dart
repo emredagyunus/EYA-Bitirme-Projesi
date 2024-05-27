@@ -20,6 +20,48 @@ class _iletisimPageState extends State<iletisimPage> {
   final TextEditingController descriptionController = TextEditingController();
 
   Future<void> saveForm() async {
+    // Bilgilerin eksiksiz doldurulup doldurulmadığını kontrol et
+    if (nameController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        mailController.text.isEmpty ||
+        descriptionController.text.isEmpty) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen gerekli tüm bilgileri gir!"),
+          ),
+        );
+      }
+      return;
+    }
+
+    // Telefon numarasının geçerli olup olmadığını kontrol et
+    if (!isValidPhoneNumber(phoneController.text)) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen geçerli bir telefon numarası gir!"),
+          ),
+        );
+      }
+      return;
+    }
+
+    // E-posta adresinin geçerli olup olmadığını kontrol et
+    if (!isValidEmail(mailController.text)) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Lütfen geçerli bir e-posta adresi gir!"),
+          ),
+        );
+      }
+      return; // Geçerli bir e-posta adresi girilmediği için fonksiyonu sonlandır
+    }
+
     try {
       await FirebaseFirestore.instance.collection('iletisim').add({
         'name': nameController.text,
@@ -30,7 +72,7 @@ class _iletisimPageState extends State<iletisimPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Form başarıyla kaydedildi.'),
+        content: Text('Mesaj başarıyla gönderildi!'),
       ));
       nameController.clear();
       phoneController.clear();
@@ -39,7 +81,7 @@ class _iletisimPageState extends State<iletisimPage> {
     } catch (e) {
       print('Hata: $e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Form kaydedilirken bir hata oluştu.'),
+        content: Text('Mesaj gönderilirken bir hata oluştu!'),
       ));
     }
   }
@@ -55,11 +97,13 @@ class _iletisimPageState extends State<iletisimPage> {
         child: Center(
           child: Container(
             width: isWideScreen ? 1000 : double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: isWideScreen ? 50.0 : 0, vertical: isWideScreen ? 50.0 : 0),
+            padding: EdgeInsets.symmetric(
+                horizontal: isWideScreen ? 50.0 : 0,
+                vertical: isWideScreen ? 50.0 : 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                 Text(
+                Text(
                   'İletişim',
                   style: TextStyle(
                     fontSize: 32,
@@ -157,5 +201,17 @@ class _iletisimPageState extends State<iletisimPage> {
         ),
       ),
     );
+  }
+
+  // Telefon numarasının geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidPhoneNumber(String phoneNumber) {
+    RegExp regex = RegExp(r'^0\d{10}$');
+    return regex.hasMatch(phoneNumber);
+  }
+
+  // E-posta adresinin geçerli formatta olup olmadığını kontrol eden regex deseni
+  bool isValidEmail(String email) {
+    RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return regex.hasMatch(email);
   }
 }

@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA_KURUM/kurum_page/complaint_detail_page.dart';
 import 'package:EYA_KURUM/kurum_page/kurum_cevap_page.dart';
 import 'package:EYA_KURUM/models/complaint.dart';
+import 'package:unicons/unicons.dart';
 
 // ignore: must_be_immutable
 class KurumHomePage extends StatelessWidget {
@@ -21,13 +22,13 @@ class KurumHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     EdgeInsets padding;
 
     if (screenWidth > 1024) {
-       padding = EdgeInsets.symmetric(horizontal: 200, vertical: 0);
+      padding = EdgeInsets.symmetric(horizontal: 200, vertical: 0);
     } else {
-       padding = EdgeInsets.all(0);
+      padding = EdgeInsets.all(0);
     }
 
     return DefaultTabController(
@@ -45,7 +46,7 @@ class KurumHomePage extends StatelessWidget {
           actions: [
             IconButton(
                 icon: Icon(
-                  Icons.logout,
+                  UniconsLine.sign_out_alt,
                   color: Colors.white,
                 ),
                 onPressed: () {
@@ -58,6 +59,9 @@ class KurumHomePage extends StatelessWidget {
                 }),
           ],
           bottom: TabBar(
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
             tabs: [
               Tab(text: 'Onaylanmamış Şikayetler'),
               Tab(text: 'Onaylanmış Şikayetler'),
@@ -115,8 +119,8 @@ class KurumHomePage extends StatelessWidget {
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return Center(
             child: Text(isResolved
-                ? 'Onaylanmış şikayet bulunamadı.'
-                : 'Onaylanmamış şikayet bulunamadı.'),
+                ? 'Onaylanmış şikayet bulunamadı!'
+                : 'Onaylanmamış şikayet bulunamadı!'),
           );
         }
 
@@ -190,7 +194,7 @@ class KurumHomePage extends StatelessWidget {
                             ),
                           );
                         },
-                        icon: Icon(Icons.add),
+                        icon: Icon(UniconsLine.plus),
                       ),
                     ],
                   ),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:EYA_KURUM/companents/my_button.dart';
 import 'package:EYA_KURUM/companents/my_textfield.dart';
 import 'package:EYA_KURUM/kurum_page/kurum_onay_page.dart';
+import 'package:unicons/unicons.dart';
 
 class KurumCevapPage extends StatefulWidget {
   final String complaintId;
@@ -148,7 +149,7 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Kurum Cevap',
+          'Kurum Yanıt',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -184,9 +185,9 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
               MyTextField(
                 controller: _cevapController,
                 maxLines: 10,
-                hintText: 'Cevabiniz...',
+                hintText: 'Yanıtınız',
                 obscureText: false,
-                icon: Icon(Icons.question_answer),
+                icon: Icon(UniconsLine.bars),
               ),
               SizedBox(height: 20),
               MyButton(
@@ -196,7 +197,7 @@ class _KurumCevapPageState extends State<KurumCevapPage> {
                     _sendCevap(cevap);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Lütfen bir cevap girin.')),
+                      SnackBar(content: Text('Lütfen bir yanıt girin!')),
                     );
                   }
                 },

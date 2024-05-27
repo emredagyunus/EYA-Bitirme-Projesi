@@ -106,10 +106,10 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
           'sokak': widget.complaint.sokak,
           'favoritesCount': FieldValue.increment(1),
           'isVisible': widget.complaint.isVisible,
-          'userName':widget.complaint.userName,
-          'userSurname':widget.complaint.userSurname,
-          'kurum':widget.complaint.kurum,
-          'cevap':widget.complaint.cevap,
+          'userName': widget.complaint.userName,
+          'userSurname': widget.complaint.userSurname,
+          'kurum': widget.complaint.kurum,
+          'cevap': widget.complaint.cevap,
         });
         setState(() {
           isFavorite = true;
@@ -570,6 +570,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 20),
                             Row(
                               children: [
                                 Text(
@@ -590,6 +591,7 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 20),
                             Row(
                               children: [
                                 Text(
@@ -601,11 +603,14 @@ class _ComplaintDetailPageState extends State<ComplaintDetailPage> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                Text(
-                                  '${data['cevap']}',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
+                                Expanded(
+                                  child: Text(
+                                    '${data['cevap']}',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                    softWrap: true,
                                   ),
                                 ),
                               ],

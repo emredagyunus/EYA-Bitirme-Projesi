@@ -7,60 +7,46 @@ class DonationPage extends StatelessWidget {
 
   final List<Map<String, String>> campaignData = [
     {
-      "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay Bağış Kampanyası",
-      "description":
-          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
-      "url": "https://www.yesilay.org.tr/",
+      "image": "lib/images/eya/tofd.png",
+      "title": "Türkiye Omurilik Felçlileri Derneği",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://tofd.org.tr/bagisyap/",
     },
     {
-      "image": "lib/images/eya/tegv.jpg",
-      "title": "Tegv Bağış Kampanyası",
-      "description":
-          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
-      "url": "https://www.tegv.org/",
+      "image": "lib/images/eya/turged-logo.jpg",
+      "title": "Türkiye Görme Engelliler Derneği",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.turged.org.tr/icerik.php?id=5",
     },
     {
-      "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay Bağış Kampanyası",
-      "description":
-          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
-      "url": "https://www.yesilay.org.tr/",
+      "image": "lib/images/eya/cerebral.jpeg",
+      "title": "Türkiye Spastik Çocuklar Vakfı",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.tscv.org.tr/PageContent/tr/online-bagis/1400",
     },
     {
-      "image": "lib/images/eya/tegv.jpg",
-      "title": "Tegv Bağış Kampanyası",
-      "description":
-          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
-      "url": "https://www.tegv.org/",
+      "image": "lib/images/eya/BEDD_logo.jpg",
+      "title": "Bedensel Engellilerle D. D.",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.bedd.org.tr/destek-olun/online-bagis",
     },
     {
-      "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay Bağış Kampanyası",
-      "description":
-          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
-      "url": "https://www.yesilay.org.tr/",
+      "image": "lib/images/eya/tsd7.jpeg",
+      "title": "Türkiye Sakatlar Derneği",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.tsd.org.tr/banka-bilgileri",
     },
     {
-      "image": "lib/images/eya/tegv.jpg",
-      "title": "Tegv Bağış Kampanyası",
-      "description":
-          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
-      "url": "https://www.tegv.org/",
+      "image": "lib/images/eya/fiz2.png",
+      "title": "Fiziksel Engelliler Vakfı",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.fev.org.tr/tr/bagis-yap",
     },
     {
-      "image": "lib/images/eya/yesilay.jpg",
-      "title": "Yeşilay Bağış Kampanyası",
-      "description":
-          "Bağımlılıkla mücadele ederek sağlıklı bir toplum için destek verebilirsiniz",
-      "url": "https://www.yesilay.org.tr/",
-    },
-    {
-      "image": "lib/images/eya/tegv.jpg",
-      "title": "Tegv Bağış Kampanyası",
-      "description":
-          "Çocukların hayatını değiştiren eğitim projelerine katkıda bulunun",
-      "url": "https://www.tegv.org/",
+      "image": "lib/images/eya/altinokta.png",
+      "title": "Altı Nokta Körler Vakfı",
+      "description": "Butona tıklayarak bağışta bulunabilirsin!",
+      "url": "https://www.6nokta.org.tr/tr/tr/bagis.html",
     },
   ];
 
@@ -186,7 +172,7 @@ class DonationPage extends StatelessWidget {
                                       _launchURL(campaign["url"]!);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
+                                      backgroundColor: Colors.deepPurple,
                                     ),
                                     child: Text(
                                       'Bağış Yap',

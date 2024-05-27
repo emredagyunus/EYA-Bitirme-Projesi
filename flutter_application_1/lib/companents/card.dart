@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unicons/unicons.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -51,7 +52,7 @@ class UserCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.person, size: 50),
+          Icon(UniconsLine.user, size: 50),
           SizedBox(height: 10),
           Text('Kullanıcı Sayımız', style: TextStyle(fontSize: 18)),
           SizedBox(height: 10),
@@ -76,7 +77,7 @@ class InstitutionCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.business, size: 50),
+          Icon(UniconsLine.university, size: 50),
           SizedBox(height: 10),
           Text('Kurum Sayımız', style: TextStyle(fontSize: 18)),
           SizedBox(height: 10),
@@ -101,7 +102,7 @@ class VisibleComplaintsCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.report, size: 50),
+          Icon(UniconsLine.exclamation_circle, size: 50),
           SizedBox(height: 10),
           Text('Aktif Şikayetler', style: TextStyle(fontSize: 18)),
           SizedBox(height: 10),
@@ -126,7 +127,7 @@ class ResolvedComplaintsCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.check_circle, size: 50),
+          Icon(UniconsLine.check_circle, size: 50),
           SizedBox(height: 10),
           Text('Çözülen Şikayetler', style: TextStyle(fontSize: 18)),
           SizedBox(height: 10),

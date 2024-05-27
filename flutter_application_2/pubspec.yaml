@@ -31,6 +31,7 @@ dependencies:
   flutter_local_notifications: ^17.1.2
   firebase_messaging: ^14.9.2
   shared_preferences: ^2.2.3
+  unicons: any
 
 dev_dependencies:
   flutter_test:

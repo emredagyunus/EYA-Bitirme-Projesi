@@ -9,7 +9,7 @@ class KurumOnayPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Şikayet İşleme Alındı',
+          'Şikayet İşleme Alındı!',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -28,12 +28,12 @@ class KurumOnayPage extends StatelessWidget {
             Image.asset('lib/images/eya/logo.png'),
             SizedBox(height: 20),
             Text(
-              'Cevabiniz yayinlanmistir',
+              'Yanıtınız yayınlanmıştır!',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 30),
             Text(
-              'Eya',
+              '© 2024 Engelsiz Yaşam Platformu - Tüm Hakları Saklıdır.',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 30),

@@ -92,7 +92,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                 ),
 
                 MyTextField(
-                  controller: kurumNameController,
+                  controller: ilController,
                   hintText: "Kurum Adı",
                   obscureText: false,
                   icon: Icon(UniconsLine.university),
@@ -100,7 +100,7 @@ class _AdminKurumKayitState extends State<AdminKurumKayit> {
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
-                  controller: ilController,
+                  controller: kurumNameController,
                   hintText: "İl",
                   obscureText: false,
                   icon: Icon(UniconsLine.location_point),

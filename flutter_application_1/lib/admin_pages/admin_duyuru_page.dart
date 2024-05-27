@@ -20,6 +20,9 @@ class AdminDuyuruPage extends StatelessWidget {
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white),
           bottom: TabBar(
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
             tabs: [
               Tab(text: 'Gösterilen Duyuru'),
               Tab(text: 'Gizlenen Duyuru'),

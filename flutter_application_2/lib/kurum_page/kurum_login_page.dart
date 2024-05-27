@@ -7,6 +7,7 @@ import 'package:EYA_KURUM/companents/my_button.dart';
 import 'package:EYA_KURUM/companents/my_textfield.dart';
 import 'package:EYA_KURUM/kurum_page/kurum_home_page.dart';
 import 'package:EYA_KURUM/services/auth/auth_services.dart';
+import 'package:unicons/unicons.dart';
 
 class KurumLoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -20,6 +21,7 @@ class KurumLoginPage extends StatefulWidget {
 class _KurumLoginPageState extends State<KurumLoginPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  
 
   // login method
   void login() async {
@@ -103,7 +105,7 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
                         maxLines: 1,
                         hintText: "Kurum Adı",
                         obscureText: false,
-                        icon: const Icon(Icons.mail),
+                        icon: const Icon(UniconsLine.envelope),
                       ),
                       const SizedBox(height: 10),
                       MyTextField(
@@ -111,7 +113,7 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
                         maxLines: 1,
                         hintText: "Şifre",
                         obscureText: true,
-                        icon: const Icon(Icons.password),
+                        icon: const Icon(UniconsLine.lock_alt),
                       ),
                       const SizedBox(height: 10),
                       MyButton(
