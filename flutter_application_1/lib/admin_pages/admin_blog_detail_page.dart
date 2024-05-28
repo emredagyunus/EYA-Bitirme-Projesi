@@ -43,25 +43,31 @@ class BlogDetailPage extends StatelessWidget {
                   ),
                 ),
               Container(
-                color: Colors.grey[200],  
-                margin: EdgeInsets.all(16.0),  
-                padding: EdgeInsets.all(16.0),  
+                color: Colors.grey[200],
+                margin: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 width: MediaQuery.of(context).size.width *
-                    (MediaQuery.of(context).size.width > 600 ? 0.5 : 0.9),  
+                    (MediaQuery.of(context).size.width > 600 ? 0.5 : 0.9),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          blog.title,
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            blog.title,
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                        Text(
-                          '${blog.timestamp.toDate().day}/${blog.timestamp.toDate().month}/${blog.timestamp.toDate().year}',
-                          style: TextStyle(fontSize: 16),
+                        Expanded(
+                          child: Text(
+                            '${blog.timestamp.toDate().day}/${blog.timestamp.toDate().month}/${blog.timestamp.toDate().year}',
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.end,
+                          ),
                         ),
                       ],
                     ),

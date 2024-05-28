@@ -43,25 +43,31 @@ class DuyuruDetailPage extends StatelessWidget {
                   ),
                 ),
               Container(
-                color: Colors.grey[200],  
-                margin: EdgeInsets.all(16.0),  
-                padding: EdgeInsets.all(26.0),  
+                color: Colors.grey[200],
+                margin: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(26.0),
                 width: MediaQuery.of(context).size.width *
-                    (MediaQuery.of(context).size.width > 600 ? 0.5 : 0.9),  
+                    (MediaQuery.of(context).size.width > 600 ? 0.5 : 0.9),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          duyuru.title,
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            duyuru.title,
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                        Text(
-                          '${duyuru.timestamp.toDate().day}/${duyuru.timestamp.toDate().month}/${duyuru.timestamp.toDate().year}',
-                          style: TextStyle(fontSize: 16),
+                        Expanded(
+                          child: Text(
+                            '${duyuru.timestamp.toDate().day}/${duyuru.timestamp.toDate().month}/${duyuru.timestamp.toDate().year}',
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.end,
+                          ),
                         ),
                       ],
                     ),
