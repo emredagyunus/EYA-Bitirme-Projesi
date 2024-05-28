@@ -21,7 +21,6 @@ class KurumLoginPage extends StatefulWidget {
 class _KurumLoginPageState extends State<KurumLoginPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
 
   // login method
   void login() async {
@@ -34,31 +33,34 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
         nameController.text,
         passwordController.text,
       );
-      if(kIsWeb){
-
-        }else{
-          String? deviceToken = await FirebaseMessaging.instance.getToken();
+      if (kIsWeb) {
+      } else {
+        String? deviceToken = await FirebaseMessaging.instance.getToken();
 
         if (deviceToken != null) {
           await FirebaseFirestore.instance
               .collection('kurum')
-              .doc(FirebaseAuth
-                  .instance.currentUser!.uid) 
+              .doc(FirebaseAuth.instance.currentUser!.uid)
               .update({'deviceToken': deviceToken});
         }
-        }
-      Navigator.push(context, MaterialPageRoute(builder:(context) => KurumHomePage(),));
-
+      }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => KurumHomePage(),
+          ));
     }
 
     // display any errors
     catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(e.toString()),
-        ),
-      );
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
     }
   }
 
@@ -69,18 +71,19 @@ class _KurumLoginPageState extends State<KurumLoginPage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: LayoutBuilder(
           builder: (context, constraints) {
-             double screenWidth = constraints.maxWidth;
+            double screenWidth = constraints.maxWidth;
             double horizontalPadding;
-            double verticalPadding = 0.0;  
+            double verticalPadding = 0.0;
             if (screenWidth >= 1024) {
-               horizontalPadding = 300.0;
+              horizontalPadding = 300.0;
             } else {
-               horizontalPadding = 20.0;
+              horizontalPadding = 20.0;
             }
 
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding, vertical: verticalPadding),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
