@@ -47,8 +47,11 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                         },
                         child: Text(
                           'Hakkımızda',
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         style: ButtonStyle(
                           foregroundColor:
@@ -64,8 +67,11 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                         },
                         child: Text(
                           'Blog',
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         style: ButtonStyle(
                           foregroundColor:
@@ -81,8 +87,11 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                         },
                         child: Text(
                           'Sıkça Sorulan Sorular',
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         style: ButtonStyle(
                           foregroundColor:
@@ -99,8 +108,11 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                         },
                         child: Text(
                           'İletişim',
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         style: ButtonStyle(
                           foregroundColor:

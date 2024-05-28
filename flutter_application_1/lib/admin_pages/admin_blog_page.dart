@@ -97,7 +97,11 @@ class AdminBlogPage extends StatelessWidget {
                 margin: EdgeInsets.all(8.0),
                 child: ListTile(
                   title: Text(blog.title),
-                  subtitle: Text(blog.description.substring(0, 50).trim()),
+                  subtitle: Text(
+                    blog.description.length > 50
+                        ? blog.description.substring(0, 50).trim()
+                        : blog.description.trim(),
+                  ),
                   leading: blog.imageURLs.isNotEmpty
                       ? Image.network(
                           blog.imageURLs.first,
